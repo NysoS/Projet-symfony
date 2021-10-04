@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ParticipantRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -55,6 +57,28 @@ class Participant implements UserInterface
      * @ORM\Column(type="boolean")
      */
     private $actif;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Inscriptions::class, mappedBy="participants")
+     */
+    private $inscriptions;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Sites::class, inversedBy="participants")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $sites;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Sorties::class, mappedBy="organisateur")
+     */
+    private $sorties;
+
+    public function __construct()
+    {
+        $this->inscriptions = new ArrayCollection();
+        $this->sorties = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -181,6 +205,78 @@ class Participant implements UserInterface
     public function setActif(bool $actif): self
     {
         $this->actif = $actif;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Inscriptions[]
+     */
+    public function getInscriptions(): Collection
+    {
+        return $this->inscriptions;
+    }
+
+    public function addInscription(Inscriptions $inscription): self
+    {
+        if (!$this->inscriptions->contains($inscription)) {
+            $this->inscriptions[] = $inscription;
+            $inscription->setParticipants($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInscription(Inscriptions $inscription): self
+    {
+        if ($this->inscriptions->removeElement($inscription)) {
+            // set the owning side to null (unless already changed)
+            if ($inscription->getParticipants() === $this) {
+                $inscription->setParticipants(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getSites(): ?Sites
+    {
+        return $this->sites;
+    }
+
+    public function setSites(?Sites $sites): self
+    {
+        $this->sites = $sites;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Sorties[]
+     */
+    public function getSorties(): Collection
+    {
+        return $this->sorties;
+    }
+
+    public function addSorty(Sorties $sorty): self
+    {
+        if (!$this->sorties->contains($sorty)) {
+            $this->sorties[] = $sorty;
+            $sorty->setOrganisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSorty(Sorties $sorty): self
+    {
+        if ($this->sorties->removeElement($sorty)) {
+            // set the owning side to null (unless already changed)
+            if ($sorty->getOrganisateur() === $this) {
+                $sorty->setOrganisateur(null);
+            }
+        }
 
         return $this;
     }
