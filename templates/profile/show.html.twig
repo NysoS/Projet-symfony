@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil de
+	{{ participant.nom}}!
+{% endblock %}
+
+{% block body %}
+
+	<h2 class="my-5 text-uppercase text-center">Profil de
+		{{participant.nom}}
+		{{participant.prenom}}</h2>
+	<div class="row container mx-auto">
+		<div class="col-lg-5">
+			<img src="https://picsum.photos/id/237/200/200" alt="">
+		</div>
+
+		<div class="col-lg-7">
+			<p>
+				<strong>Prénom
+				</strong>
+				:
+				{{participant.prenom}}</p>
+			<p>
+				<strong>Nom
+				</strong>
+				:
+				{{participant.nom}}</p>
+			<p>
+				<strong>Téléphone
+				</strong>
+				:{{participant.telephone}}
+			</p>
+			<p>
+				<strong>Email</strong>
+				:{{participant.email}}
+			</p>
+			<p>
+				<strong>Ville de rattachement
+				</strong>
+				:######
+			</p>
+		</div>
+		<div class="my-5 d-grid gap-2 col-3 mx-auto">
+			<a href="{{ path('app_profile') }}" class="py-3 btn btn-primary fw-bold">Retour</a>
+		</div>
+	</div>
+{% endblock %}
