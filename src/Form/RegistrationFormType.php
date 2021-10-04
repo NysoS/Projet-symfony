@@ -43,6 +43,7 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
+            ->add('sites', null,['choice_label' => 'nom_site'])
         ;
     }
 

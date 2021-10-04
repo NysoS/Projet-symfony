@@ -29,6 +29,11 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
+            $user->setRoles(['ROLE_ADMIN']);
+            $user->setNom('admin');
+            $user->setPrenom('admin');
+            $user->setTelephone('0000000000');
+            $user->setActif(true);
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
