@@ -5,29 +5,86 @@
 		Créer une sortie
 	</div>
 	<hr>
-	<form action="{{path('addSortie')}}">
-		<div>
-			<div>
-				<label for="nom_sortie">Nom de la sortie :
-				</label>
-				<input type="text" name="nom_sortie" id="nom_sortie">
-			</div>
-			<div>
-				<label for="date_sortie">Date et heure de la sortie :
-				</label>
-				<input type="datetime-local" name="date_sortie" id="date_sortie">
-			</div>
-			<div>
-				<label for="date_limite">Date limite d'inscription :
-				</label>
-				<input type="date" name="date_limite" id="date_limite">
-			</div>
+        {{form_start(formSortie)}}
+            <div style="display:inline-block">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td><label for="nom_sortie">Nom de la sortie : </label></td>
+                            <td>{{form_widget(formSortie.nom)}}</td>
+                        </tr>
+                        <tr>
+                            <td>Date et heure de la sortie : </td>
+                            <td>{{form_widget(formSortie.date_debut)}}</td>
+                        </tr>
+                        <tr>
+                            <td>Date limite d'inscription : </td>
+                            <td>{{form_widget(formSortie.date_cloture)}}</td>
+                        </tr>
+                        <tr>
+                            <td><label for="nb_place">Nombre de places : </label></td>
+                            <td>{{form_widget(formSortie.nbInscriptionsMax)}}</td>
+                        </tr>
+                        <tr>
+                            <td><label for="duree">Durée : </label></td>
+                            <td>{{form_widget(formSortie.duree)}}&nbsp;minutes</td>
+                        </tr>
+                        <tr>
+                            <td><label for="description">Description et infos : </label></td>
+                            <td>{{form_widget(formSortie.description)}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div style="display:inline-block">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>Ville organisatrice : </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Ville : </td>
+                            <td>
+                                <select name="ville" id="ville">
+                                    <option selected></option>
+                                    {% for ville in villes %}
+                                        <option value="{{ville.id}}">{{ville.nom_ville}}</option>
+                                    {% endfor %}
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Lieu : </td>
+                            <td>
+                                <select name="lieu" id="lieu">
+                                    <option selected></option>
+                                    <option>A</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Rue : </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Code postal : </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><label for="latitude">Latitude : </label></td>
+                            <td><input type="text" name="latitude" id="latitude"></td>
+                        </tr>
+                        <tr>
+                            <td><label for="longitude">Longitude : </label></td>
+                            <td><input type="text" name="longitude" id="longitude"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
             <div>
-				<label for="nb_place">Nombre de places :
-				</label>
-				<input type="number" name="nb_place" id="nb_place">
-			</div>
-		</div>
-		<div></div>
-	</form>
+                <button type="submit" class="btn btn-dark">Enregistrer</button>
+                <button type="submit" class="btn btn-dark">Publier la sortie</button>
+            </div>
+        {{form_end(formSortie)}}
 {% endblock %}
