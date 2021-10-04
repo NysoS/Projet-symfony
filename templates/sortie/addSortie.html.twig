@@ -1,0 +1,28 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <div class="h1">
+		Créer une sortie
+	</div>
+	<hr>
+	<form action="{{path('addSortie')}}">
+		<div>
+			<div>
+				<label for="nom_sortie">Nom de la sortie :
+				</label>
+				<input type="text" name="nom_sortie" id="nom_sortie">
+			</div>
+			<div>
+				<label for="date_sortie">Date et heure de la sortie :
+				</label>
+				<input type="datetime-local" name="date_sortie" id="date_sortie">
+			</div>
+			<div>
+				<label for="date_limite">Date limite d'inscription :
+				</label>
+				<input type="date" name="date_limite" id="date_limite">
+			</div>
+		</div>
+		<div></div>
+	</form>
+{% endblock %}
