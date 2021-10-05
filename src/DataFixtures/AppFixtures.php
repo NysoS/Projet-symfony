@@ -12,7 +12,6 @@ use App\Entity\Participant;
 use App\Entity\Inscriptions;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AppFixtures extends Fixture
 {
@@ -36,7 +35,9 @@ class AppFixtures extends Fixture
             $participant->setNom($faker->lastName());
             $participant->setPrenom($faker->firstName());
             $participant->setActif($faker->randomElement([0, 1]));
+            $participant->setTelephone($faker->phoneNumber());
             $participant->setPassword('$argon2id$v=19$m=65536,t=4,p=1$MGJVd21saldNOWxWdkhORg$mv+TGK3oanf+xyfVDptsDSWNudc7YFVEeD2fk4QBS00');
+
             $manager->persist($participant);
 
 
@@ -83,6 +84,7 @@ class AppFixtures extends Fixture
                 $participant2->setNom($faker->lastName());
                 $participant2->setPrenom($faker->firstName());
                 $participant2->setActif(true);
+                $participant2->setTelephone($faker->phoneNumber());
                 $participant2->setPassword('$argon2id$v=19$m=65536,t=4,p=1$MGJVd21saldNOWxWdkhORg$mv+TGK3oanf+xyfVDptsDSWNudc7YFVEeD2fk4QBS00');
                 $manager->persist($participant2);
 
