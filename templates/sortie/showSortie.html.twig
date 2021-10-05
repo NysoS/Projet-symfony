@@ -1,0 +1,81 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+	<div class="h1">
+		Afficher une sortie
+	</div>
+	<div style="display:inline-block">
+		<table>
+			<tbody>
+				<tr>
+					<td>Nom de la sortie :
+					</td>
+					<td>{{sortie.nom}}</td>
+				</tr>
+				<tr>
+					<td>Date et heure de la sortie :
+					</td>
+					<td>{{sortie.getDateDebut()|date("d/m/y H:i:s")}}</td>
+				</tr>
+				<tr>
+					<td>Date limite d'inscription : </td>
+					<td>{{sortie.getDateCloture()|date("d/m/y H:i:s")}}</td>
+				</tr>
+				<tr>
+					<td>Nombre de places :
+					</td>
+					<td>{{sortie.nbInscriptionsMax}}</td>
+				</tr>
+				<tr>
+					<td>Durée :
+					</td>
+					<td>{{sortie.duree}} minutes</td>
+				</tr>
+				<tr>
+					<td>Description et infos :
+					</td>
+					<td>{{sortie.description}}</td>
+				</tr>
+			    <tr>
+					<td>Ville organisatrice :</td>
+					<td>{{sortie.organisateur.sites}}</td>
+				</tr>
+				<tr>
+					<td>Lieu : </td>
+					<td>{{sortie.lieux}}</td>
+				</tr>
+				<tr>
+					<td>Rue : </td>
+					<td>{{sortie.lieux.rue}}</td>
+				</tr>
+				<tr>
+					<td>Code postal : </td>
+					<td>{{sortie.lieux.villes.getCodePostal()}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2755.2783944317184!2d{{sortie.lieux.longitude}}!3d{{sortie.lieux.latitude}}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDbCsDE5JzI3LjAiTiAwwrAyNycyNC41Ilc!5e0!3m2!1sfr!2sfr!4v1633423189706!5m2!1sfr!2sfr" width="400" height="300" style="border:0;margin-left:3%;border-radius:20px" allowfullscreen="" loading="lazy"></iframe>
+    <hr>
+    <div class="h4">
+		Liste des participants inscrits
+	</div>
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                </tr>
+            </thead>
+			<tbody>
+                {% for inscrit in participants %}
+				<tr>
+					<td>{{inscrit.nom}}</td>
+					<td>{{inscrit.prenom}}</td>
+				</tr>
+                {% endfor %}
+			</tbody>
+		</table>
+    </div>
+{% endblock %}

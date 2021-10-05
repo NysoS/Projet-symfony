@@ -23,11 +23,11 @@
                         </tr>
                         <tr>
                             <td>Nombre de places : </td>
-                            <td>{{form_widget(formSortie.nbInscriptionsMax)}}</td>
+                            <td>{{form_widget(formSortie.nbInscriptionsMax,{"attr":{"style":"width:50%"}})}}</td>
                         </tr>
                         <tr>
-                            <td>Durée : </td>
-                            <td>{{form_widget(formSortie.duree)}}&nbsp;minutes</td>
+                            <td>Durée (min) : </td>
+                            <td>{{form_widget(formSortie.duree,{"attr":{"style":"width:30%"}})}}</td>
                         </tr>
                         <tr>
                             <td>Description et infos : </td>
@@ -46,7 +46,7 @@
                         <tr>
                             <td>Ville : </td>
                             <td>
-                                <select name="ville" id="ville">
+                                <select name="ville" id="ville" style="width:60%">
                                     <option selected></option>
                                     {% for ville in villes %}
                                         <option value="{{ville.getId()}}">{{ville.getNomVille()}}</option>
@@ -57,7 +57,7 @@
                         <tr>
                             <td>Lieu : </td>
                             <td>
-                                <select name="lieu" id="lieu">
+                                <select name="lieu" id="lieu" style="width:60%">
                                     <option selected></option>
                                     {% for lieu in lieux %}
                                         <option value="{{lieu.getId()}}">{{lieu.getNomLieu()}}</option>

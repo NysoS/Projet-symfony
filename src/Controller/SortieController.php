@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Sorties;
 use App\Form\SortiesType;
+use App\Repository\InscriptionsRepository;
 use App\Repository\LieuxRepository;
+use App\Repository\ParticipantRepository;
 use App\Repository\VillesRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,5 +36,19 @@ class SortieController extends AbstractController
                 "lieux" => $lieux
             ]);
         }
+    }
+
+    /**
+     * @Route("/showSortie/{id}", name="showSortie")
+     */
+    public function showSortie(Sorties $s, InscriptionsRepository $ir, ParticipantRepository $pr): Response
+    {
+        $inscriptions = $ir->findBy(array("sorties" => $s->getId()));
+        $participants = $pr->findBy(array("id" => $inscriptions));
+
+        return $this->render('sortie/showSortie.html.twig',[
+            "sortie" => $s,
+            "participants" => $participants
+        ]);
     }
 }
