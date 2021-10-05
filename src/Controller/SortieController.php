@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Sorties;
 use App\Form\SortiesType;
+use App\Repository\LieuxRepository;
 use App\Repository\VillesRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,10 +16,11 @@ class SortieController extends AbstractController
     /**
      * @Route("/addSortie", name="addSortie")
      */
-    public function addSortie(Request $req, VillesRepository $vr): Response
+    public function addSortie(Request $req, VillesRepository $vr, LieuxRepository $lr): Response
     {
         $sortie = new Sorties();
         $villes = $vr->findAll();
+        $lieux = $lr->findAll();
 
         $form = $this->createForm(SortiesType::class,$sortie);
         $form->handleRequest($req);
@@ -28,7 +30,8 @@ class SortieController extends AbstractController
         } else {
             return $this->render('sortie/addSortie.html.twig',[
                 "formSortie" => $form->createView(),
-                "villes" => $villes
+                "villes" => $villes,
+                "lieux" => $lieux
             ]);
         }
     }

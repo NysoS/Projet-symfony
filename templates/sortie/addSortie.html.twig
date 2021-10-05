@@ -10,7 +10,7 @@
                 <table>
                     <tbody>
                         <tr>
-                            <td><label for="nom_sortie">Nom de la sortie : </label></td>
+                            <td>Nom de la sortie : </td>
                             <td>{{form_widget(formSortie.nom)}}</td>
                         </tr>
                         <tr>
@@ -22,15 +22,15 @@
                             <td>{{form_widget(formSortie.date_cloture)}}</td>
                         </tr>
                         <tr>
-                            <td><label for="nb_place">Nombre de places : </label></td>
+                            <td>Nombre de places : </td>
                             <td>{{form_widget(formSortie.nbInscriptionsMax)}}</td>
                         </tr>
                         <tr>
-                            <td><label for="duree">Durée : </label></td>
+                            <td>Durée : </td>
                             <td>{{form_widget(formSortie.duree)}}&nbsp;minutes</td>
                         </tr>
                         <tr>
-                            <td><label for="description">Description et infos : </label></td>
+                            <td>Description et infos : </td>
                             <td>{{form_widget(formSortie.description)}}</td>
                         </tr>
                     </tbody>
@@ -49,7 +49,7 @@
                                 <select name="ville" id="ville">
                                     <option selected></option>
                                     {% for ville in villes %}
-                                        <option value="{{ville.id}}">{{ville.nom_ville}}</option>
+                                        <option value="{{ville.getId()}}">{{ville.getNomVille()}}</option>
                                     {% endfor %}
                                 </select>
                             </td>
@@ -59,7 +59,9 @@
                             <td>
                                 <select name="lieu" id="lieu">
                                     <option selected></option>
-                                    <option>A</option>
+                                    {% for lieu in lieux %}
+                                        <option value="{{lieu.getId()}}">{{lieu.getNomLieu()}}</option>
+                                    {% endfor %}
                                 </select>
                             </td>
                         </tr>
@@ -72,11 +74,11 @@
                             <td></td>
                         </tr>
                         <tr>
-                            <td><label for="latitude">Latitude : </label></td>
+                            <td>Latitude : </td>
                             <td><input type="text" name="latitude" id="latitude"></td>
                         </tr>
                         <tr>
-                            <td><label for="longitude">Longitude : </label></td>
+                            <td>Longitude : </td>
                             <td><input type="text" name="longitude" id="longitude"></td>
                         </tr>
                     </tbody>
