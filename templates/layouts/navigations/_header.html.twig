@@ -1,0 +1,54 @@
+<!-- header -->
+<header>
+	{% set my_route = app.request.attributes.get('_route')%}
+
+	<nav class="navbar navbar-expand-md navbar-light bg-light">
+		<div class="container-fluid" style="margin:0 10%">
+
+			<a class="navbar-brand">
+				<img src="{{asset('images/logo.png')}}" alt="logo Groupe 6" width="112px">
+			</a>
+
+			<div class="collapse navbar-collapse" id="navbarsBurger">
+				<ul class="navbar-nav ms-auto">
+
+					{% if app.user %}
+
+						{% if my_route == 'app_home' %}
+
+							<li class="mx-2 nav-item ">
+								<a class="text-uppercase fw-bolder nav-link {{(my_route == 'app_ville') ? 'active' }} " href="#">Villes
+								</a>
+							</li>
+
+							<li class="mx-2 nav-item ">
+								<a class="text-uppercase fw-bolder nav-link {{(my_route == 'app_site') ? 'active' }} " href="#">Sites
+								</a>
+							</li>
+						{% endif %}
+
+						<li class="mx-2 nav-item ">
+							<a class="text-uppercase fw-bolder nav-link {{(my_route == 'app_gestion') ? 'active' }} " href="#">Accueil
+							</a>
+						</li>
+
+						<li class="mx-2 nav-item">
+							<a class="text-uppercase fw-bolder nav-link {{(my_route == 'app_profile_show') ? 'active' }}" href="#">Mon profil
+							</a>
+						</li>
+
+						<li class="mx-2 nav-item">
+							<a class="text-uppercase fw-bolder nav-link " href="{{ path('app_logout') }}">
+								Se deconnecter
+							</a>
+						</li>
+
+						{% else  %}
+
+					{% endif %}
+				</ul>
+			</div>
+		</div>
+	</nav>
+</header>
+<!-- endHeader -->
