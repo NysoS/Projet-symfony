@@ -11,7 +11,7 @@
 		{{participant.prenom}}</h2>
 	<div class="row container mx-auto">
 		<div class="col-lg-5">
-			<img src="https://picsum.photos/id/237/200/200" alt="">
+			<img src="{{ ((participant.imageName == NULL) ? asset('images/avatar.jpg')|imagine_filter('squared_thumbnail_medium') : vich_uploader_asset(participant) )| imagine_filter('squared_thumbnail_medium') }}" alt="">
 		</div>
 
 		<div class="col-lg-7">
