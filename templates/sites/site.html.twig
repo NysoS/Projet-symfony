@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello SitesController!
+{% endblock %}
+
+{% block body %}
+
+	<div class="h" id="gestion-sites">
+		<h1 class="title-page">Gérer les sites</h1>
+
+		<div class="filter">
+			<h2 class="mb-3">Filter les sites</h2>
+
+			<form class="row g-3" action="{{path('sites_search')}}" method="POST">
+				<div class="col-auto">
+					<label for="input-search-sites">Le nom contient</label>
+				</div>
+				<div class="col-auto">
+					<input type="text" class="form-control" id="input-search-sites" name="filter_sites">
+				</div>
+				<div class="col-auto">
+					<button type="submit" class="btn btn-primary mb-3">Rechercher</button>
+				</div>
+			</form>
+		</div>
+
+		<div class="table-sites">
+			<table class="table">
+				<thead>
+					<th>Ville</th>
+					<th>Actions</th>
+				</thead>
+				<tbody>
+					{% for site in lstSites %}
+						<tr>
+							<td>{{site.getNomSite}}</td>
+							<td><a href="{{path('site_update',{id:site.id})}}" class="btn btn-warning">Modifier</a> - <a href="{{path('site_delete',{id:site.id})}}" class="btn btn-danger">Supprimer</a></td>
+						</tr>
+					{% endfor %}
+					<tr>
+						<form action="{{path('site_add')}}" method="post">
+							<td><input type="text" name="search_sites"></td>
+							<td>
+								<button class="btn btn-dark" type="submit">Ajouter</button>
+							</td>
+						</form>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+
+{% endblock %}

@@ -2,11 +2,18 @@ html{
     height: 100vh;
 }
 
+.h{
+    height: 100vh;
+}
+
+.title-page{
+    text-align: center;
+}
+
 #login{
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 80vh;
 }
 
 #login #login-form{
@@ -17,4 +24,23 @@ html{
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+#gestion-sites{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+#gestion-sites .filter{
+    width: 100%;
+    float: left;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#gestion-sites .table-sites{
+    height: 60%;
+    width: 100%;
+    overflow-y: auto;
 }

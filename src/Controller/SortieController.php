@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Sorties;
+use App\Form\EditSortieType;
 use App\Form\SortiesType;
 use App\Repository\EtatsRepository;
 use App\Repository\InscriptionsRepository;
@@ -52,6 +53,41 @@ class SortieController extends AbstractController
             "sortie" => $s,
             "participants" => $participants
         ]);
+    }
+
+    /**
+     * @Route("/editSortie/{id}", name="editSortie")
+     */
+    public function editSortie(Sorties $s, Request $req, VillesRepository $vr, LieuxRepository $lr, EntityManagerInterface $em): Response
+    {
+        $villes = $vr->findAll();
+        $lieux = $lr->findAll();
+
+        $form = $this->createForm(EditSortieType::class,$s);
+        $form->handleRequest($req);
+
+        if ($form->isSubmitted()) {
+            $em->persist($s);
+            $em->flush();
+            return $this->redirectToRoute("addSortie");
+        } else {
+            return $this->render('sortie/editSortie.html.twig',[
+                "form" => $form->createView(),
+                "villes" => $villes,
+                "lieux" => $lieux,
+                "sortie" => $s
+            ]);
+        }
+    }
+
+    /**
+     * @Route("/delSortie/{id}", name="delSortie")
+     */
+    public function delSortie(Sorties $s, EntityManagerInterface $em): Response
+    {
+        $em->remove($s);
+        $em->flush();
+        return $this->redirectToRoute("addSortie");
     }
 
     /**
