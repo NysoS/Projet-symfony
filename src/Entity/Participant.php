@@ -340,7 +340,6 @@ class Participant implements UserInterface
     public function setUpdatedAt(\DateTimeImmutable $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
-
         return $this;
     }
 
