@@ -53,3 +53,31 @@ html {
 .table-wrapper-scroll-y {
   display: block;
 }
+
+
+#home #home-form{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
+    margin-bottom: 5%;
+}
+
+#home #home-form .filter-p1{
+    width: 60%;
+}
+
+#home #home-form .filter-p1 .home-filer-date{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#home .home-info{
+    text-align: right;
+}
+
+#home #table-home{
+    width: 100%;
+    max-height: 80%;
+}
