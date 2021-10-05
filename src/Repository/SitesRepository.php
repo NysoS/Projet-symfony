@@ -19,6 +19,15 @@ class SitesRepository extends ServiceEntityRepository
         parent::__construct($registry, Sites::class);
     }
 
+    public function filterSearchSitesByName($value){
+        return $this->createQueryBuilder('s')
+                ->andWhere('s.nom_site like :val')
+                ->setParameter('val','%'.$value.'%')
+                ->getQuery()
+                ->getResult();
+
+    }
+
     // /**
     //  * @return Sites[] Returns an array of Sites objects
     //  */
