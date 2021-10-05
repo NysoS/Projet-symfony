@@ -4,10 +4,12 @@ namespace App\Controller;
 
 use App\Entity\Sorties;
 use App\Form\SortiesType;
+use App\Repository\EtatsRepository;
 use App\Repository\InscriptionsRepository;
 use App\Repository\LieuxRepository;
 use App\Repository\ParticipantRepository;
 use App\Repository\VillesRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -50,5 +52,29 @@ class SortieController extends AbstractController
             "sortie" => $s,
             "participants" => $participants
         ]);
+    }
+
+    /**
+     * @Route("/annuleSortie/{id}", name="annuleSortie")
+     */
+    public function annuleSortie(Sorties $s, Request $req, EntityManagerInterface $em, EtatsRepository $er): Response
+    {
+        $etat_annule = $er->findOneBy(array("id" => 6));
+
+        $motif = "";
+        if ($req->get("motif") != null) $motif = $req->get("motif");
+
+        if ($motif == "") {
+            return $this->render('sortie/annuleSortie.html.twig', [
+                "sortie" => $s
+            ]);
+        } else {
+            $s->setDescription("[ANNULEE motif : ".$motif."] ".$s->getDescription());
+            $s->setEtats($etat_annule);
+            $em->persist($s);
+            $em->flush();
+            //TODO rediriger vers accueil quand elle sera créée
+            return $this->redirectToRoute("addSortie");
+        }
     }
 }
