@@ -7,15 +7,15 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class SortiesType extends AbstractType
+class EditSortieType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('nom')
-            ->add('date_debut')
+            //->add('date_debut')
             ->add('duree')
-            ->add('date_cloture')
+            //->add('date_cloture')
             ->add('nbInscriptionsMax')
             ->add('description')
             //->add('urlPhoto')
