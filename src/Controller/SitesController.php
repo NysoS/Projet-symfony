@@ -3,8 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Sites;
+use App\Entity\Sorties;
 use App\Form\SitesType;
+use App\Repository\LieuxRepository;
+use App\Repository\ParticipantRepository;
 use App\Repository\SitesRepository;
+use App\Repository\SortiesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -84,5 +88,19 @@ class SitesController extends AbstractController
                 'lstSites' => $lstSites,
             ]);
         }
+    }
+
+    /**
+     * @Route("/site/{id}/sorties", name="sorties_site")
+     */
+    public function sorties_site(Sites $s, SortiesRepository $sr, ParticipantRepository $pr): Response
+    {
+        $organisateurs = $pr->findBy(array("sites" => $s->getId()));
+        $sorties = $sr->findBy(array("organisateur" => $organisateurs));
+        
+        return $this->render('sites/sorties.html.twig', [
+            "site" => $s,
+            "sorties" => $sorties
+        ]);
     }
 }
