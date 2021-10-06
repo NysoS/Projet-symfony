@@ -39,6 +39,19 @@ class ProfileController extends AbstractController
     }
 
     /**
+     * @Route("/participant/profil/{id}/status", name="app_profile_status")
+     */
+    public function statusParticipant(Participant $participant, EntityManagerInterface $em): Response
+    {
+        $etat = !$participant->getActif();
+        $participant->setActif($etat);
+
+        $em->flush();
+
+        return $this->redirectToRoute('app_profile');
+    }
+
+    /**
      * @Route("/participant/profil/add", name="app_profile_add")
      */
     public function addParticipant(Request $request, EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder): Response

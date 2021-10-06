@@ -39,7 +39,22 @@
 							<td>{{participant.prenom}}</td>
 							<td>{{participant.email}}</td>
 							<td>{{participant.telephone}}</td>
-							<td>{{participant.actif ? '<span class="badge bg-success">ok</span>' : '<span class="badge bg-dark ">na</span>'}}</td>
+
+							{% if participant.actif %}
+								<td>
+									<a href="{{ path('app_profile_status',{id:participant.id}) }}">
+										<span class="badge bg-success">ok</span>
+									</a>
+
+								</td>
+
+							{% else %}
+								<td>
+									<a href="{{ path('app_profile_status',{id:participant.id}) }}">
+										<span class="badge bg-dark">na</span>
+									</a>
+								</td>
+							{% endif %}
 							<td>
 								<a class="btn btn-primary" href="{{ path('app_profile_show', {id:participant.id}) }}">
 									<i class="fas fa-eye"></i>
