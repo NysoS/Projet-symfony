@@ -9,6 +9,7 @@ use App\Repository\EtatsRepository;
 use App\Repository\InscriptionsRepository;
 use App\Repository\LieuxRepository;
 use App\Repository\ParticipantRepository;
+use App\Repository\SortiesRepository;
 use App\Repository\VillesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,7 +22,7 @@ class SortieController extends AbstractController
     /**
      * @Route("/addSortie", name="addSortie")
      */
-    public function addSortie(Request $req, VillesRepository $vr, LieuxRepository $lr): Response
+    public function addSortie(Request $req, VillesRepository $vr, LieuxRepository $lr, EntityManagerInterface $em): Response
     {
         $sortie = new Sorties();
         $villes = $vr->findAll();
@@ -31,7 +32,16 @@ class SortieController extends AbstractController
         $form->handleRequest($req);
 
         if ($form->isSubmitted()) {
+            $sortie->setNom($req->get("nom"));
+            $sortie->setDateDebut($req->get("date_debut"));
+            $sortie->setDateCloture($req->get("date_cloture"));
+            $sortie->setNbInscriptionsMax($req->get("nbInscriptionsMax"));
+            $sortie->setDuree($req->get("duree"));
+            $sortie->setDescription($req->get("description"));
 
+            $em->persist($sortie);
+            $em->flush();
+            return $this->redirectToRoute("home");
         } else {
             return $this->render('sortie/addSortie.html.twig',[
                 "formSortie" => $form->createView(),
@@ -69,9 +79,11 @@ class SortieController extends AbstractController
         if ($form->isSubmitted()) {
             $s->setDateDebut($req->get("date_debut"));
             $s->setDateCloture($req->get("date_cloture"));
+            $s->setNbInscriptionsMax($req->get("nbInscriptionsMax"));
+            $s->getDuree($req->get("duree"));
             $em->persist($s);
             $em->flush();
-            return $this->redirectToRoute("addSortie");
+            return $this->redirectToRoute("home");
         } else {
             return $this->render('sortie/editSortie.html.twig',[
                 "form" => $form->createView(),
@@ -89,7 +101,7 @@ class SortieController extends AbstractController
     {
         $em->remove($s);
         $em->flush();
-        return $this->redirectToRoute("addSortie");
+        return $this->redirectToRoute("home");
     }
 
     /**
@@ -111,8 +123,7 @@ class SortieController extends AbstractController
             $s->setEtats($etat_annule);
             $em->persist($s);
             $em->flush();
-            //TODO rediriger vers accueil quand elle sera créée
-            return $this->redirectToRoute("addSortie");
+            return $this->redirectToRoute("home");
         }
     }
 }

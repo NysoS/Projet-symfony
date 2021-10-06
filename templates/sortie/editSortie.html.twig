@@ -23,11 +23,11 @@
 				</tr>
 				<tr>
 					<td>Nombre de places : </td>
-					<td>{{form_widget(form.nbInscriptionsMax)}}</td>
+					<td><input type="number" min="0" name="nbInscriptionsMax" id="nbInscriptionsMax" value="{{sortie.getNbInscriptionsMax}}"></td>
 				</tr>
 				<tr>
 					<td>Durée : </td>
-					<td>{{form_widget(form.duree)}}</td>
+					<td><input type="number" min="0" name="duree" id="duree" value="{{sortie.getDuree}}"></td>
 				</tr>
 				<tr>
 					<td>Description et infos : </td>
