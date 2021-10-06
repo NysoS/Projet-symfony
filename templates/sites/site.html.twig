@@ -33,7 +33,7 @@
 				<tbody>
 					{% for site in lstSites %}
 						<tr>
-							<td>{{site.getNomSite}}</td>
+							<td><a href="{{path('sorties_site',{id:site.id})}}">{{site.getNomSite}}</a></td>
 							<td><a href="{{path('site_update',{id:site.id})}}" class="btn btn-warning">Modifier</a> - <a href="{{path('site_delete',{id:site.id})}}" class="btn btn-danger">Supprimer</a></td>
 						</tr>
 					{% endfor %}

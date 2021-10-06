@@ -67,6 +67,8 @@ class SortieController extends AbstractController
         $form->handleRequest($req);
 
         if ($form->isSubmitted()) {
+            $s->setDateDebut($req->get("date_debut"));
+            $s->setDateCloture($req->get("date_cloture"));
             $em->persist($s);
             $em->flush();
             return $this->redirectToRoute("addSortie");
