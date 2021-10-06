@@ -67,7 +67,7 @@ class AppFixtures extends Fixture
             $participant->setNom($faker->lastName());
             $participant->setPrenom($faker->firstName());
             $participant->setActif($faker->randomElement([0, 1]));
-            $participant->setTelephone($faker->phoneNumber());
+            $participant->setTelephone("0303030303");
             $participant->setPassword('$argon2id$v=19$m=65536,t=4,p=1$MGJVd21saldNOWxWdkhORg$mv+TGK3oanf+xyfVDptsDSWNudc7YFVEeD2fk4QBS00');
 
             $manager->persist($participant);
@@ -113,7 +113,7 @@ class AppFixtures extends Fixture
                 $participant2->setNom($faker->lastName());
                 $participant2->setPrenom($faker->firstName());
                 $participant2->setActif(true);
-                $participant2->setTelephone($faker->phoneNumber());
+                $participant2->setTelephone("0202020202");
                 $participant2->setPassword('$argon2id$v=19$m=65536,t=4,p=1$MGJVd21saldNOWxWdkhORg$mv+TGK3oanf+xyfVDptsDSWNudc7YFVEeD2fk4QBS00');
                 $manager->persist($participant2);
 
