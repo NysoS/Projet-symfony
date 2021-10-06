@@ -12,22 +12,22 @@
 				<tr>
 					<td>Nom de la sortie :
 					</td>
-					<td><input type="text" id="nom" name="nom" style="width:100%"></td>
+					<td><input type="text" id="nom" name="nom" style="width:100%" required></td>
 				</tr>
 				<tr>
 					<td>Date et heure de la sortie :
 					</td>
-					<td><input type="datetime-local" id="date_debut" name="date_debut"></td>
+					<td><input type="datetime-local" id="date_debut" name="date_debut" required></td>
 				</tr>
 				<tr>
 					<td>Date limite d'inscription :
 					</td>
-					<td><input type="datetime-local" id="date_cloture" name="date_cloture"></td>
+					<td><input type="datetime-local" id="date_cloture" name="date_cloture" required></td>
 				</tr>
 				<tr>
 					<td>Nombre de places :
 					</td>
-					<td><input type="number" min="0" id="nbInscriptionsMax" name="nbInscriptionsMax" style="width:30%"></td>
+					<td><input type="number" min="0" id="nbInscriptionsMax" name="nbInscriptionsMax" style="width:30%" required></td>
 				</tr>
 				<tr>
 					<td>Durée :
@@ -49,8 +49,7 @@
 					<td>Ville :
 					</td>
 					<td>
-						<select name="ville" id="ville" style="width:60%">
-							<option selected></option>
+						<select name="ville" id="ville" style="width:60%" required>
 							{% for ville in villes %}
 								<option value="{{ville.getId()}}">{{ville.getNomVille()}}</option>
 							{% endfor %}
@@ -61,8 +60,7 @@
 					<td>Lieu :
 					</td>
 					<td>
-						<select name="lieu" id="lieu" style="width:60%">
-							<option selected></option>
+						<select name="lieu" id="lieu" style="width:60%" required>
 							{% for lieu in lieux %}
 								<option value="{{lieu.getId()}}">{{lieu.getNomLieu()}}</option>
 							{% endfor %}
@@ -96,8 +94,8 @@
 		</table>
 	</div>
 	<div>
-		<button type="submit" class="btn btn-dark">Enregistrer</button>
-		<button type="submit" class="btn btn-dark">Publier la sortie</button>
+		<button type="submit" name="etat" value="enregistrer" class="btn btn-dark">Enregistrer</button>
+		<button type="submit" name="etat" value="publier" class="btn btn-dark">Publier</button>
 	</div>
 	{{form_end(formSortie)}}
 
