@@ -6,6 +6,8 @@
 {% block body %}
 	<div id="home">
 
+		{% if app.user %}
+
 		<div class="home-info m-5">
 			<h4 class="sub-title">Date du jour</h4>
 			<h4 class="sub-title">Participant</h4>
@@ -86,6 +88,10 @@
 				</thead>
 			</table>
 		</div>
+
+		{% else %}
+			<div class="container">Veuillez vous connecter</div>
+		{% endif %}
 
 	</div>
 {% endblock %}

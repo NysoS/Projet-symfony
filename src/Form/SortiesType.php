@@ -12,12 +12,12 @@ class SortiesType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom')
-            ->add('date_debut')
-            ->add('duree')
-            ->add('date_cloture')
-            ->add('nbInscriptionsMax')
-            ->add('description')
+            //->add('nom')
+            //->add('date_debut')
+            //->add('duree')
+            //->add('date_cloture')
+            //->add('nbInscriptionsMax')
+            //->add('description')
             //->add('urlPhoto')
             //->add('organisateur')
             //->add('lieux')

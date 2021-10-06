@@ -25,23 +25,41 @@
 				</strong>
 				:
 				{{participant.nom}}</p>
-			<p>
-				<strong>Téléphone
-				</strong>
-				:{{participant.telephone}}
-			</p>
-			<p>
-				<strong>Email</strong>
-				:{{participant.email}}
-			</p>
+
+			{% if (participant.id == app.user.id) or is_granted("ROLE_ADMIN") %}
+				<p>
+					<strong>Téléphone
+					</strong>
+					:{{participant.telephone}}
+				</p>
+				<p>
+					<strong>Email</strong>
+					:{{participant.email}}
+				</p>
+
+			{% else %}
+				<p>
+					<strong>Téléphone
+					</strong>
+					:#############
+				</p>
+				<p>
+					<strong>Email</strong>
+					:#############
+				</p>
+			{% endif %}
+
 			<p>
 				<strong>Ville de rattachement
 				</strong>
-				:######
+				:{{participant.sites.Nomsite}}
 			</p>
 		</div>
 		<div class="my-5 d-grid gap-2 col-3 mx-auto">
-			<a href="{{ path('app_profile') }}" class="py-3 btn btn-primary fw-bold">Retour</a>
+			<a href="{{ path('home') }}" class="py-3 btn btn-danger fw-bold">Retour</a>
+		</div>
+		<div class="my-5 d-grid gap-2 col-3 mx-auto">
+			<a href="{{ path('app_profile_eddit',{id:app.user.id}) }}" class="py-3 btn btn-primary fw-bold">Modification</a>
 		</div>
 	</div>
 {% endblock %}
