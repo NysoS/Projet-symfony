@@ -119,14 +119,32 @@ class ProfileController extends AbstractController
             try {
                 $files = $request->files->all();
 
+
                 foreach ($files as $file) {
-                    $json = file_get_contents($file->getPathname());
-                    $siteId = json_decode($json)->sites;
-                    $site = $sitesRepository->findOneBy(['id' => $siteId]);
-                    $participant = $serializer->deserialize($json, Participant::class, 'json');
-                    $participant->setSites($site);
-                    $em->persist($participant);
-                    $em->flush();
+
+                    dd($file->getMimetype());
+                    //vérification de l'extension de mon ficher
+                    $nomFichier = $file->getClientOriginalName();
+
+                    //vérification si  .json ou .csv 
+                    if (str_contains($nomFichier, '.csv') && $file->getMimetype() == "text/plain") {
+                        dd('il y a du csv');
+                        //traitement dans le cas ou c'est du csv 
+
+
+                    } elseif (str_contains($nomFichier, '.json')) {
+                        dd('il y a du csv');
+                        //traitement dans le cas ou c'est du json 
+
+                        $json = file_get_contents($file->getPathname());
+                        $siteId = json_decode($json)->sites;
+                        $site = $sitesRepository->findOneBy(['id' => $siteId]);
+                        $participant = $serializer->deserialize($json, Participant::class, 'json');
+                        $participant->setSites($site);
+                        $em->persist($participant);
+                        $em->flush();
+                    }
+
                     return $this->redirectToRoute('app_profile_add_json');
                 }
             } catch (NotEncodableValueException $e) {
