@@ -55,6 +55,7 @@ class RegistrationFormType extends AbstractType
                         'message' => 'Acceptez vous les termes.',
                     ]),
                 ],
+                'row_attr'=>['class'=>'mt-2']
             ]);
 
         $builder->get('roles')
