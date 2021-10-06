@@ -27,24 +27,32 @@
 		<div class="table-sites">
 			<table class="table">
 				<thead>
-					<th>Ville</th>
-					<th>Actions</th>
+					<tr>
+						<th>Ville</th>
+						{% if is_granted("ROLE_ADMIN") %}
+							<th>Actions</th>
+						{% endif %}
+					</tr>
 				</thead>
 				<tbody>
 					{% for site in lstSites %}
 						<tr>
 							<td><a href="{{path('sorties_site',{id:site.id})}}">{{site.getNomSite}}</a></td>
-							<td><a href="{{path('site_update',{id:site.id})}}" class="btn btn-warning">Modifier</a> - <a href="{{path('site_delete',{id:site.id})}}" class="btn btn-danger">Supprimer</a></td>
+							{% if is_granted("ROLE_ADMIN") %}
+								<td><a href="{{path('site_update',{id:site.id})}}" class="btn btn-warning">Modifier</a> - <a href="{{path('site_delete',{id:site.id})}}" class="btn btn-danger">Supprimer</a></td>
+							{% endif %}
 						</tr>
 					{% endfor %}
-					<tr>
-						<form action="{{path('site_add')}}" method="post">
-							<td><input type="text" name="search_sites"></td>
-							<td>
-								<button class="btn btn-dark" type="submit">Ajouter</button>
-							</td>
-						</form>
-					</tr>
+					{% if is_granted("ROLE_ADMIN") %}
+						<tr>
+							<form action="{{path('site_add')}}" method="post">
+								<td><input type="text" name="search_sites"></td>
+								<td>
+									<button class="btn btn-dark" type="submit">Ajouter</button>
+								</td>
+							</form>
+						</tr>
+					{% endif %}
 				</tbody>
 			</table>
 		</div>

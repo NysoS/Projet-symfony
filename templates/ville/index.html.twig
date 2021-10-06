@@ -7,12 +7,12 @@
 
 
 	<div>
-		<h1 class="mt-5 mb-3 text-uppercase">Gestions des villes</h1>
+		<h1 class="mt-5 mb-3 text-uppercase">Gestion des villes</h1>
 
 		<div>
 			<div class="col-12">
 				<p class="fw-bolder">
-					Filter Les villes</p>
+					Filter les villes</p>
 			</div>
 			<form action="{{ path('app_ville_find') }}" class="my-4 row" method="POST">
 				<div class="col-lg-2">
@@ -38,7 +38,10 @@
 								<th scope="col">Nom de la ville
 								</th>
 								<th scope="col">Code postal</th>
-								<th scope="col">Actions</th>
+								
+								{% if is_granted("ROLE_ADMIN") %}
+									<th scope="col">Actions</th>
+								{% endif %}
 							</tr>
 						</thead>
 						<tbody>
@@ -46,17 +49,21 @@
 								<tr>
 									<th>{{ville.nomVille}}</th>
 									<td>{{ville.codePostal}}</td>
-									<td>
-										<a class="btn btn-warning text-white" href="{{ path('app_ville_eddit', {id:ville.id}) }}">
-											<i class="fas fa-edit"></i>
-										</a>
-										<a class="btn btn-danger text-white" href="{{ path('app_ville_delete', {id:ville.id}) }}">
-											<i class="fas fa-trash"></i>
-										</a>
-									</td>
+
+									{% if is_granted("ROLE_ADMIN") %}
+										<td>
+											<a class="btn btn-warning text-white" href="{{ path('app_ville_eddit', {id:ville.id}) }}">
+												<i class="fas fa-edit"></i>
+											</a>
+											<a class="btn btn-danger text-white" href="{{ path('app_ville_delete', {id:ville.id}) }}">
+												<i class="fas fa-trash"></i>
+											</a>
+										</td>
+									{% endif %}
 								</tr>
 							{% endfor %}
 							<tr>
+								{% if is_granted("ROLE_ADMIN") %}
 								{{ form_start(formVille) }}
 								<th>{{ form_row(formVille.nom_ville) }}</th>
 								<th>{{ form_row(formVille.code_postal) }}</th>
@@ -65,6 +72,7 @@
 
 								</td>
 								{{ form_end(formVille) }}
+								{% endif %}
 							</tr>
 						</tbody>
 					</table>

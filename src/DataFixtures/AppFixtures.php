@@ -67,6 +67,7 @@ class AppFixtures extends Fixture
             $sortie->setOrganisateur($participant);
             $sortie->setLieux($lieu);
             $sortie->setEtats($etat);
+            $sortie->setDuree(5);
             $sortie->setNom($faker->word());
             $sortie->setDateDebut($faker->dateTimeBetween('-1 week', '+1 week'));
             $sortie->setDateCloture($faker->dateTimeBetween('+1 week', '+2 week'));
