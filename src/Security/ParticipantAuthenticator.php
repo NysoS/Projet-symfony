@@ -67,7 +67,7 @@ class ParticipantAuthenticator extends AbstractFormLoginAuthenticator implements
             throw new InvalidCsrfTokenException();
         }
 
-        $user = $this->entityManager->getRepository(Participant::class)->findOneBy(['email' => $credentials['email']]);
+        $user = $this->entityManager->getRepository(Participant::class)->findOneBy(['email' => $credentials['email'], 'actif' => true]);
 
         if (!$user) {
             throw new UsernameNotFoundException('Email n\'existe pas');
@@ -91,6 +91,8 @@ class ParticipantAuthenticator extends AbstractFormLoginAuthenticator implements
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $providerKey)
     {
+
+
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
             return new RedirectResponse($targetPath);
         }
