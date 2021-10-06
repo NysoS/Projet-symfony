@@ -21,6 +21,38 @@ class AppFixtures extends Fixture
 
         $faker = Factory::create('fr_FR');
 
+        //gestion des états
+        // $etat = new Etats;
+        // $etat->setLibelle($faker->randomElement(["Créée", "Ouverte", "Clôturée", "Activité en cours", "passée", "Annulé"]));
+        // $manager->persist($etat);
+
+        $mesEtats = ["Créée", "Ouverte", "Clôturée", "Activité en cours", "passée", "Annulé"];
+        //création des états
+        $etat = new Etats;
+        $etat->setLibelle("Créée");
+        $manager->persist($etat);
+
+        $etat1 = new Etats;
+        $etat1->setLibelle("Ouverte");
+        $manager->persist($etat1);
+
+        $etat2 = new Etats;
+        $etat2->setLibelle("Clôturée");
+        $manager->persist($etat2);
+
+        $etat3 = new Etats;
+        $etat3->setLibelle("Activité en cours");
+        $manager->persist($etat3);
+
+        $etat4 = new Etats;
+        $etat4->setLibelle("passée");
+        $manager->persist($etat4);
+
+        $etat5 = new Etats;
+        $etat5->setLibelle("Annulé");
+        $manager->persist($etat5);
+
+
         // création d'un site 
         for ($i = 0; $i < 5; $i++) {
             $site  = new Sites;
@@ -57,16 +89,12 @@ class AppFixtures extends Fixture
             $lieu->setLatitude($faker->randomFloat());
             $manager->persist($lieu);
 
-            //création d'un état
-            $etat = new Etats;
-            $etat->setLibelle($faker->randomElement(["Créée", "Ouverte", "Clôturée", "Activité en cours", "passée", "Annulé"]));
-            $manager->persist($etat);
 
             //création d'une sortie
             $sortie = new Sorties;
             $sortie->setOrganisateur($participant);
             $sortie->setLieux($lieu);
-            $sortie->setEtats($etat);
+            $sortie->setEtats($faker->randomElement([$etat1, $etat2, $etat3, $etat4, $etat5, $etat]));
             $sortie->setDuree(5);
             $sortie->setNom($faker->word());
             $sortie->setDateDebut($faker->dateTimeBetween('-1 week', '+1 week'));
