@@ -93,7 +93,7 @@ class Participant implements UserInterface
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      * 
      * @Vich\UploadableField(mapping="participants_images", fileNameProperty="imageName")
-     * 
+     * @Assert\Image(maxSize="2M")
      * @var File|null
      */
     private $imageFile;
