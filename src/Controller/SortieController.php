@@ -16,13 +16,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 class SortieController extends AbstractController
 {
     /**
      * @Route("/addSortie", name="addSortie")
      */
-    public function addSortie(Request $req, VillesRepository $vr, LieuxRepository $lr, EntityManagerInterface $em): Response
+    public function addSortie(Request $req, VillesRepository $vr, LieuxRepository $lr, EtatsRepository $er, EntityManagerInterface $em): Response
     {
         $sortie = new Sorties();
         $villes = $vr->findAll();
@@ -33,11 +36,19 @@ class SortieController extends AbstractController
 
         if ($form->isSubmitted()) {
             $sortie->setNom($req->get("nom"));
-            $sortie->setDateDebut($req->get("date_debut"));
-            $sortie->setDateCloture($req->get("date_cloture"));
+            $sortie->setDateDebut(new \DateTime($req->get("date_debut")));
+            $sortie->setDateCloture(new \DateTime($req->get("date_cloture")));
             $sortie->setNbInscriptionsMax($req->get("nbInscriptionsMax"));
             $sortie->setDuree($req->get("duree"));
             $sortie->setDescription($req->get("description"));
+            $sortie->setOrganisateur($this->getUser());
+            $sortie->setLieux($lr->findOneBy(array("id" => $req->get("lieu"))));
+            $sortie->getLieux()->setVilles($vr->findOneBy(array("id" => $req->get("ville"))));
+
+            if ($req->get("etat") == "enregistrer") $sortie->setEtats($er->findOneBy(array("libelle" => "Créée")));
+            else $sortie->setEtats($er->findOneBy(array("libelle" => "Ouverte")));
+
+            dd($req);
 
             $em->persist($sortie);
             $em->flush();
