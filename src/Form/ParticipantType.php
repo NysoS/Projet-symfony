@@ -16,7 +16,7 @@ class ParticipantType extends AbstractType
     {
         $builder
             ->add('email', null, ['label' => 'Email: '])
-            ->add('password', PasswordType::class, ['label' => 'Mot de passe: '])
+            //->add('password', PasswordType::class, ['label' => 'Mot de passe: '])
             ->add('nom', null,  ['label' => 'Nom: '])
             ->add('prenom', null, ['label' => 'Prénom: '])
             ->add('telephone', null,  ['label' => 'Téléhpone: '])

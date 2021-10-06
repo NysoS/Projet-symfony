@@ -26,7 +26,7 @@
 
 						{% if is_granted("ROLE_ADMIN") %}
 							<li class="mx-2 nav-item">
-								<a class="text-uppercase fw-bolder nav-link {{(my_route == 'app_profile') ? 'active' }}" href="{{path('app_profile')}}">Profils
+								<a class="text-uppercase fw-bolder nav-link {{(my_route == 'app_profile_show') ? 'active' }}" href="{{path('app_profile_show',{id:app.user.id})}}">Profils
 								</a>
 							</li>
 						{% else %}
