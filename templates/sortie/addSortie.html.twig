@@ -51,11 +51,18 @@
 					<td>
 						<select name="ville" id="ville" style="width:60%" required>
 							{% for ville in villes %}
-								<option value="{{ville.getId()}}">{{ville.getNomVille()}}</option>
+								<option value="{{ville.getId()}}" onChange="switchLieu({{ville.getId()}})">{{ville.getNomVille()}}</option>
 							{% endfor %}
 						</select>
 					</td>
 				</tr>
+
+                <script type="text/javascript">
+                    function switchLieu(id) {
+                        console.log("aaaa");
+                    }
+                </script>
+
 				<tr>
 					<td>Lieu :
 					</td>
