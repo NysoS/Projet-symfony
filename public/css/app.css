@@ -1,48 +1,57 @@
-html{
-    height: 100vh;
+html {
+  height: 100vh;
 }
 
 .h{
     height: 80vh;
 }
 
-.title-page{
-    text-align: center;
+.title-page {
+  text-align: center;
 }
 
-#login{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+#login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-#login #login-form{
-    text-align: center;
+#login #login-form {
+  text-align: center;
 }
 
-#login .switch-remember{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+#login .switch-remember {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-#gestion-sites{
-    display: flex;
-    align-items: center;
-    flex-direction: column;
+#gestion-sites {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
-#gestion-sites .filter{
-    width: 100%;
-    float: left;
-    margin-top: 15px;
-    margin-bottom: 15px;
+#gestion-sites .filter {
+  width: 100%;
+  float: left;
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 
-#gestion-sites .table-sites{
-    height: 60%;
-    width: 100%;
-    overflow-y: auto;
+#gestion-sites .table-sites {
+  height: 60%;
+  width: 100%;
+  overflow-y: auto;
+}
+
+.my-custom-scrollbar {
+  position: relative;
+  height: 400px;
+  overflow: auto;
+}
+.table-wrapper-scroll-y {
+  display: block;
 }
 
 

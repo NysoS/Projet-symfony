@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil de
+	{{ participant.nom}}!
+{% endblock %}
+
+{% block body %}
+	<h1>test de mon formulaire
+	</h1>
+
+	<form action="{{ path('app_profile_add_json') }}" enctype="multipart/form-data" method="post">
+		Select json to upload:
+		<input type="file" name="fileToUpload" id="fileToUpload">
+		<input type="submit" value="Upload Image" name="submit">
+	</form>
+
+{% endblock %}

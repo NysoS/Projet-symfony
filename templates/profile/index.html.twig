@@ -5,20 +5,9 @@
 
 {% block body %}
 
-	<style>
-		.my-custom-scrollbar {
-			position: relative;
-			height: 400px;
-			overflow: auto;
-		}
-		.table-wrapper-scroll-y {
-			display: block;
-		}
-	</style>
-
 
 	<div class="example-wrapper">
-		<h1 class="mt-5 mb-3 text-uppercase">Getion des participants</h1>
+		<h1 class="mt-5 mb-3 text-uppercase">Gestion des participants</h1>
 		{% if app.user %}
 			<a class="btn btn-primary" href="{{ path('app_profile_show', {id:app.user.id}) }}">
 				Afficher mon profil</a>
@@ -44,7 +33,6 @@
 				</thead>
 				<tbody>
 
-					{% if participants %}{% endif %}
 					{% for participant in participants %}
 						<tr>
 							<th>{{participant.nom}}</th>
