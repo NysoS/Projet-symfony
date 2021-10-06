@@ -10,6 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ParticipantRepository::class)
@@ -28,6 +29,7 @@ class Participant implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\Email(message="Saisir une adresse email valide !")
      */
     private $email;
 
@@ -53,7 +55,9 @@ class Participant implements UserInterface
     private $prenom;
 
     /**
-     * @ORM\Column(type="string", length=20, nullable=true)
+     * @ORM\Column(type="string", length=10, nullable=true)
+     *  @Assert\Length(min = 8, max = 10, minMessage = "min_lenght", maxMessage = "max_lenght")
+     *  @Assert\Regex(pattern="/^[0-9]*$/", message="Veuillez saisir que des nombres!") 
      */
     private $telephone;
 
@@ -135,7 +139,6 @@ class Participant implements UserInterface
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
     }
