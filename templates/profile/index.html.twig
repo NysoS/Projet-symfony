@@ -11,7 +11,7 @@
 		{% if app.user %}
 			<a class="btn btn-primary" href="{{ path('app_profile_show', {id:app.user.id}) }}">
 				Afficher mon profil</a>
-			<a class="btn btn-warning text-white" href="{{ path('app_profile_add') }}">Ajouter un participant</a>
+			<a class="btn btn-warning text-white" href="{{ path('app_register') }}">Ajouter un participant</a>
 			<a class="btn btn-danger text-white" href="{{ path('app_profile_eddit', {id:app.user.id}) }}">modifier mon profil</a>
 		{% endif %}
 
