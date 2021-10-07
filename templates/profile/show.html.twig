@@ -58,8 +58,10 @@
 		<div class="my-5 d-grid gap-2 col-3 mx-auto">
 			<a href="{{ path('home') }}" class="py-3 btn btn-danger fw-bold">Retour</a>
 		</div>
-		<div class="my-5 d-grid gap-2 col-3 mx-auto">
-			<a href="{{ path('app_profile_eddit',{id:app.user.id}) }}" class="py-3 btn btn-primary fw-bold">Modification</a>
-		</div>
+		{% if app.user.id == participant.id  or %}
+			<div class="my-5 d-grid gap-2 col-3 mx-auto">
+				<a href="{{ path('app_profile_eddit',{id:app.user.id}) }}" class="py-3 btn btn-primary fw-bold">Modification</a>
+			</div>
+		{% endif %}
 	</div>
 {% endblock %}
