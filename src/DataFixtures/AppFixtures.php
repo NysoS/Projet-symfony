@@ -26,7 +26,7 @@ class AppFixtures extends Fixture
         // $etat->setLibelle($faker->randomElement(["Créée", "Ouverte", "Clôturée", "Activité en cours", "passée", "Annulé"]));
         // $manager->persist($etat);
 
-        $mesEtats = ["Créée", "Ouverte", "Clôturée", "Activité en cours", "passée", "Annulé"];
+        $mesEtats = ["Créée", "Ouverte", "Clôturée", "Activité en cours", "Passée", "Annulé"];
 
         //création des états
         $etat = new Etats;
@@ -46,7 +46,7 @@ class AppFixtures extends Fixture
         $manager->persist($etat3);
 
         $etat4 = new Etats;
-        $etat4->setLibelle("passée");
+        $etat4->setLibelle("Passée");
         $manager->persist($etat4);
 
         $etat5 = new Etats;
