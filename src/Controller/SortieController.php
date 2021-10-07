@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Inscriptions;
+use App\Entity\Participant;
 use App\Entity\Sorties;
 use App\Form\EditSortieType;
 use App\Form\SortiesType;
@@ -137,5 +138,16 @@ class SortieController extends AbstractController
             $em->flush();
             return $this->redirectToRoute("home");
         }
+    }
+
+    /**
+     * @Route("/desistSortie/{sortie}/{user}", name="desistSortie")
+     */
+    public function desistSortie(Sorties $sortie, Participant $user, EntityManagerInterface $em, InscriptionsRepository $ir): Response
+    {
+        $inscription = $ir->findOneBy(["sorties" => $sortie->getId(),"participants" => $user->getId()]);
+        $em->remove($inscription);
+        $em->flush();
+        return $this->redirectToRoute("home");
     }
 }
