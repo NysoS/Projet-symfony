@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Inscriptions;
+use App\Entity\Participant;
 use App\Entity\Sorties;
 use App\Form\EditSortieType;
 use App\Form\SortiesType;
@@ -9,27 +11,23 @@ use App\Repository\EtatsRepository;
 use App\Repository\InscriptionsRepository;
 use App\Repository\LieuxRepository;
 use App\Repository\ParticipantRepository;
-use App\Repository\SortiesRepository;
+use App\Repository\SitesRepository;
 use App\Repository\VillesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use Symfony\Component\Serializer\Serializer;
 
 class SortieController extends AbstractController
 {
     /**
      * @Route("/addSortie", name="addSortie")
      */
-    public function addSortie(Request $req, VillesRepository $vr, LieuxRepository $lr, EtatsRepository $er, EntityManagerInterface $em): Response
+    public function addSortie(Request $req, VillesRepository $vr, LieuxRepository $lr, EtatsRepository $er, SitesRepository $sr, EntityManagerInterface $em): Response
     {
         $sortie = new Sorties();
         $villes = $vr->findAll();
-        $lieux = $lr->findAll();
 
         $form = $this->createForm(SortiesType::class,$sortie);
         $form->handleRequest($req);
@@ -42,22 +40,26 @@ class SortieController extends AbstractController
             $sortie->setDuree($req->get("duree"));
             $sortie->setDescription($req->get("description"));
             $sortie->setOrganisateur($this->getUser());
-            $sortie->setLieux($lr->findOneBy(array("id" => $req->get("lieu"))));
-            $sortie->getLieux()->setVilles($vr->findOneBy(array("id" => $req->get("ville"))));
+            $sortie->setSite($sr->findOneBy(array("id" => $this->getUser()->getSites()->getId())));
+            if ($req->get("lieu") != null) $sortie->setLieux($lr->findOneBy(array("id" => str_replace("lieu","",$req->get("lieu")))));
+            if ($req->get("ville") != null) $sortie->getLieux()->setVilles($vr->findOneBy(array("id" => str_replace("ville","",$req->get("ville")))));
 
             if ($req->get("etat") == "enregistrer") $sortie->setEtats($er->findOneBy(array("libelle" => "Créée")));
             else $sortie->setEtats($er->findOneBy(array("libelle" => "Ouverte")));
 
-            dd($req);
+            $inscription = new Inscriptions();
+            $inscription->setSorties($sortie);
+            $inscription->setParticipants($this->getUser());
+            $inscription->setDateInscription(new \DateTime(date("Y-m-d H:i:s")));
 
             $em->persist($sortie);
+            $em->persist($inscription);
             $em->flush();
             return $this->redirectToRoute("home");
         } else {
             return $this->render('sortie/addSortie.html.twig',[
                 "formSortie" => $form->createView(),
-                "villes" => $villes,
-                "lieux" => $lieux
+                "villes" => $villes
             ]);
         }
     }
@@ -136,5 +138,16 @@ class SortieController extends AbstractController
             $em->flush();
             return $this->redirectToRoute("home");
         }
+    }
+
+    /**
+     * @Route("/desistSortie/{sortie}/{user}", name="desistSortie")
+     */
+    public function desistSortie(Sorties $sortie, Participant $user, EntityManagerInterface $em, InscriptionsRepository $ir): Response
+    {
+        $inscription = $ir->findOneBy(["sorties" => $sortie->getId(),"participants" => $user->getId()]);
+        $em->remove($inscription);
+        $em->flush();
+        return $this->redirectToRoute("home");
     }
 }

@@ -6,110 +6,140 @@
 	</div>
 	<hr>
 	{{form_start(formSortie)}}
-	<div style="display:inline-block">
-		<table>
-			<tbody>
-				<tr>
-					<td>Nom de la sortie :
-					</td>
-					<td><input type="text" id="nom" name="nom" style="width:100%" required></td>
-				</tr>
-				<tr>
-					<td>Date et heure de la sortie :
-					</td>
-					<td><input type="datetime-local" id="date_debut" name="date_debut" required></td>
-				</tr>
-				<tr>
-					<td>Date limite d'inscription :
-					</td>
-					<td><input type="datetime-local" id="date_cloture" name="date_cloture" required></td>
-				</tr>
-				<tr>
-					<td>Nombre de places :
-					</td>
-					<td><input type="number" min="0" id="nbInscriptionsMax" name="nbInscriptionsMax" style="width:30%" required></td>
-				</tr>
-				<tr>
-					<td>Durée :
-					</td>
-					<td><input type="number" min="0" id="duree" name="duree" style="width:30%">&nbsp;minutes</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-	<div style="display:inline-block">
-		<table>
-			<tbody>
-				<tr>
-					<td>Ville organisatrice :
-					</td>
-					<td>{{app.user.sites}}</td>
-				</tr>
-				<tr>
-					<td>Ville :
-					</td>
-					<td>
-						<select name="ville" id="ville" style="width:60%" required>
-							{% for ville in villes %}
-								<option value="{{ville.getId()}}" onChange="switchLieu({{ville.getId()}})">{{ville.getNomVille()}}</option>
-							{% endfor %}
-						</select>
-					</td>
-				</tr>
+	<div style="display: flex; align-items:center; justify-content: space-around">
+		<div>
+			<table>
+				<tbody>
+					<tr>
+						<div class="input-group input-group-sm mb-3">
+							<span class="input-group-text " id="inputGroup-sizing-sm">Nom de la sortie</span>
+							<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" id="nom" name="nom" required>
+						</div>
+					</tr>
+					<tr>
+						<div class="input-group input-group-sm mb-3">
+							<span class="input-group-text " id="inputGroup-sizing-sm">Date et heure de la sortie</span>
+							<input type="datetime-local" id="date_debut" name="date_debut" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" required>
+						</div>
+					</tr>
+					<tr>
+						<div class="input-group input-group-sm mb-3">
+							<span class="input-group-text " id="inputGroup-sizing-sm">Date limite d'inscription</span>
+							<input type="datetime-local" id="date_cloture" name="date_cloture" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" required>
+						</div>
+					</tr>
+					<tr>
+						<div class="input-group input-group-sm mb-3">
+							<span class="input-group-text " id="inputGroup-sizing-sm">Nombre de places</span>
+							<input type="number" min="0" id="nbInscriptionsMax" name="nbInscriptionsMax" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" required>
+						</div>
+					</tr>
+					<tr>
+						<div class="input-group input-group-sm mb-3">
+							<span class="input-group-text " id="inputGroup-sizing-sm">Durée</span>
+							<input type="number" min="0" id="nbInscriptionsMax" name="nbInscriptionsMax" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">&nbsp;minutes
+						</div>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div>
+			<table>
+				<tbody>
+					<tr>
+						<div class="input-group input-group-sm mb-3">
+							<span class="input-group-text " id="inputGroup-sizing-sm">Ville organisatrice</span>
+							<input type="text" class="form-control  " aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" disabled value="{{app.user.sites}}">
+						</div>
+					</tr>
+					<tr>
+						<div class="input-group input-group-sm mb-3">
+							<span class="input-group-text " id="inputGroup-sizing-sm">Ville</span>
+							<select class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="ville" id="ville" required>
+								<option selected></option>
+								{% for ville in villes %}
+									<option value="ville{{ville.getId()}}" id="ville{{ville.getId()}}" data-ville="{{ville.getCodePostal()}}">{{ville.getNomVille()}}</option>
+								{% endfor %}
+							</select>
+						</div>
+					</tr>
+					<tr>
+						<div class="input-group input-group-sm mb-3">
+							<span class="input-group-text " id="inputGroup-sizing-sm">Lieu</span>
+							<select class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="lieu" id="lieu" required disabled></select>
+						</div>
+					</tr>
 
-                <script type="text/javascript">
-                    function switchLieu(id) {
-                        console.log("aaaa");
-                    }
-                </script>
+					<script type="text/javascript">
+						document.getElementById('ville').addEventListener('change', e =>{
+							let selectLieu = document.getElementById("lieu");
+							if (selectLieu.disabled == true) selectLieu.disabled = false;
 
-				<tr>
-					<td>Lieu :
-					</td>
-					<td>
-						<select name="lieu" id="lieu" style="width:60%" required>
-							{% for lieu in lieux %}
-								<option value="{{lieu.getId()}}">{{lieu.getNomLieu()}}</option>
-							{% endfor %}
-						</select>
-					</td>
-				</tr>
-				<tr>
-					<td>Rue :
-					</td>
-					<td></td>
-				</tr>
-				<tr>
-					<td>Code postal :
-					</td>
-					<td></td>
-				</tr>
-			</tbody>
-		</table>
+							let cp = document.getElementById(document.getElementById("ville").value).getAttribute("data-ville");
+							let id = document.getElementById(document.getElementById("ville").value).getAttribute("id").replace("ville","");
+							document.getElementById('cp').value = cp;
+
+							$('#lieu').find('option').remove();
+							
+							let opt = new Option();
+							opt.setAttribute("selected","");
+							selectLieu.options.add(opt);
+
+							axios.get("http://localhost/Projet-symfony/public/lieux_ville/"+id).then((response) => {
+								response.data.forEach(elt => {
+									let newOption = new Option(elt.nom_lieu, "lieu"+elt.id);
+									newOption.setAttribute("id","lieu"+elt.id);
+									newOption.setAttribute("data-lieu",elt.rue);
+									selectLieu.options.add(newOption);
+								});
+							});
+							console.log(document.getElementById("lieu"));
+						})
+
+						document.getElementById('lieu').addEventListener('change', e =>{
+							let rue = document.getElementById(document.getElementById("lieu").value).getAttribute("data-lieu");
+							document.getElementById('rue').value = rue;
+						})
+					</script>
+
+					<tr>
+						<div class="input-group input-group-sm mb-3">
+							<span class="input-group-text " id="inputGroup-sizing-sm">Rue</span>
+							<input type="text" id="rue" name="rue" class="form-control  " aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" disabled>
+						</div>
+					</tr>
+					<tr>
+						<div class="input-group input-group-sm mb-3">
+							<span class="input-group-text " id="inputGroup-sizing-sm">Code postal</span>
+							<input type="text" id="cp" name="cp" class="form-control  " aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" disabled>
+						</div>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	</div>
 	<div>
 		<table>
 			<tbody>
 				<tr>
-					<td>Description et infos :
-					</td>
-					<td>
-						<textarea name="description" id="description" cols="36" rows="3"></textarea>
-					</td>
+					<div class="input-group input-group-sm mb-3">
+						<span class="input-group-text " id="inputGroup-sizing-sm">Description et infos</span>
+						<textarea name="description" id="description" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"></textarea>
+					</div>
 				</tr>
 			</tbody>
 		</table>
 	</div>
 	<div>
-		<button type="submit" name="etat" value="enregistrer" class="btn btn-dark">Enregistrer</button>
-		<button type="submit" name="etat" value="publier" class="btn btn-dark">Publier</button>
+		<button type="submit" name="etat" value="enregistrer" class="btn btn-primary">Enregistrer</button>
+		<button type="submit" name="etat" value="publier" class="btn btn-primary">Publier</button>
 	</div>
 	{{form_end(formSortie)}}
 
     <hr>
 	<!-- bouton modal -->
 	<div>
-		<button type="button" class="btn btn-dark btn-group btn-group-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+		<button type="button" class="btn btn-success btn-group btn-group-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
 			<i class="fas fa-plus">&nbsp;Ajouter un lieu</i>
 		</button>
 	</div>

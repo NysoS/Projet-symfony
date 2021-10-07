@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\LieuxRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -16,32 +17,38 @@ class Lieux
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("lieu:read")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=30)
+     * @Groups("lieu:read")
      */
     private $nom_lieu;
 
     /**
      * @ORM\Column(type="string", length=30, nullable=true)
+     * @Groups("lieu:read")
      */
     private $rue;
 
     /**
      * @ORM\Column(type="float", nullable=true)
+     * @Groups("lieu:read")
      */
     private $latitude;
 
     /**
      * @ORM\Column(type="float", nullable=true)
+     * @Groups("lieu:read")
      */
     private $longitude;
 
     /**
      * @ORM\ManyToOne(targetEntity=Villes::class, inversedBy="lieux")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups("lieu:read")
      */
     private $villes;
 
