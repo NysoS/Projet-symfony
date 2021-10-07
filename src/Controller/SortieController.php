@@ -150,4 +150,23 @@ class SortieController extends AbstractController
         $em->flush();
         return $this->redirectToRoute("home");
     }
+
+    /**
+     * @Route("/inscription/{sortie}/{user}", name="inscriptionSortie")
+     */
+    public function inscriptionSortie(Sorties $sortie, Participant $user, EntityManagerInterface $em, InscriptionsRepository $ir): Response
+    {
+        $test = $ir->findBy(["sorties"=> $sortie->getId(), "participants"=> $user->getId()]);
+        if ($test == null) {
+            $inscription = new Inscriptions();
+            $inscription->setDateInscription(new \DateTime(date("Y-m-d H:i:s")));
+            $inscription->setSorties($sortie);
+            $inscription->setParticipants($user);
+
+            $em->persist($inscription);
+            $em->flush();
+        }
+
+        return $this->redirectToRoute("home");
+    }
 }

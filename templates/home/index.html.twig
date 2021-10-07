@@ -16,7 +16,7 @@
 						<label for="inputPassword" class="col-sm-2 col-form-label">Site</label>
 						<div class="col-sm-10">
 							<select class="form-select form-select mb-3" aria-label=".form-select example" name="filter_site">
-								<option selected value="default">Open this select menu</option>
+								<option selected value="default">Choix du site</option>
 								{% for site in lstSites %}
 									<option {% if memory['site'] == site.id %}selected{% endif %} value="{{site.Id}}">{{ site.getNomSite() }}</option>
 								{% endfor %}
@@ -86,7 +86,7 @@
 					<tbody>
 						{% for sortie in lstSortie %}
 							<tr>
-								<td>{{sortie.nom}}</td>
+								<td><a href="{{path('showSortie',{id:sortie.id})}}">{{sortie.nom}}</a></td>
 								<td>{{sortie.getDateDebut() | date('d/m/Y H:i')}}</td>
 								<td>{{sortie.getDateCloture() | date('d/m/Y')}}</td>
 								<td> 
@@ -97,20 +97,43 @@
 									{% for ins in sortie.getInscriptions() %}
 										{% if app.user.Id == ins.getParticipants().Id  %}
 											X
-										{% else %}
-											
-
 										{% endif %}
 									{% endfor %}
 								</td>
 								<td>{{sortie.organisateur.nom|upper}} {{sortie.organisateur.prenom}}</td>
+								<td>
+									{% if is_granted("ROLE_ADMIN") %}
+										<div>
+											<a href="{{path('editSortie',{'id':sortie.id})}}" class="btn btn-warning">Modifier</a>
+											<a href="{{path('delSortie',{'id':sortie.id})}}" class="btn btn-danger">Supprimer</a>
+											<a href="{{path('annuleSortie',{'id':sortie.id})}}" class="btn btn-info">Annuler</a>
+										</div>
+									{% endif %}
+									<div style="margin-top:1%">
+										{% set inscrit = false %}
+										{% for ins in sortie.getInscriptions() %}
+											{% if app.user.Id == ins.getParticipants().Id  %}
+												{% set inscrit = true %}
+											{% endif %}
+										{% endfor %}
+										{% if inscrit == true  %}
+											<a href="{{path('desistSortie',{'sortie':sortie.id,'user':app.user.getId()})}}" class="btn btn-outline-secondary">Se désister</a>
+										{% else %}
+											{% if sortie.etats.getLibelle() != "Clôturée" and sortie.etats.getLibelle() != "passée" %}
+												<a href="{{path('inscriptionSortie',{'sortie':sortie.id,'user':app.user.getId()})}}" class="btn btn-outline-secondary">S'inscrire</a>
+											{% endif %}
+										{% endif %}
+									</div>
+								</td>
 							</tr>
 						{% endfor %}
 					</tbody>
 				</table>
 			</div>
 
-			<a href="{{path('addSortie')}}" class="btn btn-primary">Créer une sortie</a>
+			{% if is_granted("ROLE_ADMIN") %}
+				<a href="{{path('addSortie')}}" class="btn btn-success">Créer une sortie</a>
+			{% endif %}
 		{% else %}
 			<div class="container">Veuillez vous connecter</div>
 		{% endif %}
