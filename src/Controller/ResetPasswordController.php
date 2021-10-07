@@ -18,10 +18,6 @@ use SymfonyCasts\Bundle\ResetPassword\Controller\ResetPasswordControllerTrait;
 use SymfonyCasts\Bundle\ResetPassword\Exception\ResetPasswordExceptionInterface;
 use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 367ff269a7998c1ec12142eaad8bba34ee4deb0a
 /**
  * @Route("/reset-password")
  */
@@ -41,13 +37,6 @@ class ResetPasswordController extends AbstractController
      *
      * @Route("", name="app_forgot_password_request")
      */
-<<<<<<< HEAD
-
-    /**
-     * @Route("",name:"app_forgot_password_request" )
-     */
-=======
->>>>>>> 367ff269a7998c1ec12142eaad8bba34ee4deb0a
     public function request(Request $request, MailerInterface $mailer): Response
     {
         $form = $this->createForm(ResetPasswordRequestFormType::class);
@@ -70,13 +59,6 @@ class ResetPasswordController extends AbstractController
      *
      * @Route("/check-email", name="app_check_email")
      */
-<<<<<<< HEAD
-
-    /**
-     * @Route("/check-email",name:"app_check_email" )
-     */
-=======
->>>>>>> 367ff269a7998c1ec12142eaad8bba34ee4deb0a
     public function checkEmail(): Response
     {
         // Generate a fake token if the user does not exist or someone hit this page directly.
@@ -95,12 +77,6 @@ class ResetPasswordController extends AbstractController
      *
      * @Route("/reset/{token}", name="app_reset_password")
      */
-<<<<<<< HEAD
-    /**
-     * @Route("/reset/{token}",name:"app_reset_password" )
-     */
-=======
->>>>>>> 367ff269a7998c1ec12142eaad8bba34ee4deb0a
     public function reset(Request $request, UserPasswordEncoderInterface $passwordEncoder, string $token = null): Response
     {
         if ($token) {
@@ -188,8 +164,7 @@ class ResetPasswordController extends AbstractController
             ->htmlTemplate('reset_password/email.html.twig')
             ->context([
                 'resetToken' => $resetToken,
-            ])
-        ;
+            ]);
 
         $mailer->send($email);
 
