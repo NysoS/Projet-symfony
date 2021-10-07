@@ -5,9 +5,9 @@
 
 		{% if app.user %}
 
-			<div class="home-info m-5">
-				<h4 class="sub-title">Date du jour</h4>
-				<h4 class="sub-title">Participant</h4>
+			<div class="home-info m-3">
+				<h4 class="sub-title">Date du jour: {{'now'|date('d/m/Y')}}</h4>
+				<h4 class="sub-title">{% if is_granted('ROLE_ADMIN')%}Administrateur{% else %}Participant: {{app.user.nom}}{% endif %}</h4>
 			</div>
 
 			<form id="home-form" action="{{path('home')}}" method="post">
@@ -40,28 +40,28 @@
 						</div>
 					</div>
 				</div>
-				<div class="filter-p2">
+				<div class="filter-p2 ms-3 me-3">
 					<div class="form-check">
-						<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-						<label class="form-check-label" for="flexCheckDefault">
+						<input class="form-check-input" type="checkbox" id="ch_1" name="ch_s_1" {% if memory['ch_1'] is defined %}checked{% endif %}>
+						<label class="form-check-label" for="ch_1">
 							Sorties dont je suis l'organisateur/trice
 						</label>
 					</div>
 					<div class="form-check">
-						<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-						<label class="form-check-label" for="flexCheckDefault">
+						<input class="form-check-input" type="checkbox" id="ch_2" name="ch_s_2" {% if memory['ch_2'] is defined %}checked{% endif %}>
+						<label class="form-check-label" for="ch_2">
 							Sorties auxquelles je suis inscrit/e
 						</label>
 					</div>
 					<div class="form-check">
-						<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-						<label class="form-check-label" for="flexCheckDefault">
+						<input class="form-check-input" type="checkbox" id="ch_3" name="ch_s_3" {% if memory['ch_3'] is defined %}checked{% endif %}>
+						<label class="form-check-label" for="ch_3">
 							Sorties auxquelles je ne suis pas inscrit/e
 						</label>
 					</div>
 					<div class="form-check">
-						<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-						<label class="form-check-label" for="flexCheckDefault">
+						<input class="form-check-input" type="checkbox" id="ch_4" name="ch_s_4" {% if memory['ch_4'] is defined %}checked{% endif %}>
+						<label class="form-check-label" for="ch_4">
 							Sorties passées
 						</label>
 					</div>
@@ -71,9 +71,9 @@
 
 			</form>
 
-			<div id="table-home">
+			<div id="table-home" class="table-responsive my-custom-scrollbar table-wrapper-scroll-y">
 				<table class="table">
-					<thead>
+					<thead class="sticky-top table-dark">
 						<th>Nom de la sortie</th>
 						<th>Date de la sortie</th>
 						<th>Date de clôture</th>
@@ -103,7 +103,7 @@
 										{% endif %}
 									{% endfor %}
 								</td>
-								<td>{{sortie.organisateur.nom}}</td>
+								<td>{{sortie.organisateur.nom|upper}} {{sortie.organisateur.prenom}}</td>
 							</tr>
 						{% endfor %}
 					</tbody>

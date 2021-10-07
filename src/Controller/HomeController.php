@@ -16,10 +16,11 @@ class HomeController extends AbstractController
      */
     public function index(SortiesRepository $sortie, SitesRepository $sites, Request $req): Response
     {
-        $lstSortie = $sortie->filtersHomeSorties($req);
+        $lstSortie = $sortie->filtersHomeSorties($req,$this->getUser());
         $lstSites = $sites->findAll();
-
+        
         $memory = [];
+
         if($req->get('filter_site') != null){
             $memory['site'] = $req->get('filter_site');
         }else if($req->get('filter_site') == null){
@@ -31,6 +32,23 @@ class HomeController extends AbstractController
             $memory['d2'] = $req->get('filter_d2');
         }
         
+        if($req->get('ch_s_1') != null){
+            $memory['ch_1'] = true;
+        }
+
+        if($req->get('ch_s_2') != null){
+            $memory['ch_2'] = true;
+        }
+
+        if($req->get('ch_s_3') != null){
+            $memory['ch_3'] = true;
+        }
+
+        if($req->get('ch_s_4') != null){
+            $memory['ch_4'] = true;
+        }
+
+
       //  dd($memory);
         return $this->render('home/index.html.twig', [
             'lstSortie' => $lstSortie,
