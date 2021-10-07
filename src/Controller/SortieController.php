@@ -9,16 +9,12 @@ use App\Repository\EtatsRepository;
 use App\Repository\InscriptionsRepository;
 use App\Repository\LieuxRepository;
 use App\Repository\ParticipantRepository;
-use App\Repository\SortiesRepository;
 use App\Repository\VillesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use Symfony\Component\Serializer\Serializer;
 
 class SortieController extends AbstractController
 {
@@ -42,13 +38,12 @@ class SortieController extends AbstractController
             $sortie->setDuree($req->get("duree"));
             $sortie->setDescription($req->get("description"));
             $sortie->setOrganisateur($this->getUser());
-            $sortie->setLieux($lr->findOneBy(array("id" => $req->get("lieu"))));
-            $sortie->getLieux()->setVilles($vr->findOneBy(array("id" => $req->get("ville"))));
+            $sortie->setLieux($lr->findOneBy(array("id" => str_replace("lieu","",$req->get("lieu")))));
 
             if ($req->get("etat") == "enregistrer") $sortie->setEtats($er->findOneBy(array("libelle" => "Créée")));
             else $sortie->setEtats($er->findOneBy(array("libelle" => "Ouverte")));
 
-            dd($req);
+            dd($sortie);
 
             $em->persist($sortie);
             $em->flush();

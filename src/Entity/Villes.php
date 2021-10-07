@@ -97,4 +97,8 @@ class Villes
 
         return $this;
     }
+
+    public function json() {
+        $json = json_encode("{'lieux':".$this->getLieux()."}");
+    }
 }
