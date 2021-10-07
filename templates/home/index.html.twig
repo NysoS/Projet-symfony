@@ -1,93 +1,115 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!
-{% endblock %}
-
 {% block body %}
 	<div id="home">
 
 		{% if app.user %}
 
-		<div class="home-info m-5">
-			<h4 class="sub-title">Date du jour</h4>
-			<h4 class="sub-title">Participant</h4>
-		</div>
-
-		<form id="home-form" action="">
-			<div class="filter-p1">
-				<div class="mb-3 row">
-					<label for="inputPassword" class="col-sm-2 col-form-label">Site</label>
-					<div class="col-sm-10">
-						<select class="form-select form-select mb-3" aria-label=".form-select example">
-							<option selected>Open this select menu</option>
-							<option value="1">One</option>
-							<option value="2">Two</option>
-							<option value="3">Three</option>
-						</select>
-					</div>
-				</div>
-				<div class="mb-3 row">
-					<label for="lblN" class="col-sm-2 col-form-label">Le nom de la sortie contient</label>
-					<div class="col-sm-10">
-						<input type="text" class="form-control" id="lblN">
-					</div>
-				</div>
-				<div class="mb-3 row">
-					<label for="lbld1" class="col-auto col-form-label">Entre</label>
-					<div class="col-auto">
-						<input type="date" class="form-control" id="lbld1">
-					</div>
-					<label for="lbld2" class="col-auto col-form-label ms-3">Et</label>
-					<div class="col-auto">
-						<input type="date" class="form-control" id="lbld2">
-					</div>
-				</div>
-			</div>
-			<div class="filter-p2">
-				<div class="form-check">
-					<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-					<label class="form-check-label" for="flexCheckDefault">
-						Default checkbox
-					</label>
-				</div>
-				<div class="form-check">
-					<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-					<label class="form-check-label" for="flexCheckDefault">
-						Default checkbox
-					</label>
-				</div>
-				<div class="form-check">
-					<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-					<label class="form-check-label" for="flexCheckDefault">
-						Default checkbox
-					</label>
-				</div>
-				<div class="form-check">
-					<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-					<label class="form-check-label" for="flexCheckDefault">
-						Default checkbox
-					</label>
-				</div>
+			<div class="home-info m-5">
+				<h4 class="sub-title">Date du jour</h4>
+				<h4 class="sub-title">Participant</h4>
 			</div>
 
-			<button class="btn btn-primary btn-lg">Rechercher</button>
+			<form id="home-form" action="">
+				<div class="filter-p1">
+					<div class="mb-3 row">
+						<label for="inputPassword" class="col-sm-2 col-form-label">Site</label>
+						<div class="col-sm-10">
+							<select class="form-select form-select mb-3" aria-label=".form-select example">
+								<option selected>Open this select menu</option>
+								{% for site in lstSites %}
+									<option value="{{site.Id}}">{{ site.getNomSite() }}</option>
+								{% endfor %}
+							</select>
+						</div>
+					</div>
+					<div class="mb-3 row">
+						<label for="lblN" class="col-sm-2 col-form-label">Le nom de la sortie contient</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="lblN">
+						</div>
+					</div>
+					<div class="mb-3 row">
+						<label for="lbld1" class="col-auto col-form-label">Entre</label>
+						<div class="col-auto">
+							<input type="date" class="form-control" id="lbld1">
+						</div>
+						<label for="lbld2" class="col-auto col-form-label ms-3">Et</label>
+						<div class="col-auto">
+							<input type="date" class="form-control" id="lbld2">
+						</div>
+					</div>
+				</div>
+				<div class="filter-p2">
+					<div class="form-check">
+						<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+						<label class="form-check-label" for="flexCheckDefault">
+							Sorties dont je suis l'organisateur/trice
+						</label>
+					</div>
+					<div class="form-check">
+						<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+						<label class="form-check-label" for="flexCheckDefault">
+							Sorties auxquelles je suis inscrit/e
+						</label>
+					</div>
+					<div class="form-check">
+						<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+						<label class="form-check-label" for="flexCheckDefault">
+							Sorties auxquelles je ne suis pas inscrit/e
+						</label>
+					</div>
+					<div class="form-check">
+						<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+						<label class="form-check-label" for="flexCheckDefault">
+							Sorties passées
+						</label>
+					</div>
+				</div>
 
-		</form>
-        
-		<div id="table-home">
-			<table class="table">
-				<thead>
-					<th>Nom de la sortie</th>
-					<th>Date de la sortie</th>
-					<th>Clôture</th>
-					<th>Inscrits/places</th>
-					<th>Etat</th>
-					<th>Inscrit</th>
-					<th>Organisateur</th>
-					<th>Actions</th>
-				</thead>
-			</table>
-		</div>
+				<button class="btn btn-primary btn-lg">Rechercher</button>
+
+			</form>
+
+			<div id="table-home">
+				<table class="table">
+					<thead>
+						<th>Nom de la sortie</th>
+						<th>Date de la sortie</th>
+						<th>Date de clôture</th>
+						<th>Inscrits/places</th>
+						<th>Etat</th>
+						<th>Inscrit</th>
+						<th>Organisateur</th>
+						<th>Actions</th>
+					</thead>
+					<tbody>
+						{% for sortie in lstSortie %}
+							<tr>
+								<td>{{sortie.nom}}</td>
+								<td>{{sortie.getDateDebut() | date('d/m/Y H:i')}}</td>
+								<td>{{sortie.getDateCloture() | date('d/m/Y')}}</td>
+								<td> 
+									{{sortie.getInscriptions().count}}/{{sortie.nbInscriptionsMax}}
+								</td>
+								<td>{{sortie.etats.libelle}}</td>
+								<td>
+									{% for ins in sortie.getInscriptions() %}
+										{% if app.user.Id == ins.getParticipants().Id  %}
+											X
+										{% else %}
+											
+
+										{% endif %}
+									{% endfor %}
+								</td>
+								<td>{{sortie.organisateur.nom}}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+
 
 		{% else %}
 			<div class="container">Veuillez vous connecter</div>

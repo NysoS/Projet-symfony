@@ -4,16 +4,19 @@ namespace App\Controller;
 
 use App\Entity\Participant;
 use App\Form\ParticipantType;
-use App\Repository\ParticipantRepository;
 use App\Repository\SitesRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\ParticipantRepository;
+use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Serializer\Exception\NotEncodableValueException;
+use Symfony\Component\Serializer\Encoder\CsvEncoder;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Serializer\Exception\NotEncodableValueException;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class ProfileController extends AbstractController
 {
@@ -125,42 +128,80 @@ class ProfileController extends AbstractController
     /**
      * @Route("/participant/profil/addJson", name="app_profile_add_json")
      */
-    public function addJsonParticipant(Request $request, SerializerInterface $serializer, EntityManagerInterface $em, SitesRepository $sitesRepository)
+    public function addJsonParticipant(Request $request, SerializerInterface $serializer, EntityManagerInterface $em, SitesRepository $sitesRepository, UserPasswordEncoderInterface $passwordEncoder)
     {
         if ($request->getMethod() == "POST") {
-
             try {
                 $files = $request->files->all();
-
-
                 foreach ($files as $file) {
-
-                    dd($file->getMimetype());
                     //vérification de l'extension de mon ficher
                     $nomFichier = $file->getClientOriginalName();
 
                     //vérification si  .json ou .csv 
-                    if (str_contains($nomFichier, '.csv') && $file->getMimetype() == "text/plain") {
-                        dd('il y a du csv');
+                    if (str_contains($nomFichier, '.csv') && $file->getMimetype() == ("text/plain" or "application/vnd.ms-excel")) {
+
                         //traitement dans le cas ou c'est du csv 
+                        $context = [CsvEncoder::DELIMITER_KEY => ','];
+                        $csvEncoder = new CsvEncoder($context);
 
+                        $data = $csvEncoder->decode(file_get_contents($file), 'csv', $context);
 
-                    } elseif (str_contains($nomFichier, '.json')) {
-                        dd('il y a du csv');
+                        foreach ($data as $tabCsvParticipant) {
+
+                            $participant =  new Participant;
+                            $participant->setEmail($tabCsvParticipant['email']);
+                            $participant->setRoles([$tabCsvParticipant['roles']]);
+                            $participant->setNom($tabCsvParticipant['nom']);
+                            $participant->setPrenom($tabCsvParticipant['prenom']);
+                            $participant->setActif(boolval($tabCsvParticipant['actif']));
+                            $participant->setPassword(
+                                $passwordEncoder->encodePassword(
+                                    $participant,
+                                    $tabCsvParticipant['password']
+                                )
+                            );
+
+                            $siteId = $tabCsvParticipant['sites'];
+                            $site = $sitesRepository->findOneBy(['id' => $siteId]);
+
+                            $participant->setSites($site);
+
+                            $em->persist($participant);
+                            $em->flush();
+                        }
+                    } elseif (str_contains($nomFichier, '.json') && $file->getMimetype() == "application/json") {
+
                         //traitement dans le cas ou c'est du json 
-
                         $json = file_get_contents($file->getPathname());
-                        $siteId = json_decode($json)->sites;
-                        $site = $sitesRepository->findOneBy(['id' => $siteId]);
-                        $participant = $serializer->deserialize($json, Participant::class, 'json');
-                        $participant->setSites($site);
-                        $em->persist($participant);
-                        $em->flush();
-                    }
 
-                    return $this->redirectToRoute('app_profile_add_json');
+                        //conversion en tableau 
+                        $tabJson = json_decode($json);
+
+                        foreach ($tabJson as $tabJsonParticipant) {
+                            $siteId = $tabJsonParticipant->sites;
+
+                            //traitement des participant
+                            $participant = $serializer->deserialize(json_encode($tabJsonParticipant), Participant::class, 'json');
+                            $site = $sitesRepository->findOneBy(['id' => $siteId]);
+                            $participant->setSites($site);
+                            $participant->setPassword(
+                                $passwordEncoder->encodePassword(
+                                    $participant,
+                                    $tabJsonParticipant->password
+                                )
+                            );
+
+                            $em->persist($participant);
+                            $em->flush();
+                        }
+                    }
                 }
-            } catch (NotEncodableValueException $e) {
+                // je signale l'utilisateur 
+                $this->addFlash('success', 'converssion ok');
+                return $this->render('profile/test.html.twig');
+            } catch (NotEncodableValueException $th) {
+
+                $this->addFlash('error', 'impossible de convertir le ficher');
                 return $this->render('profile/test.html.twig');
             }
         }
