@@ -23,3 +23,5 @@
 /public/media/cache/
 /public/images/participants/
 ###< liip/imagine-bundle ###
+
+/composer.json
