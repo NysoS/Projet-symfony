@@ -5,9 +5,9 @@
 
 		{% if app.user %}
 
-			<div class="home-info m-5">
-				<h4 class="sub-title">Date du jour</h4>
-				<h4 class="sub-title">Participant</h4>
+			<div class="home-info m-3">
+				<h4 class="sub-title">Date du jour: {{'now'|date('d/m/Y')}}</h4>
+				<h4 class="sub-title">{% if is_granted('ROLE_ADMIN')%}Administrateur{% else %}Participant: {{app.user.nom}}{% endif %}</h4>
 			</div>
 
 			<form id="home-form" action="{{path('home')}}" method="post">
@@ -16,7 +16,7 @@
 						<label for="inputPassword" class="col-sm-2 col-form-label">Site</label>
 						<div class="col-sm-10">
 							<select class="form-select form-select mb-3" aria-label=".form-select example" name="filter_site">
-								<option selected value="default">Open this select menu</option>
+								<option selected value="default">Choix du site</option>
 								{% for site in lstSites %}
 									<option {% if memory['site'] == site.id %}selected{% endif %} value="{{site.Id}}">{{ site.getNomSite() }}</option>
 								{% endfor %}
@@ -40,28 +40,28 @@
 						</div>
 					</div>
 				</div>
-				<div class="filter-p2">
+				<div class="filter-p2 ms-3 me-3">
 					<div class="form-check">
-						<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-						<label class="form-check-label" for="flexCheckDefault">
+						<input class="form-check-input" type="checkbox" id="ch_1" name="ch_s_1" {% if memory['ch_1'] is defined %}checked{% endif %}>
+						<label class="form-check-label" for="ch_1">
 							Sorties dont je suis l'organisateur/trice
 						</label>
 					</div>
 					<div class="form-check">
-						<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-						<label class="form-check-label" for="flexCheckDefault">
+						<input class="form-check-input" type="checkbox" id="ch_2" name="ch_s_2" {% if memory['ch_2'] is defined %}checked{% endif %}>
+						<label class="form-check-label" for="ch_2">
 							Sorties auxquelles je suis inscrit/e
 						</label>
 					</div>
 					<div class="form-check">
-						<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-						<label class="form-check-label" for="flexCheckDefault">
+						<input class="form-check-input" type="checkbox" id="ch_3" name="ch_s_3" {% if memory['ch_3'] is defined %}checked{% endif %}>
+						<label class="form-check-label" for="ch_3">
 							Sorties auxquelles je ne suis pas inscrit/e
 						</label>
 					</div>
 					<div class="form-check">
-						<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-						<label class="form-check-label" for="flexCheckDefault">
+						<input class="form-check-input" type="checkbox" id="ch_4" name="ch_s_4" {% if memory['ch_4'] is defined %}checked{% endif %}>
+						<label class="form-check-label" for="ch_4">
 							Sorties passées
 						</label>
 					</div>
@@ -71,9 +71,9 @@
 
 			</form>
 
-			<div id="table-home">
+			<div id="table-home" class="table-responsive my-custom-scrollbar table-wrapper-scroll-y">
 				<table class="table">
-					<thead>
+					<thead class="sticky-top table-dark">
 						<th>Nom de la sortie</th>
 						<th>Date de la sortie</th>
 						<th>Date de clôture</th>
@@ -86,7 +86,7 @@
 					<tbody>
 						{% for sortie in lstSortie %}
 							<tr>
-								<td>{{sortie.nom}}</td>
+								<td><a href="{{path('showSortie',{id:sortie.id})}}">{{sortie.nom}}</a></td>
 								<td>{{sortie.getDateDebut() | date('d/m/Y H:i')}}</td>
 								<td>{{sortie.getDateCloture() | date('d/m/Y')}}</td>
 								<td> 
@@ -97,20 +97,43 @@
 									{% for ins in sortie.getInscriptions() %}
 										{% if app.user.Id == ins.getParticipants().Id  %}
 											X
-										{% else %}
-											
-
 										{% endif %}
 									{% endfor %}
 								</td>
-								<td>{{sortie.organisateur.nom}}</td>
+								<td>{{sortie.organisateur.nom|upper}} {{sortie.organisateur.prenom}}</td>
+								<td>
+									{% if is_granted("ROLE_ADMIN") %}
+										<div>
+											<a href="{{path('editSortie',{'id':sortie.id})}}" class="btn btn-warning">Modifier</a>
+											<a href="{{path('delSortie',{'id':sortie.id})}}" class="btn btn-danger">Supprimer</a>
+											<a href="{{path('annuleSortie',{'id':sortie.id})}}" class="btn btn-info">Annuler</a>
+										</div>
+									{% endif %}
+									<div style="margin-top:1%">
+										{% set inscrit = false %}
+										{% for ins in sortie.getInscriptions() %}
+											{% if app.user.Id == ins.getParticipants().Id  %}
+												{% set inscrit = true %}
+											{% endif %}
+										{% endfor %}
+										{% if inscrit == true  %}
+											<a href="{{path('desistSortie',{'sortie':sortie.id,'user':app.user.getId()})}}" class="btn btn-outline-secondary">Se désister</a>
+										{% else %}
+											{% if sortie.etats.getLibelle() != "Clôturée" and sortie.etats.getLibelle() != "passée" %}
+												<a href="{{path('inscriptionSortie',{'sortie':sortie.id,'user':app.user.getId()})}}" class="btn btn-outline-secondary">S'inscrire</a>
+											{% endif %}
+										{% endif %}
+									</div>
+								</td>
 							</tr>
 						{% endfor %}
 					</tbody>
 				</table>
 			</div>
 
-			<a href="{{path('addSortie')}}" class="btn btn-primary">Créer une sortie</a>
+			{% if is_granted("ROLE_ADMIN") %}
+				<a href="{{path('addSortie')}}" class="btn btn-success">Créer une sortie</a>
+			{% endif %}
 		{% else %}
 			<div class="container">Veuillez vous connecter</div>
 		{% endif %}

@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Participant;
 use App\Entity\Sorties;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Collections\Expr\Value;
@@ -21,7 +22,7 @@ class SortiesRepository extends ServiceEntityRepository
         parent::__construct($registry, Sorties::class);
     }
 
-    public function filtersHomeSorties(Request $req)
+    public function filtersHomeSorties(Request $req, Participant $p = null)
     {
         $qb = $this->createQueryBuilder('s');
 
@@ -40,6 +41,38 @@ class SortiesRepository extends ServiceEntityRepository
             $qb->where('s.date_debut >= :d1 and s.date_cloture <= :d2')
                 ->setParameter(':d1',$req->get('filter_d1'))
                 ->setParameter(':d2',$req->get('filter_d2'));
+        }
+       
+        if($req->get('ch_s_1') != null){
+            $qb->where('s.organisateur = :idP')
+                ->setParameter(':idP', $p->getId());
+        }
+
+
+        if($req->get('ch_s_2') != null and $req->get('ch_s_3') != null){
+        }else{
+            if($req->get('ch_s_2') != null){
+                $qb->innerJoin('s.inscriptions', 'i')
+                    ->addSelect('i')
+                    ->where('i.id = s.inscriptions')
+                    ->where('i.participants = :idP2')
+                    ->setParameter(':idP2', $p->getId());
+            }
+    
+            if($req->get('ch_s_3') != null){
+                $qb->innerJoin('s.inscriptions', 'i')
+                    ->addSelect('i')
+                    ->where('i.id = s.inscriptions')
+                    ->where('i.participants <> :idP3')
+                    ->setParameter(':idP3', $p->getId());
+            }
+        }
+
+        if($req->get('ch_s_4') != null){
+            $qb->innerJoin('s.etats', 'e')
+                ->addSelect('e')
+                ->where('e.id = s.etats')
+                ->where('e.libelle = \'passée\'');
         }
 
         $query = $qb->getQuery();
