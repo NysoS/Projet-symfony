@@ -112,7 +112,6 @@ class AppFixtures extends Fixture
                 $inscription->setSorties($sortie);
                 $inscription->setDateInscription($faker->dateTime());
 
-
                 for ($k = 0; $k < 5; $k++) {
                     //participant random 
                     $participant2 = new Participant;
