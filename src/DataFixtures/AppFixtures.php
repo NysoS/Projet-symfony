@@ -67,6 +67,7 @@ class AppFixtures extends Fixture
             $participant->setRoles([$faker->randomElement(['ROLE_ADMIN', 'ROLE_USER'])]);
             $participant->setNom($faker->lastName());
             $participant->setPrenom($faker->firstName());
+            $participant->setPseudo();
             $participant->setActif($faker->randomElement([0, 1]));
             $participant->setTelephone("0303030303");
             $participant->setPassword('$argon2id$v=19$m=65536,t=4,p=1$MGJVd21saldNOWxWdkhORg$mv+TGK3oanf+xyfVDptsDSWNudc7YFVEeD2fk4QBS00');
@@ -120,6 +121,7 @@ class AppFixtures extends Fixture
                     $participant2->setRoles(['ROLE_USER']);
                     $participant2->setNom($faker->lastName());
                     $participant2->setPrenom($faker->firstName());
+                    $participant2->setPseudo();
                     $participant2->setActif(true);
                     $participant2->setTelephone("0202020202");
                     $participant2->setPassword('$argon2id$v=19$m=65536,t=4,p=1$MGJVd21saldNOWxWdkhORg$mv+TGK3oanf+xyfVDptsDSWNudc7YFVEeD2fk4QBS00');

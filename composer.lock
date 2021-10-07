@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f595ebbb195274a44e22d5727044ef03",
+    "content-hash": "c4c65d43ffa3714dda99dd13252b344e",
     "packages": [
         {
             "name": "composer/package-versions-deprecated",
@@ -7938,14 +7938,9 @@
         {
             "name": "doctrine/data-fixtures",
             "version": "1.5.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/doctrine/data-fixtures.git",
-                "reference": "f18adf13f6c81c67a88360dca359ad474523f8e3"
-            },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/data-fixtures/zipball/f18adf13f6c81c67a88360dca359ad474523f8e3",
+                "url": "http://nexus.depot-eni.fr:8081/repository/composer-proxy-packagist.org/doctrine/data-fixtures/1.5.1/doctrine-data-fixtures-1.5.1.zip",
                 "reference": "f18adf13f6c81c67a88360dca359ad474523f8e3",
                 "shasum": ""
             },
@@ -7977,7 +7972,6 @@
                     "Doctrine\\Common\\DataFixtures\\": "lib/Doctrine/Common/DataFixtures"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -7992,10 +7986,6 @@
             "keywords": [
                 "database"
             ],
-            "support": {
-                "issues": "https://github.com/doctrine/data-fixtures/issues",
-                "source": "https://github.com/doctrine/data-fixtures/tree/1.5.1"
-            },
             "funding": [
                 {
                     "url": "https://www.doctrine-project.org/sponsorship.html",
@@ -8015,14 +8005,9 @@
         {
             "name": "doctrine/doctrine-fixtures-bundle",
             "version": "3.4.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/doctrine/DoctrineFixturesBundle.git",
-                "reference": "870189619a7770f468ffb0b80925302e065a3b34"
-            },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/DoctrineFixturesBundle/zipball/870189619a7770f468ffb0b80925302e065a3b34",
+                "url": "http://nexus.depot-eni.fr:8081/repository/composer-proxy-packagist.org/doctrine/doctrine-fixtures-bundle/3.4.0/doctrine-doctrine-fixtures-bundle-3.4.0.zip",
                 "reference": "870189619a7770f468ffb0b80925302e065a3b34",
                 "shasum": ""
             },
@@ -8049,7 +8034,6 @@
                     "Doctrine\\Bundle\\FixturesBundle\\": ""
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -8073,10 +8057,6 @@
                 "Fixture",
                 "persistence"
             ],
-            "support": {
-                "issues": "https://github.com/doctrine/DoctrineFixturesBundle/issues",
-                "source": "https://github.com/doctrine/DoctrineFixturesBundle/tree/3.4.0"
-            },
             "funding": [
                 {
                     "url": "https://www.doctrine-project.org/sponsorship.html",
