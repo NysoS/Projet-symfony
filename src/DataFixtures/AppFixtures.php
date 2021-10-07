@@ -26,7 +26,7 @@ class AppFixtures extends Fixture
         // $etat->setLibelle($faker->randomElement(["Créée", "Ouverte", "Clôturée", "Activité en cours", "passée", "Annulé"]));
         // $manager->persist($etat);
 
-        $mesEtats = ["Créée", "Ouverte", "Clôturée", "Activité en cours", "passée", "Annulé"];
+        $mesEtats = ["Créée", "Ouverte", "Clôturée", "Activité en cours", "Passée", "Annulé"];
 
         //création des états
         $etat = new Etats;
@@ -46,7 +46,7 @@ class AppFixtures extends Fixture
         $manager->persist($etat3);
 
         $etat4 = new Etats;
-        $etat4->setLibelle("passée");
+        $etat4->setLibelle("Passée");
         $manager->persist($etat4);
 
         $etat5 = new Etats;
@@ -73,13 +73,11 @@ class AppFixtures extends Fixture
 
             $manager->persist($participant);
 
-
             //création d'un ville 
             $ville = new Villes;
             $ville->setNomVille($faker->city());
             $ville->setCodePostal($faker->randomNumber(5, true));
             $manager->persist($ville);
-
 
             //création d'un lieu
             $lieu = new Lieux;
@@ -91,7 +89,6 @@ class AppFixtures extends Fixture
             $manager->persist($lieu);
 
             for ($j = 0; $j < 5; $j++) {
-
 
                 //création d'une sortie
                 $sortie = new Sorties;
@@ -110,23 +107,26 @@ class AppFixtures extends Fixture
 
                 $site->addSorty($sortie);
 
-                //participant random 
-                $participant2 = new Participant;
-                $participant2->setSites($site);
-                $participant2->setEmail($faker->email());
-                $participant2->setRoles(['ROLE_USER']);
-                $participant2->setNom($faker->lastName());
-                $participant2->setPrenom($faker->firstName());
-                $participant2->setActif(true);
-                $participant2->setTelephone("0202020202");
-                $participant2->setPassword('$argon2id$v=19$m=65536,t=4,p=1$MGJVd21saldNOWxWdkhORg$mv+TGK3oanf+xyfVDptsDSWNudc7YFVEeD2fk4QBS00');
-                $manager->persist($participant2);
-
                 //creation d'une inscription 
                 $inscription = new Inscriptions;
-                $inscription->setParticipants($participant2);
                 $inscription->setSorties($sortie);
                 $inscription->setDateInscription($faker->dateTime());
+
+                for ($k = 0; $k < 5; $k++) {
+                    //participant random 
+                    $participant2 = new Participant;
+                    $participant2->setSites($site);
+                    $participant2->setEmail($faker->email());
+                    $participant2->setRoles(['ROLE_USER']);
+                    $participant2->setNom($faker->lastName());
+                    $participant2->setPrenom($faker->firstName());
+                    $participant2->setActif(true);
+                    $participant2->setTelephone("0202020202");
+                    $participant2->setPassword('$argon2id$v=19$m=65536,t=4,p=1$MGJVd21saldNOWxWdkhORg$mv+TGK3oanf+xyfVDptsDSWNudc7YFVEeD2fk4QBS00');
+                    $manager->persist($participant2);
+                }
+
+                $inscription->setParticipants($participant2);
                 $manager->persist($inscription);
 
                 //ajout de l'inscription à la sortie 
