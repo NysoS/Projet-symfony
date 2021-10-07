@@ -63,8 +63,7 @@
         "preferred-install": {
             "*": "dist"
         },
-        "sort-packages": true,
-        "secure-http": false
+        "sort-packages": true
     },
     "autoload": {
         "psr-4": {
