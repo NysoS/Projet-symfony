@@ -5,6 +5,15 @@
 {% endblock %}
 
 {% block body %}
+
+	{%  for type , messages  in app.flashes(['success','error','info']) %}
+		{% for message in messages %}
+			<div class="alert alert-{{ (type =='error') ? 'danger' : type }} text-center" role="alert">
+				{{ message }}
+			</div>
+		{% endfor %}
+	{% endfor %}
+
 	<h1>test de mon formulaire
 	</h1>
 
