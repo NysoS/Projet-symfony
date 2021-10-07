@@ -29,6 +29,8 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
+            $pseudo = strtolower(substr($user->getPrenom(),0,1)) . strtolower($user->getNom());
+            $user->setPseudo($pseudo);
             $user->setActif(true);
 
             $entityManager = $this->getDoctrine()->getManager();

@@ -98,6 +98,11 @@ class Participant implements UserInterface
      */
     private $imageFile;
 
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $pseudo;
+
 
     public function __construct()
     {
@@ -349,5 +354,25 @@ class Participant implements UserInterface
     public function __toString()
     {
         return $this->getNom();
+    }
+
+    public function getPseudo(): ?string
+    {
+        return $this->pseudo;
+    }
+
+    public function setPseudo(string $pseudo): self
+    {
+        $this->pseudo = $pseudo;
+
+        return $this;
+    }
+
+    /**
+     * @ORM\PrePersit
+     * @ORM\PreUpdate
+     */
+    public function pseudoUser(){
+        $this->setPseudo(strtolower(substr($this->getPrenom(),0,1)) . strtolower($this->getNom()));
     }
 }
