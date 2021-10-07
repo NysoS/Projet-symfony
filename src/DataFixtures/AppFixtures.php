@@ -80,7 +80,6 @@ class AppFixtures extends Fixture
             $ville->setCodePostal($faker->randomNumber(5, true));
             $manager->persist($ville);
 
-
             //création d'un lieu
             $lieu = new Lieux;
             $lieu->setVilles($ville);
@@ -91,7 +90,6 @@ class AppFixtures extends Fixture
             $manager->persist($lieu);
 
             for ($j = 0; $j < 5; $j++) {
-
 
                 //création d'une sortie
                 $sortie = new Sorties;

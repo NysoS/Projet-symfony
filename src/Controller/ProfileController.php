@@ -91,9 +91,15 @@ class ProfileController extends AbstractController
      */
     public function eddit(Participant $participant, Request $request, EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder): Response
     {
+        $user = $this->getUser();
+
+        if ((!$user->getRoles() == ['ROLE_ADMIN']) or (!$user->getId() == $participant->getId())) {
+            return $this->redirectToRoute('home');
+        }
 
         $formParticipant = $this->createForm(ParticipantType::class, $participant);
         $formParticipant->handleRequest($request);
+
 
         if ($formParticipant->isSubmitted() && $formParticipant->isValid()) {
             $participant->setPassword(
