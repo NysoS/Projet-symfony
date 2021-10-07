@@ -27,6 +27,7 @@ class AppFixtures extends Fixture
         // $manager->persist($etat);
 
         $mesEtats = ["Créée", "Ouverte", "Clôturée", "Activité en cours", "passée", "Annulé"];
+
         //création des états
         $etat = new Etats;
         $etat->setLibelle("Créée");
@@ -89,22 +90,26 @@ class AppFixtures extends Fixture
             $lieu->setLatitude($faker->randomFloat());
             $manager->persist($lieu);
 
-
-            //création d'une sortie
-            $sortie = new Sorties;
-            $sortie->setOrganisateur($participant);
-            $sortie->setLieux($lieu);
-            $sortie->setEtats($faker->randomElement([$etat1, $etat2, $etat3, $etat4, $etat5, $etat]));
-            $sortie->setDuree(5);
-            $sortie->setNom($faker->word());
-            $sortie->setDateDebut($faker->dateTimeBetween('-1 week', '+1 week'));
-            $sortie->setDateCloture($faker->dateTimeBetween('+1 week', '+2 week'));
-            $sortie->setNbInscriptionsMax(20);
-            $sortie->setDescription($faker->paragraph());
-            $sortie->setUrlPhoto("https://picsum.photos/seed/picsum/200/300");
-            $manager->persist($sortie);
-
             for ($j = 0; $j < 5; $j++) {
+
+
+                //création d'une sortie
+                $sortie = new Sorties;
+                $sortie->setOrganisateur($participant);
+                $sortie->setLieux($lieu);
+                $sortie->setEtats($faker->randomElement([$etat1, $etat2, $etat3, $etat4, $etat5, $etat]));
+                $sortie->setDuree(5);
+                $sortie->setNom($faker->word());
+                $sortie->setDateDebut($faker->dateTimeBetween('-1 week', '+1 week'));
+                $sortie->setDateCloture($faker->dateTimeBetween('+1 week', '+2 week'));
+                $sortie->setNbInscriptionsMax(20);
+                $sortie->setDescription($faker->paragraph());
+                $sortie->setSite($site);
+                $sortie->setUrlPhoto("https://picsum.photos/seed/picsum/200/300");
+                $manager->persist($sortie);
+
+                $site->addSorty($sortie);
+
                 //participant random 
                 $participant2 = new Participant;
                 $participant2->setSites($site);
