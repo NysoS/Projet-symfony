@@ -102,7 +102,7 @@
 								</td>
 								<td>{{sortie.organisateur.nom|upper}} {{sortie.organisateur.prenom}}</td>
 								<td>
-									{% if is_granted("ROLE_ADMIN") %}
+									{% if is_granted("ROLE_ADMIN") or sortie.organisateur.id == app.user.id %}
 										<div>
 											<a href="{{path('editSortie',{'id':sortie.id})}}" class="btn btn-warning">Modifier</a>
 											<a href="{{path('delSortie',{'id':sortie.id})}}" class="btn btn-danger">Supprimer</a>
@@ -119,7 +119,7 @@
 										{% if inscrit == true  %}
 											<a href="{{path('desistSortie',{'sortie':sortie.id,'user':app.user.getId()})}}" class="btn btn-outline-secondary">Se désister</a>
 										{% else %}
-											{% if sortie.etats.getLibelle() != "Clôturée" and sortie.etats.getLibelle() != "passée" %}
+											{% if sortie.etats.getLibelle() != "Clôturée" and sortie.etats.getLibelle() != "passée" and sortie.organisateur.id != app.user.id %}
 												<a href="{{path('inscriptionSortie',{'sortie':sortie.id,'user':app.user.getId()})}}" class="btn btn-outline-secondary">S'inscrire</a>
 											{% endif %}
 										{% endif %}
@@ -131,9 +131,7 @@
 				</table>
 			</div>
 
-			{% if is_granted("ROLE_ADMIN") %}
-				<a href="{{path('addSortie')}}" class="btn btn-success">Créer une sortie</a>
-			{% endif %}
+			<a href="{{path('addSortie')}}" class="btn btn-success">Créer une sortie</a>
 		{% else %}
 			<div class="container">Veuillez vous connecter</div>
 		{% endif %}

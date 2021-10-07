@@ -47,13 +47,7 @@ class SortieController extends AbstractController
             if ($req->get("etat") == "enregistrer") $sortie->setEtats($er->findOneBy(array("libelle" => "Créée")));
             else $sortie->setEtats($er->findOneBy(array("libelle" => "Ouverte")));
 
-            $inscription = new Inscriptions();
-            $inscription->setSorties($sortie);
-            $inscription->setParticipants($this->getUser());
-            $inscription->setDateInscription(new \DateTime(date("Y-m-d H:i:s")));
-
             $em->persist($sortie);
-            $em->persist($inscription);
             $em->flush();
             return $this->redirectToRoute("home");
         } else {
