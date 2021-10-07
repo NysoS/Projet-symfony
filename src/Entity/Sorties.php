@@ -77,6 +77,12 @@ class Sorties
      */
     private $etats;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Sites::class, inversedBy="sorties")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $site;
+
     public function __construct()
     {
         $this->inscriptions = new ArrayCollection();
@@ -233,6 +239,18 @@ class Sorties
     public function setEtats(?Etats $etats): self
     {
         $this->etats = $etats;
+
+        return $this;
+    }
+
+    public function getSite(): ?Sites
+    {
+        return $this->site;
+    }
+
+    public function setSite(?Sites $site): self
+    {
+        $this->site = $site;
 
         return $this;
     }
