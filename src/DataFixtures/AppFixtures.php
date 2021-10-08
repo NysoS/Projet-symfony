@@ -21,13 +21,6 @@ class AppFixtures extends Fixture
 
         $faker = Factory::create('fr_FR');
 
-        //gestion des états
-        // $etat = new Etats;
-        // $etat->setLibelle($faker->randomElement(["Créée", "Ouverte", "Clôturée", "Activité en cours", "passée", "Annulé"]));
-        // $manager->persist($etat);
-
-        $mesEtats = ["Créée", "Ouverte", "Clôturée", "Activité en cours", "Passée", "Annulé"];
-
         //création des états
         $etat = new Etats;
         $etat->setLibelle("Créée");
@@ -129,9 +122,9 @@ class AppFixtures extends Fixture
                     $manager->persist($participant2);
                 }
                 $inscription->setParticipants($participant2);
-
                 //ajout de l'inscription à la sortie 
                 $sortie->addInscription($inscription);
+                $manager->flush();
             }
         }
 

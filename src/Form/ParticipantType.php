@@ -23,6 +23,7 @@ class ParticipantType extends AbstractType
             ->add('actif', ChoiceType::class, ['label' => 'Activé le compte utilisateur:', 'choices' => ['Activé le compte' => true, 'Désactivé le compte' => false]])
             ->add('sites', null, ['label' => 'Liste des sites * :', 'choice_label' => 'nom_site'])
             ->add('imageFile', VichImageType::class, [
+                'label' => 'Photo de profil :',
                 'required' => false,
                 'allow_delete' => true,
                 'delete_label' => 'supprimer',
