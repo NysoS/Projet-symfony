@@ -46,7 +46,7 @@
 					{% if is_granted("ROLE_ADMIN") %}
 						<tr>
 							<form action="{{path('site_add')}}" method="post">
-								<td><input type="text" name="search_sites"></td>
+								<td>*<input type="text" name="search_sites" required></td>
 								<td>
 									<button class="btn btn-dark" type="submit">Ajouter</button>
 								</td>

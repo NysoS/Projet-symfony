@@ -115,7 +115,7 @@ class SortieController extends AbstractController
      */
     public function annuleSortie(Sorties $s, Request $req, EntityManagerInterface $em, EtatsRepository $er): Response
     {
-        $etat_annule = $er->findOneBy(array("id" => 6));
+        $etat_annule = $er->findOneBy(array("libelle" => "Annulé"));
 
         $motif = "";
         if ($req->get("motif") != null) $motif = $req->get("motif");
