@@ -12,32 +12,32 @@
 				<tbody>
 					<tr>
 						<div class="input-group input-group-sm mb-3">
-							<span class="input-group-text " id="inputGroup-sizing-sm">Nom de la sortie</span>
+							*<span class="input-group-text " id="inputGroup-sizing-sm">Nom de la sortie</span>
 							<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" id="nom" name="nom" required>
 						</div>
 					</tr>
 					<tr>
 						<div class="input-group input-group-sm mb-3">
-							<span class="input-group-text " id="inputGroup-sizing-sm">Date et heure de la sortie</span>
+							*<span class="input-group-text " id="inputGroup-sizing-sm">Date et heure de la sortie</span>
 							<input type="datetime-local" id="date_debut" name="date_debut" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" required>
 						</div>
 					</tr>
 					<tr>
 						<div class="input-group input-group-sm mb-3">
-							<span class="input-group-text " id="inputGroup-sizing-sm">Date limite d'inscription</span>
+							*<span class="input-group-text " id="inputGroup-sizing-sm">Date limite d'inscription</span>
 							<input type="datetime-local" id="date_cloture" name="date_cloture" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" required>
 						</div>
 					</tr>
 					<tr>
 						<div class="input-group input-group-sm mb-3">
-							<span class="input-group-text " id="inputGroup-sizing-sm">Nombre de places</span>
-							<input type="number" min="0" id="nbInscriptionsMax" name="nbInscriptionsMax" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" required>
+							*<span class="input-group-text " id="inputGroup-sizing-sm">Nombre de places</span>
+							<input type="number" min="0" name="nbInscriptionsMax" id="nbInscriptionsMax"class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" required>
 						</div>
 					</tr>
 					<tr>
 						<div class="input-group input-group-sm mb-3">
 							<span class="input-group-text " id="inputGroup-sizing-sm">Durée</span>
-							<input type="number" min="0" id="nbInscriptionsMax" name="nbInscriptionsMax" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">&nbsp;minutes
+							<input type="number" min="0" id="duree" name="duree" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">&nbsp;minutes
 						</div>
 					</tr>
 				</tbody>
@@ -54,7 +54,7 @@
 					</tr>
 					<tr>
 						<div class="input-group input-group-sm mb-3">
-							<span class="input-group-text " id="inputGroup-sizing-sm">Ville</span>
+							*<span class="input-group-text " id="inputGroup-sizing-sm">Ville</span>
 							<select class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="ville" id="ville" required>
 								<option selected></option>
 								{% for ville in villes %}
@@ -65,7 +65,7 @@
 					</tr>
 					<tr>
 						<div class="input-group input-group-sm mb-3">
-							<span class="input-group-text " id="inputGroup-sizing-sm">Lieu</span>
+							*<span class="input-group-text " id="inputGroup-sizing-sm">Lieu</span>
 							<select class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="lieu" id="lieu" required disabled></select>
 						</div>
 					</tr>
@@ -84,9 +84,12 @@
 							let opt = new Option();
 							opt.setAttribute("selected","");
 							selectLieu.options.add(opt);
+
+							let base_url = document.location.href.substring(0,document.location.href.length-10);
 							
-							axios.get("http://localhost/Projet-symfony/public/lieux_ville/"+id).then((response) => {
+							axios.get(base_url+"/lieux_ville/"+id).then((response) => {
 								response.data.forEach(elt => {
+									console.log(elt);
 									let newOption = new Option(elt.nom_lieu, "lieu"+elt.id);
 									newOption.setAttribute("id","lieu"+elt.id);
 									newOption.setAttribute("data-lieu",elt.rue);

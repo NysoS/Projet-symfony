@@ -21,6 +21,7 @@ class LieuController extends AbstractController
      */
     public function lieux_ville(Villes $ville, VillesRepository $vr, LieuxRepository $lr, NormalizerInterface $ni): Response
     {
+        
         $ville = $vr->findOneBy(["id" => $ville->getId()]);
         $lieux = $lr->findBy(["villes" => $ville]);
         $normalize = $ni->normalize($lieux, null, ["groups" => "lieu:read"]);

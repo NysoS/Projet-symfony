@@ -6,8 +6,13 @@
 		{% if app.user %}
 
 			<div class="home-info m-3">
-				<h4 class="sub-title">Date du jour: {{'now'|date('d/m/Y')}}</h4>
-				<h4 class="sub-title">{% if is_granted('ROLE_ADMIN')%}Administrateur{% else %}Participant: {{app.user.nom}}{% endif %}</h4>
+				<h4 class="sub-title">Date du jour:
+					{{'now'|date('d/m/Y')}}</h4>
+				<h4 class="sub-title">
+					{% if is_granted('ROLE_ADMIN')%}Administrateur{% else %}Participant:
+						{{app.user.nom}}
+					{% endif %}
+				</h4>
 			</div>
 
 			<form id="home-form" action="{{path('home')}}" method="post">
@@ -18,7 +23,7 @@
 							<select class="form-select form-select mb-3" aria-label=".form-select example" name="filter_site">
 								<option selected value="default">Choix du site</option>
 								{% for site in lstSites %}
-									<option {% if memory['site'] == site.id %}selected{% endif %} value="{{site.Id}}">{{ site.getNomSite() }}</option>
+									<option {% if memory['site'] == site.id %} selected {% endif %} value="{{site.Id}}">{{ site.getNomSite() }}</option>
 								{% endfor %}
 							</select>
 						</div>
@@ -32,35 +37,35 @@
 					<div class="mb-3 row">
 						<label for="lbld1" class="col-auto col-form-label">Entre</label>
 						<div class="col-auto">
-							<input type="datetime-local" class="form-control" id="lbld1" name="filter_d1" {% if memory['d1'] is defined %}value="{{memory['d1']}}"{% endif %}>
+							<input type="datetime-local" class="form-control" id="lbld1" name="filter_d1" {% if memory['d1'] is defined %} value="{{memory['d1']}}" {% endif %}>
 						</div>
 						<label for="lbld2" class="col-auto col-form-label ms-3">Et</label>
 						<div class="col-auto">
-							<input type="date" class="form-control" id="lbld2" name="filter_d2" {% if memory['d2'] is defined %}value="{{memory['d2']}}"{% endif %}>
+							<input type="date" class="form-control" id="lbld2" name="filter_d2" {% if memory['d2'] is defined %} value="{{memory['d2']}}" {% endif %}>
 						</div>
 					</div>
 				</div>
 				<div class="filter-p2 ms-3 me-3">
 					<div class="form-check">
-						<input class="form-check-input" type="checkbox" id="ch_1" name="ch_s_1" {% if memory['ch_1'] is defined %}checked{% endif %}>
+						<input class="form-check-input" type="checkbox" id="ch_1" name="ch_s_1" {% if memory['ch_1'] is defined %} checked {% endif %}>
 						<label class="form-check-label" for="ch_1">
 							Sorties dont je suis l'organisateur/trice
 						</label>
 					</div>
 					<div class="form-check">
-						<input class="form-check-input" type="checkbox" id="ch_2" name="ch_s_2" {% if memory['ch_2'] is defined %}checked{% endif %}>
+						<input class="form-check-input" type="checkbox" id="ch_2" name="ch_s_2" {% if memory['ch_2'] is defined %} checked {% endif %}>
 						<label class="form-check-label" for="ch_2">
 							Sorties auxquelles je suis inscrit/e
 						</label>
 					</div>
 					<div class="form-check">
-						<input class="form-check-input" type="checkbox" id="ch_3" name="ch_s_3" {% if memory['ch_3'] is defined %}checked{% endif %}>
+						<input class="form-check-input" type="checkbox" id="ch_3" name="ch_s_3" {% if memory['ch_3'] is defined %} checked {% endif %}>
 						<label class="form-check-label" for="ch_3">
 							Sorties auxquelles je ne suis pas inscrit/e
 						</label>
 					</div>
 					<div class="form-check">
-						<input class="form-check-input" type="checkbox" id="ch_4" name="ch_s_4" {% if memory['ch_4'] is defined %}checked{% endif %}>
+						<input class="form-check-input" type="checkbox" id="ch_4" name="ch_s_4" {% if memory['ch_4'] is defined %} checked {% endif %}>
 						<label class="form-check-label" for="ch_4">
 							Sorties passées
 						</label>
@@ -86,10 +91,12 @@
 					<tbody>
 						{% for sortie in lstSortie %}
 							<tr>
-								<td><a href="{{path('showSortie',{id:sortie.id})}}">{{sortie.nom}}</a></td>
+								<td>
+									<a href="{{path('showSortie',{id:sortie.id})}}">{{sortie.nom}}</a>
+								</td>
 								<td>{{sortie.getDateDebut() | date('d/m/Y H:i')}}</td>
 								<td>{{sortie.getDateCloture() | date('d/m/Y')}}</td>
-								<td> 
+								<td>
 									{{sortie.getInscriptions().count}}/{{sortie.nbInscriptionsMax}}
 								</td>
 								<td>{{sortie.etats.libelle}}</td>
@@ -100,7 +107,8 @@
 										{% endif %}
 									{% endfor %}
 								</td>
-								<td>{{sortie.organisateur.nom|upper}} {{sortie.organisateur.prenom}}</td>
+								<td>{{sortie.organisateur.nom|upper}}
+									{{sortie.organisateur.prenom}}</td>
 								<td>
 									{% if is_granted("ROLE_ADMIN") or sortie.organisateur.id == app.user.id %}
 										<div>

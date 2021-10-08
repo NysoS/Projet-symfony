@@ -36,8 +36,8 @@ class SortieController extends AbstractController
             $sortie->setNom($req->get("nom"));
             $sortie->setDateDebut(new \DateTime($req->get("date_debut")));
             $sortie->setDateCloture(new \DateTime($req->get("date_cloture")));
-            $sortie->setNbInscriptionsMax($req->get("nbInscriptionsMax"));
-            $sortie->setDuree($req->get("duree"));
+            $sortie->setNbInscriptionsMax(intval($req->get("nbInscriptionsMax")));
+            $sortie->setDuree(intval($req->get("duree")));
             $sortie->setDescription($req->get("description"));
             $sortie->setOrganisateur($this->getUser());
             $sortie->setSite($sr->findOneBy(array("id" => $this->getUser()->getSites()->getId())));
@@ -83,10 +83,10 @@ class SortieController extends AbstractController
         $form->handleRequest($req);
 
         if ($form->isSubmitted()) {
-            $s->setDateDebut($req->get("date_debut"));
-            $s->setDateCloture($req->get("date_cloture"));
-            $s->setNbInscriptionsMax($req->get("nbInscriptionsMax"));
-            $s->getDuree($req->get("duree"));
+            $s->setDateDebut(new \DateTime($req->get("date_debut")));
+            $s->setDateCloture(new \DateTime($req->get("date_cloture")));
+            $s->setNbInscriptionsMax(intval($req->get("nbInscriptionsMax")));
+            $s->getDuree(intval($req->get("duree")));
             $em->persist($s);
             $em->flush();
             return $this->redirectToRoute("home");
