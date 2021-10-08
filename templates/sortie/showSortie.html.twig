@@ -13,6 +13,10 @@
 					<td>{{sortie.nom}}</td>
 				</tr>
 				<tr>
+					<td>Organisateur :</td>
+					<td>{{sortie.organisateur.nom|upper}} {{sortie.organisateur.prenom|capitalize}}</td>
+				</tr>
+				<tr>
 					<td>Date et heure de la sortie :
 					</td>
 					<td>{{sortie.getDateDebut()|date("d/m/y H:i:s")}}</td>
