@@ -27,11 +27,14 @@ class HomeController extends AbstractController
             $memory['site'] = 'default';
         }
 
-        if($req->get('filter_d1') != null and $req->get('filter_d2') != null){
+        if($req->get('filter_d1') != null){
             $memory['d1'] = $req->get('filter_d1');
-            $memory['d2'] = $req->get('filter_d2');
         }
         
+        if($req->get('filter_d2') != null){
+            $memory['d2'] = $req->get('filter_d2');
+        }
+
         if($req->get('ch_s_1') != null){
             $memory['ch_1'] = true;
         }

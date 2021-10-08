@@ -28,23 +28,31 @@ class SortiesRepository extends ServiceEntityRepository
 
         if ($req->get('filter_site') == 'default') {
         } else if ($req->get('filter_site') != null) {
-            $qb->where('s.site = :idSite')
+            $qb->andWhere('s.site = :idSite')
                 ->setParameter(':idSite', $req->get('filter_site'));
         }
 
         if($req->get('sortie_contains') != null){
-            $qb->where('s.nom like :ns')
+            $qb->andWhere('s.nom like :ns')
                 ->setParameter(':ns','%'.$req->get('sortie_contains').'%');
         }
 
         if($req->get('filter_d1') != null and $req->get('filter_d2') != null){
-            $qb->where('s.date_debut >= :d1 and s.date_cloture <= :d2')
+            $qb->andWhere('s.date_debut >= :d1 and s.date_debut <= :d2')
                 ->setParameter(':d1',$req->get('filter_d1'))
                 ->setParameter(':d2',$req->get('filter_d2'));
+        }else{
+            if($req->get('filter_d1') != null and $req->get('filter_d2') == null){
+                $qb->andWhere('s.date_debut >= :d1')
+                ->setParameter(':d1',$req->get('filter_d1'));
+            }else if($req->get('filter_d2') != null and $req->get('filter_d1') == null){
+                $qb->andWhere('s.date_debut <= :d2')
+                ->setParameter(':d2',$req->get('filter_d2'));
+            }
         }
        
         if($req->get('ch_s_1') != null){
-            $qb->where('s.organisateur = :idP')
+            $qb->andWhere('s.organisateur = :idP')
                 ->setParameter(':idP', $p->getId());
         }
 
@@ -54,16 +62,16 @@ class SortiesRepository extends ServiceEntityRepository
             if($req->get('ch_s_2') != null){
                 $qb->innerJoin('s.inscriptions', 'i')
                     ->addSelect('i')
-                    ->where('i.id = s.inscriptions')
-                    ->where('i.participants = :idP2')
+                    ->andWhere('i.id = s.inscriptions')
+                    ->andWhere('i.participants = :idP2')
                     ->setParameter(':idP2', $p->getId());
             }
     
             if($req->get('ch_s_3') != null){
                 $qb->innerJoin('s.inscriptions', 'i')
                     ->addSelect('i')
-                    ->where('i.id = s.inscriptions')
-                    ->where('i.participants <> :idP3')
+                    ->andWhere('i.id = s.inscriptions')
+                    ->andWhere('i.participants <> :idP3')
                     ->setParameter(':idP3', $p->getId());
             }
         }
@@ -71,8 +79,8 @@ class SortiesRepository extends ServiceEntityRepository
         if($req->get('ch_s_4') != null){
             $qb->innerJoin('s.etats', 'e')
                 ->addSelect('e')
-                ->where('e.id = s.etats')
-                ->where('e.libelle = \'passée\'');
+                ->andWhere('e.id = s.etats')
+                ->andWhere('e.libelle = \'passée\'');
         }
 
         $query = $qb->getQuery();
