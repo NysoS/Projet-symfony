@@ -31,6 +31,7 @@ class Villes
 
     /**
      * @ORM\OneToMany(targetEntity=Lieux::class, mappedBy="villes")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $lieux;
 
@@ -98,7 +99,8 @@ class Villes
         return $this;
     }
 
-    public function json() {
-        $json = json_encode("{'lieux':".$this->getLieux()."}");
+    public function json()
+    {
+        $json = json_encode("{'lieux':" . $this->getLieux() . "}");
     }
 }

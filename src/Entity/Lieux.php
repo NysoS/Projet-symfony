@@ -54,6 +54,7 @@ class Lieux
 
     /**
      * @ORM\OneToMany(targetEntity=Sorties::class, mappedBy="lieux")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $sorties;
 

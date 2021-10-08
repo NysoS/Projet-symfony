@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Villes;
 use App\Form\VilleType;
+use App\Repository\LieuxRepository;
+use App\Repository\SortiesRepository;
 use App\Repository\VillesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -76,8 +78,20 @@ class VilleController extends AbstractController
     /**
      * @Route("/ville/{id}/delete", name="app_ville_delete")
      */
-    public function villeDelete(Villes $ville, EntityManagerInterface $em): Response
+    public function villeDelete(Villes $ville, EntityManagerInterface $em, LieuxRepository $lieuxRepository, SortiesRepository $sortiesRepository): Response
     {
+        //rechercher les lieux dans la ville  
+        $allLieux = $lieuxRepository->findBy(['villes' => $ville->getId()]);
+
+        //supprimer les lieux dans la ville  
+        foreach ($allLieux as $lieu) {
+            $allSorties = $sortiesRepository->findBy(['lieux' => $lieu->getId()]);
+            foreach ($allSorties as $sortie) {
+                $sortie->setLieux(NULL);
+            }
+            $em->remove($lieu);
+        }
+
         $em->remove($ville);
         $em->flush();
 
