@@ -112,6 +112,7 @@ class AppFixtures extends Fixture
                 $inscription = new Inscriptions;
                 $inscription->setSorties($sortie);
                 $inscription->setDateInscription($faker->dateTime());
+                $manager->persist($inscription);
 
                 for ($k = 0; $k < 5; $k++) {
                     //participant random 
@@ -127,9 +128,7 @@ class AppFixtures extends Fixture
                     $participant2->setPassword('$argon2id$v=19$m=65536,t=4,p=1$MGJVd21saldNOWxWdkhORg$mv+TGK3oanf+xyfVDptsDSWNudc7YFVEeD2fk4QBS00');
                     $manager->persist($participant2);
                 }
-
                 $inscription->setParticipants($participant2);
-                $manager->persist($inscription);
 
                 //ajout de l'inscription à la sortie 
                 $sortie->addInscription($inscription);
