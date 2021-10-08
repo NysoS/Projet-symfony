@@ -159,6 +159,8 @@ class ProfileController extends AbstractController
                             $participant->setRoles([$tabCsvParticipant['roles']]);
                             $participant->setNom($tabCsvParticipant['nom']);
                             $participant->setPrenom($tabCsvParticipant['prenom']);
+                            $participant->setPseudo();
+                            $participant->setTelephone($tabCsvParticipant['telephone']);
                             $participant->setActif(boolval($tabCsvParticipant['actif']));
                             $participant->setPassword(
                                 $passwordEncoder->encodePassword(
