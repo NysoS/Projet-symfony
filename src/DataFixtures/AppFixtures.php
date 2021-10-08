@@ -112,7 +112,7 @@ class AppFixtures extends Fixture
                     $participant2 = new Participant;
                     $participant2->setSites($site);
                     $participant2->setEmail($faker->email());
-                    $participant2->setRoles(['ROLE_USER']);
+                    $participant2->setRoles([$faker->randomElement(['ROLE_ADMIN', 'ROLE_USER'])]);
                     $participant2->setNom($faker->lastName());
                     $participant2->setPrenom($faker->firstName());
                     $participant2->setPseudo();
