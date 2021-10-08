@@ -71,8 +71,8 @@
 			<tbody>
                 {% for inscrit in participants %}
 				<tr>
-					<td>{{inscrit.nom}}</td>
-					<td>{{inscrit.prenom}}</td>
+					<td>{{inscrit.getParticipants().nom}}</td>
+					<td>{{inscrit.getParticipants().prenom}}</td>
 				</tr>
                 {% endfor %}
 			</tbody>

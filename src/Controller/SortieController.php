@@ -64,11 +64,10 @@ class SortieController extends AbstractController
     public function showSortie(Sorties $s, InscriptionsRepository $ir, ParticipantRepository $pr): Response
     {
         $inscriptions = $ir->findBy(array("sorties" => $s->getId()));
-        $participants = $pr->findBy(array("id" => $inscriptions));
 
         return $this->render('sortie/showSortie.html.twig',[
             "sortie" => $s,
-            "participants" => $participants
+            "participants" => $inscriptions
         ]);
     }
 

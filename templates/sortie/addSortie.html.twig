@@ -84,7 +84,7 @@
 							let opt = new Option();
 							opt.setAttribute("selected","");
 							selectLieu.options.add(opt);
-
+							
 							axios.get("http://localhost/Projet-symfony/public/lieux_ville/"+id).then((response) => {
 								response.data.forEach(elt => {
 									let newOption = new Option(elt.nom_lieu, "lieu"+elt.id);
@@ -93,7 +93,6 @@
 									selectLieu.options.add(newOption);
 								});
 							});
-							console.log(document.getElementById("lieu"));
 						})
 
 						document.getElementById('lieu').addEventListener('change', e =>{
