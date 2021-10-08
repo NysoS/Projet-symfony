@@ -3,10 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Participant;
+use App\Entity\Sorties;
 use App\Form\ParticipantType;
+use App\Repository\InscriptionsRepository;
 use App\Repository\SitesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ParticipantRepository;
+use App\Repository\SortiesRepository;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -123,8 +126,22 @@ class ProfileController extends AbstractController
     /**
      * @Route("/participant/profil/{id}/delete", name="app_profile_delete")
      */
-    public function deleteParticipant(Participant $participant, EntityManagerInterface $em): Response
+    public function deleteParticipant(Participant $participant, EntityManagerInterface $em, SortiesRepository $sortiesRepository, InscriptionsRepository $inscriptionsRepository): Response
     {
+        // lister les sorites 
+        $AllSorties  = $sortiesRepository->findBy(['organisateur' => $participant->getId()]);
+
+        // Pour chaque sortie suppression des inscriptions à la sortie 
+        foreach ($AllSorties as $sortie) {
+            $allInscriptions =  $inscriptionsRepository->findBy(['sorties' => $sortie->getId()]);
+
+            foreach ($allInscriptions as $inscription) {
+                $em->remove($inscription);
+                //envoyer un msg à l'utilisateur pour l'informer
+            }
+            $em->remove($sortie);
+        }
+
         $em->remove($participant);
         $em->flush();
 
