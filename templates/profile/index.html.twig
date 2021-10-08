@@ -5,7 +5,6 @@
 
 {% block body %}
 
-
 	<div class="example-wrapper">
 		<h1 class="mt-5 mb-3 text-uppercase">Gestion des participants</h1>
 		{% if app.user %}
@@ -15,7 +14,6 @@
 			<a class="btn btn-danger text-white" href="{{ path('app_profile_eddit', {id:app.user.id}) }}">modifier mon profil</a>
 			<a class="btn btn-success text-white" href="{{ path('app_profile_add_json') }}">Ajouter des utilisateurs via un fichier</a>
 		{% endif %}
-
 
 		<h2 class="mt-5 mb-3 text-uppercase">
 			Test de gestionnaire admin
@@ -46,7 +44,6 @@
 									<a href="{{ path('app_profile_status',{id:participant.id}) }}">
 										<span class="badge bg-success">ok</span>
 									</a>
-
 								</td>
 
 							{% else %}
@@ -73,6 +70,5 @@
 				</tbody>
 			</table>
 		</div>
-
 	</div>
 {% endblock %}
