@@ -12,6 +12,7 @@ use App\Repository\InscriptionsRepository;
 use App\Repository\LieuxRepository;
 use App\Repository\ParticipantRepository;
 use App\Repository\SitesRepository;
+use App\Repository\SortiesRepository;
 use App\Repository\VillesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -74,19 +75,25 @@ class SortieController extends AbstractController
     /**
      * @Route("/editSortie/{id}", name="editSortie")
      */
-    public function editSortie(Sorties $s, Request $req, VillesRepository $vr, LieuxRepository $lr, EntityManagerInterface $em): Response
+    public function editSortie(Sorties $s, Request $req, VillesRepository $vr, EtatsRepository $er, LieuxRepository $lr, SortiesRepository $sr, EntityManagerInterface $em): Response
     {
         $villes = $vr->findAll();
-        $lieux = $lr->findAll();
 
         $form = $this->createForm(EditSortieType::class,$s);
         $form->handleRequest($req);
 
         if ($form->isSubmitted()) {
+            $s->setNom($req->get("nom"));
             $s->setDateDebut(new \DateTime($req->get("date_debut")));
             $s->setDateCloture(new \DateTime($req->get("date_cloture")));
             $s->setNbInscriptionsMax(intval($req->get("nbInscriptionsMax")));
-            $s->getDuree(intval($req->get("duree")));
+            $s->setDuree(intval($req->get("duree")));
+            $s->setDescription($req->get("description"));
+            $s->setOrganisateur($this->getUser());
+            $s->setSite($sr->findOneBy(array("id" => $this->getUser()->getSites()->getId())));
+            if ($req->get("lieu") != null) $s->setLieux($lr->findOneBy(array("id" => str_replace("lieu","",$req->get("lieu")))));
+            if ($req->get("ville") != null) $s->getLieux()->setVilles($vr->findOneBy(array("id" => str_replace("ville","",$req->get("ville")))));
+            $s->setEtats($er->findOneBy(["libelle"=>$req->get("etat")]));
             $em->persist($s);
             $em->flush();
             return $this->redirectToRoute("home");
@@ -94,7 +101,6 @@ class SortieController extends AbstractController
             return $this->render('sortie/editSortie.html.twig',[
                 "form" => $form->createView(),
                 "villes" => $villes,
-                "lieux" => $lieux,
                 "sortie" => $s
             ]);
         }
