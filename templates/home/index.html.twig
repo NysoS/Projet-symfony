@@ -114,7 +114,9 @@
 										<div>
 											<a href="{{path('editSortie',{'id':sortie.id})}}" class="btn btn-warning">Modifier</a>
 											<a href="{{path('delSortie',{'id':sortie.id})}}" class="btn btn-danger">Supprimer</a>
+											{% if sortie.etats.libelle != "Annulé" and sortie.etats.libelle != "Passée" and sortie.etats.libelle != "Clôturée" %}
 											<a href="{{path('annuleSortie',{'id':sortie.id})}}" class="btn btn-info">Annuler</a>
+											{% endif %}
 										</div>
 									{% endif %}
 									<div style="margin-top:1%">
@@ -127,7 +129,7 @@
 										{% if inscrit == true  %}
 											<a href="{{path('desistSortie',{'sortie':sortie.id,'user':app.user.getId()})}}" class="btn btn-outline-secondary">Se désister</a>
 										{% else %}
-											{% if sortie.etats.getLibelle() != "Clôturée" and sortie.etats.getLibelle() != "passée" and sortie.organisateur.id != app.user.id %}
+											{% if sortie.etats.getLibelle() != "Clôturée" and sortie.etats.getLibelle() != "Passée" and sortie.organisateur.id != app.user.id %}
 												<a href="{{path('inscriptionSortie',{'sortie':sortie.id,'user':app.user.getId()})}}" class="btn btn-outline-secondary">S'inscrire</a>
 											{% endif %}
 										{% endif %}
