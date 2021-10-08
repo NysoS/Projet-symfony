@@ -19,6 +19,15 @@ class LieuxRepository extends ServiceEntityRepository
         parent::__construct($registry, Lieux::class);
     }
 
+    public function filterSearchLieuxByName($value){
+        return $this->createQueryBuilder('l')
+                ->andWhere('l.nom_lieu like :val')
+                ->setParameter('val','%'.$value.'%')
+                ->getQuery()
+                ->getResult();
+
+    }
+
     // /**
     //  * @return Lieux[] Returns an array of Lieux objects
     //  */

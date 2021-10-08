@@ -13,6 +13,10 @@
 				<ul class="navbar-nav ms-auto">
 
 					{% if app.user %}
+						<li class="mx-2 nav-item ">
+							<a class="text-uppercase fw-bolder nav-link {{(my_route == 'showLieux') ? 'active' }} " href="{{path('showLieux')}}">Lieux
+							</a>
+						</li>
 
 						<li class="mx-2 nav-item ">
 							<a class="text-uppercase fw-bolder nav-link {{(my_route == 'app_ville') ? 'active' }} " href="{{path('app_ville')}}">Villes
