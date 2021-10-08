@@ -16,41 +16,41 @@
 
 		<div class="col-lg-7">
 			<p>
-				<strong>Prénom*
+				<strong>Prénom
 				</strong>
 				:
 				{{participant.prenom}}</p>
 			<p>
-				<strong>Nom*
+				<strong>Nom
 				</strong>
 				:
 				{{participant.nom}}</p>
 
 			{% if (participant.id == app.user.id) or is_granted("ROLE_ADMIN") %}
 				<p>
-					<strong>Téléphone*
+					<strong>Téléphone
 					</strong>
 					:{{participant.telephone}}
 				</p>
 				<p>
-					<strong>Email*</strong>
+					<strong>Email</strong>
 					:{{participant.email}}
 				</p>
 
 			{% else %}
 				<p>
-					<strong>Téléphone*
+					<strong>Téléphone
 					</strong>
 					:#############
 				</p>
 				<p>
-					<strong>Email*</strong>
+					<strong>Email</strong>
 					:#############
 				</p>
 			{% endif %}
 
 			<p>
-				<strong>Ville de rattachement*
+				<strong>Ville de rattachement
 				</strong>
 				:{{participant.sites.Nomsite}}
 			</p>
