@@ -364,20 +364,8 @@ class Participant implements UserInterface
 
     public function setPseudo(): self
     {
-        $this->pseudo = $this->getPrenom().$this->getNom();
+        $this->pseudo = $this->getPrenom() . $this->getNom();
 
         return $this;
     }
-<<<<<<< HEAD
-
-    /**
-     * @ORM\PrePersit
-     * @ORM\PreUpdate
-     */
-    public function pseudoUser()
-    {
-        $this->setPseudo(strtolower(substr($this->getPrenom(), 0, 1)) . strtolower($this->getNom()));
-    }
-=======
->>>>>>> ab683e348daef210c74604091f51bd0a05a8ae24
 }
