@@ -24,7 +24,13 @@
 				{{ form_row(formParticipant.prenom, {'attr':{'ReadOnly':'true'} }) }}
 				{{ form_row(formParticipant.telephone) }}
 				{{ form_row(formParticipant.actif, { 'label':false, 'attr':{'hidden':'hidden'} })}}
-				{{ form_row(formParticipant.sites, {'value':participant.sites, 'attr':{'disabled':'disabled'} }) }}
+
+				<div class="form-group">
+					<label for="faker_participant_sites">Sites*:</label>
+					<input type="text" value="{{participant.sites.nomSite}}" class="form-control" readonly="true" id="faker_participant_sites">
+				</div>
+
+				{{ form_row(formParticipant.sites, { 'label':false, 'attr':{'hidden':'hidden'} }) }}
 				{{ form_row(formParticipant.imageFile) }}
 
 				<div class="my-5 d-grid gap-2 col-6 mx-auto">
@@ -44,9 +50,7 @@
 					<a class="py-3 btn btn-danger fw-bolder" href="{{ path('home') }}">Retour</a>
 				</div>
 				{{ form_end(formParticipant) }}
-
 			{% endif %}
-
 		</div>
 	</div>
 
