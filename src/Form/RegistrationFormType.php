@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Participant;
+use PhpParser\Node\Stmt\Label;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -19,7 +20,7 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email')
+            ->add('email',null,['label'=>'*Email'])
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
@@ -37,25 +38,17 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('nom')
-            ->add('prenom')
+            ->add('nom',null,['label'=>'*Nom'])
+            ->add('prenom',null,['label'=>'*Prenom'])
             ->add('telephone')
-            ->add('sites', null, ['choice_label' => 'nom_site'])
+            ->add('sites', null, ['choice_label' => 'nom_site', 'label' => '*Site'])
             ->add('roles', ChoiceType::class, [
                 'required' => true,
                 'choices' => array(
                     'admin' => 'ROLE_ADMIN',
                     'utilisateur' => 'ROLE_USER',
                 ),
-            ])
-            ->add('agreeTerms', CheckboxType::class, [
-                'mapped' => false,
-                'constraints' => [
-                    new IsTrue([
-                        'message' => 'Acceptez vous les termes.',
-                    ]),
-                ],
-                'row_attr'=>['class'=>'mt-2']
+                'label'=>'*Role'
             ]);
 
         $builder->get('roles')
