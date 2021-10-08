@@ -372,7 +372,8 @@ class Participant implements UserInterface
      * @ORM\PrePersit
      * @ORM\PreUpdate
      */
-    public function pseudoUser(){
-        $this->setPseudo(strtolower(substr($this->getPrenom(),0,1)) . strtolower($this->getNom()));
+    public function pseudoUser()
+    {
+        $this->setPseudo(strtolower(substr($this->getPrenom(), 0, 1)) . strtolower($this->getNom()));
     }
 }
