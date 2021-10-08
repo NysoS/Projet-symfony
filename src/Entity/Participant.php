@@ -11,6 +11,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\ORM\Mapping\PrePersist;
 
 /**
  * @ORM\Entity(repositoryClass=ParticipantRepository::class)
@@ -361,12 +362,13 @@ class Participant implements UserInterface
         return $this->pseudo;
     }
 
-    public function setPseudo(string $pseudo): self
+    public function setPseudo(): self
     {
-        $this->pseudo = $pseudo;
+        $this->pseudo = $this->getPrenom().$this->getNom();
 
         return $this;
     }
+<<<<<<< HEAD
 
     /**
      * @ORM\PrePersit
@@ -376,4 +378,6 @@ class Participant implements UserInterface
     {
         $this->setPseudo(strtolower(substr($this->getPrenom(), 0, 1)) . strtolower($this->getNom()));
     }
+=======
+>>>>>>> ab683e348daef210c74604091f51bd0a05a8ae24
 }
