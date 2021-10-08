@@ -17,7 +17,7 @@
 	<div class="row container ">
 		<div class="col-lg-6 mx-auto">
 
-			{% if app.user.id == participant.id  %}
+			{% if app.user.id == participant.id and is_granted("ROLE_USER")  %}
 				{{ form_start(formParticipant) }}
 				{{ form_row(formParticipant.email, {'attr':{'ReadOnly':'true'} }) }}
 				{{ form_row(formParticipant.nom, {'attr':{'ReadOnly':'true'} }) }}
