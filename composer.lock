@@ -6432,14 +6432,9 @@
         {
             "name": "symfony/serializer",
             "version": "v5.2.12",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/serializer.git",
-                "reference": "3c3afcc285c01c486d1c5504e7895026580495c4"
-            },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/serializer/zipball/3c3afcc285c01c486d1c5504e7895026580495c4",
+                "url": "http://nexus.depot-eni.fr:8081/repository/composer-proxy-packagist.org/symfony/serializer/v5.2.12/symfony-serializer-v5.2.12.zip",
                 "reference": "3c3afcc285c01c486d1c5504e7895026580495c4",
                 "shasum": ""
             },
@@ -6493,7 +6488,6 @@
                     "/Tests/"
                 ]
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -6509,9 +6503,6 @@
             ],
             "description": "Handles serializing and deserializing data structures, including object graphs, into array structures or other formats like XML and JSON.",
             "homepage": "https://symfony.com",
-            "support": {
-                "source": "https://github.com/symfony/serializer/tree/v5.2.12"
-            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
