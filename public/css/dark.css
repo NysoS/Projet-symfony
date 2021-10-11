@@ -1,4 +1,4 @@
-body, td, th, option, a, select, input[type=date], input[type=datetime-local], input[type=text], input[type=text]:disabled, input[type=number], textarea, .nav-link, .form-control, .form-control:disabled, .form-select {
+body, td, .modal-content, th, option, a, select, input[type=date], input[type=datetime-local], input[type=text], input[type=text]:disabled, input[type=number], textarea, .nav-link, .form-control, .form-control:disabled, .form-select {
     background-color: #323232;
     color: white;
 }
