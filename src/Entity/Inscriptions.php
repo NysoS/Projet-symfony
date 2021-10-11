@@ -30,7 +30,7 @@ class Inscriptions
 
     /**
      * @ORM\ManyToOne(targetEntity=Participant::class, inversedBy="inscriptions")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $participants;
 

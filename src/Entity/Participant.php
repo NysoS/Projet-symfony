@@ -69,6 +69,7 @@ class Participant implements UserInterface
 
     /**
      * @ORM\OneToMany(targetEntity=Inscriptions::class, mappedBy="participants")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $inscriptions;
 
