@@ -18,11 +18,6 @@ class Archive
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=100)
-     */
-    private $nomOrganisateur;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $nomLieu;
@@ -71,6 +66,21 @@ class Archive
      * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $urlPhotoSortie;
+
+    /**
+     * @ORM\Column(type="string", length=100)
+     */
+    private $nomOrganisateur;
+
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $emailOrganisateur;
+
+    /**
+     * @ORM\Column(type="json")
+     */
+    private $participantsInscrit = [];
 
     public function getId(): ?int
     {
@@ -205,6 +215,30 @@ class Archive
     public function setUrlPhotoSortie(?string $urlPhotoSortie): self
     {
         $this->urlPhotoSortie = $urlPhotoSortie;
+
+        return $this;
+    }
+
+    public function getEmailOrganisateur(): ?string
+    {
+        return $this->emailOrganisateur;
+    }
+
+    public function setEmailOrganisateur(string $emailOrganisateur): self
+    {
+        $this->emailOrganisateur = $emailOrganisateur;
+
+        return $this;
+    }
+
+    public function getParticipantsInscrit(): ?array
+    {
+        return $this->participantsInscrit;
+    }
+
+    public function setParticipantsInscrit(array $participantsInscrit): self
+    {
+        $this->participantsInscrit = $participantsInscrit;
 
         return $this;
     }
