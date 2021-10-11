@@ -106,7 +106,7 @@ titleElement = document.getElementById('exampleModalLabelNomVille');
 aElement = document.getElementById('exampleBtnNomVille');
 titleElement.innerText = 'Voulez-vous supprimer l utilisateur "' + el.dataset.participantnom + '" ? ';
 
-p = "/participant/profil/" + participantId + "/delete";
+p = location.href + "/" + participantId + "/delete";
 
 aElement.href = p;
 }
