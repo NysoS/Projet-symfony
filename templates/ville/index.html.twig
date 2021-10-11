@@ -55,11 +55,11 @@
 											<a class="btn btn-warning text-white" href="{{ path('app_ville_eddit', {id:ville.id}) }}">
 												<i class="fas fa-edit"></i>
 											</a>
-											<a class="btn btn-danger text-white" href="#" onclick="event.preventDefault();confirm('Voulez-vous vraiment supprimer la ville [{{ville.nomVille}}]');document.getElementById('js-delete-form-{{ ville.id }}').submit()">
-												<i class="fas fa-trash"></i>
-											</a>
 
-											<form id="js-delete-form-{{ ville.id }}" action="{{ path('app_ville_delete', {id:ville.id}) }}" method="POST" style="display:none;"></form>
+											<button type="button" class="btn btn-danger" data-villeid="{{ville.id}}" data-villenom="{{ville.nomVille}}" onclick="deleteVille(this)" data-bs-toggle="modal" data-bs-target="#exampleModal">
+												<i class="fas fa-trash"></i>
+											</button>
+
 										</td>
 									{% endif %}
 								</tr>
@@ -82,5 +82,37 @@
 			</div>
 		</div>
 
+		<!-- Modal -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabelNomVille">Modal title</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+						<a id="exampleBtnNomVille" class="btn btn-danger" href="">
+							<i class="fas fa-trash"></i>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
 
+
+		<script>
+			function deleteVille(el) {
+let villeId = el.dataset.villeid;
+
+// recuperation du titre
+titleElement = document.getElementById('exampleModalLabelNomVille');
+aElement = document.getElementById('exampleBtnNomVille');
+titleElement.innerText = 'Voulez-vous supprimer la ville "' + el.dataset.villenom + '" ? ';
+
+p = "ville/" + villeId + "/delete";
+
+aElement.href = p;
+}
+		</script>
 	{% endblock %}
