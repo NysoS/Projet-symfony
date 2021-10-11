@@ -9,10 +9,6 @@ input[type=checkbox] {
     border-color: white;
 }
 
-input[type="checkbox"]:checked {
-    background: red;
-}
-
 input[type=text]:focus, input[type=date]:focus, input[type=datetime-local]:focus, input[type=number]:focus, textarea:focus, .form-control:focus {
     background-color: #323232;
     color: #69D0EF;
