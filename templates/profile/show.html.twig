@@ -55,7 +55,7 @@
 				:{{participant.sites.Nomsite}}
 			</p>
 			
-			{% if (participant.id == app.user.id)
+			{% if (participant.id == app.user.id) %}
 				<p>
 					<div class="form-check form-switch">
 						<input class="form-check-input" type="checkbox" role="switch" id="switchEtat" {% if (app.request.cookies.get('dark_theme') == "on") %}{{"checked"}}{% endif %} onchange="switchTheme()">
