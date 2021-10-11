@@ -14,7 +14,6 @@ use App\Repository\ParticipantRepository;
 use App\Repository\SitesRepository;
 use App\Repository\SortiesRepository;
 use App\Repository\VillesRepository;
-use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -84,12 +83,8 @@ class SortieController extends AbstractController
         $form->handleRequest($req);
 
         if ($form->isSubmitted()) {
-            $date_debut = DateTime::createFromFormat('d/m/y H:i:s', $req->get("date_debut"));
-            $s->setDateDebut(new \DateTime($date_debut->format('Y-m-d H:i:s')));
-
-            $date_cloture = DateTime::createFromFormat('d/m/y H:i:s', $req->get("date_cloture"));
-            $s->setDateCloture(new \DateTime($date_cloture->format('Y-m-d H:i:s')));
-
+            $s->setDateDebut(new \DateTime($req->get("date_debut")));
+            $s->setDateCloture(new \DateTime($req->get("date_cloture")));
             $s->setNbInscriptionsMax(intval($req->get("nbInscriptionsMax")));
             $s->setDuree(intval($req->get("duree")));
             $s->setOrganisateur($this->getUser());

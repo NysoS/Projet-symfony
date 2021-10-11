@@ -20,7 +20,7 @@
 					<div class="mb-3 row">
 						<label for="inputPassword" class="col-sm-2 col-form-label">Site</label>
 						<div class="col-sm-10">
-							<select class="form-select form-select mb-3" aria-label=".form-select example" name="filter_site">
+							<select class="form-select mb-3" aria-label=".form-select example" name="filter_site">
 								<option selected value="default">Choix du site</option>
 								{% for site in lstSites %}
 									<option {% if memory['site'] == site.id %} selected {% endif %} value="{{site.Id}}">{{ site.getNomSite() }}</option>
@@ -78,7 +78,7 @@
 
 			<div id="table-home" class="table-responsive my-custom-scrollbar table-wrapper-scroll-y">
 				<table class="table">
-					<thead class="sticky-top table-primary">
+					<thead class="sticky-top table-dark">
 						<th>Nom de la sortie</th>
 						<th>Date de la sortie</th>
 						<th>Date de clôture</th>

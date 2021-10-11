@@ -74,7 +74,7 @@ class ParticipantAuthenticator extends AbstractFormLoginAuthenticator implements
             throw new BadCredentialsException('Email ou mot de passe incorrect !');
         }
 
-        if(!$user->getActif()){
+        if (!$user->getActif()) {
             throw new BadCredentialsException("Votre compte a été suspendu !");
         }
 
