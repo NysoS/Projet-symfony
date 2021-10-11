@@ -29,8 +29,8 @@
 	</table>
 	<form action="{{path('annuleSortie',{"id":sortie.id})}}" method="post">
 		<div>Motif : <textarea name="motif" id="motif" cols="30" rows="2"></textarea></div>
-		<div><button type="submit" class="btn btn-dark">Enregistrer</button>
+		<div><button type="submit" class="btn btn-primary">Enregistrer</button>
         <!-- TODO rediriger vers accueil quand elle sera créée -->
-        <a class="btn btn-dark" href="{{path('addSortie')}}" style="margin-left:2%">Annuler</a></div>
+        <a class="btn btn-warning" href="{{path('addSortie')}}" style="margin-left:2%">Annuler</a></div>
 	</form>
 {% endblock %}
