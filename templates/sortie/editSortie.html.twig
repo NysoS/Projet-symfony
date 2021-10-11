@@ -15,11 +15,11 @@
 				</tr>
 				<tr>
 					<td>Date et heure de la sortie : </td>
-					<td><input type="text" name="date_debut" id="date_debut" value="{{sortie.getDateDebut()|date('d/m/y H:i:s')}}"></td>
+					<td><input type="datetime-local" name="date_debut" id="date_debut"  value="{{sortie.getDateDebut()|date('Y-m-d\\TH:i:s')}}"></td>
 				</tr>
 				<tr>
 					<td>Date limite d'inscription : </td>
-					<td><input type="text" name="date_cloture" id="date_cloture" value="{{sortie.getDateCloture()|date('d/m/y H:i:s')}}"></td>
+					<td><input type="datetime-local" name="date_cloture" id="date_cloture" value="{{sortie.getDateCloture()|date('Y-m-d\\TH:i:s')}}"></td>
 				</tr>
 				<tr>
 					<td>Nombre de places : </td>
@@ -111,7 +111,8 @@
 		</table>
 	</div>
 	<div>
-		<button type="submit" class="btn btn-primary">Enregistrer</button>
+		<button type="submit" name="etat" value="enregistrer" class="btn btn-primary">Enregistrer</button>
+		<button type="submit" name="etat" value="publier" class="btn btn-primary">Publier</button>
 		<a href="{{path('delSortie',{'id':sortie.id})}}" class="btn btn-danger" style="margin-right:4px">Supprimer</button>
 		<a href="{{path('addSortie')}}" class="btn btn-warning">Annuler</a>
 	</div>

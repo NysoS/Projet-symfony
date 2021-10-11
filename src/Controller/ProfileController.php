@@ -128,18 +128,30 @@ class ProfileController extends AbstractController
      */
     public function deleteParticipant(Participant $participant, EntityManagerInterface $em, SortiesRepository $sortiesRepository, InscriptionsRepository $inscriptionsRepository): Response
     {
+
         // lister les sorites 
         $AllSorties  = $sortiesRepository->findBy(['organisateur' => $participant->getId()]);
 
-        // Pour chaque sortie suppression des inscriptions à la sortie 
-        foreach ($AllSorties as $sortie) {
-            $allInscriptions =  $inscriptionsRepository->findBy(['sorties' => $sortie->getId()]);
+
+        if ($AllSorties) {
+            // Pour chaque sortie suppression des inscriptions à la sortie 
+            foreach ($AllSorties as $sortie) {
+
+                $allInscriptions =  $inscriptionsRepository->findBy(['sorties' => $sortie->getId()]);
+
+                foreach ($allInscriptions as $inscription) {
+                    $em->remove($inscription);
+                    //envoyer un msg à l'utilisateur pour l'informer
+                }
+                $em->remove($sortie);
+            }
+        } else {
+            $allInscriptions =  $inscriptionsRepository->findBy(['participants' => $participant->getId()]);
 
             foreach ($allInscriptions as $inscription) {
                 $em->remove($inscription);
                 //envoyer un msg à l'utilisateur pour l'informer
             }
-            $em->remove($sortie);
         }
 
         $em->remove($participant);
