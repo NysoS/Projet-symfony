@@ -95,6 +95,9 @@ class VilleController extends AbstractController
         $em->remove($ville);
         $em->flush();
 
+        // je signale l'utilisateur 
+        $this->addFlash('success', 'suppression de la ville ok');
+
         return $this->redirectToRoute('app_ville');
     }
 }
