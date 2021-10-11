@@ -114,7 +114,7 @@
 										<div>
 											<a href="{{path('editSortie',{'id':sortie.id})}}" class="btn btn-warning">Modifier</a>
 											<a href="{{path('delSortie',{'id':sortie.id})}}" class="btn btn-danger">Supprimer</a>
-											{% if sortie.etats.libelle != "Annulé" and sortie.etats.libelle != "Passée" and sortie.etats.libelle != "Clôturée" %}
+											{% if sortie.etats.libelle != "Annulé" and sortie.etats.libelle != "Passée" and sortie.etats.libelle != "Clôturée" and sortie.etats.libelle != "Activité en cours" %}
 											<a href="{{path('annuleSortie',{'id':sortie.id})}}" class="btn btn-info">Annuler</a>
 											{% endif %}
 										</div>
