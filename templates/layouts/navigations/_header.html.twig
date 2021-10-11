@@ -2,7 +2,7 @@
 <header>
 	{% set my_route = app.request.attributes.get('_route')%}
 
-	<nav class="navbar navbar-expand-md navbar-light bg-light">
+	<nav class="navbar navbar-expand-md">
 		<div class="container-fluid" style="margin:0 10%">
 
 			<a class="navbar-brand" href="{{path('home')}}">
@@ -14,40 +14,40 @@
 
 					{% if app.user %}
 						<li class="mx-2 nav-item ">
-							<a class="text-uppercase fw-bolder nav-link {{(my_route == 'showLieux') ? 'active' }} " href="{{path('showLieux')}}">Lieux
+							<a class="text-uppercase fw-bolder nav-link" href="{{path('showLieux')}}">Lieux
 							</a>
 						</li>
 
 						<li class="mx-2 nav-item ">
-							<a class="text-uppercase fw-bolder nav-link {{(my_route == 'app_ville') ? 'active' }} " href="{{path('app_ville')}}">Villes
+							<a class="text-uppercase fw-bolder nav-link" href="{{path('app_ville')}}">Villes
 							</a>
 						</li>
 
 						<li class="mx-2 nav-item ">
-							<a class="text-uppercase fw-bolder nav-link {{(my_route == 'sites') ? 'active' }} " href="{{path('sites')}}">Sites
+							<a class="text-uppercase fw-bolder nav-link" href="{{path('sites')}}">Sites
 							</a>
 						</li>
 
 						{% if is_granted("ROLE_ADMIN") %}
 							<li class="mx-2 nav-item">
-								<a class="text-uppercase fw-bolder nav-link {{(my_route == 'app_profile') ? 'active' }}" href="{{path('app_profile',{id:app.user.id})}}">Profils
+								<a class="text-uppercase fw-bolder nav-link" href="{{path('app_profile',{id:app.user.id})}}">Profils
 								</a>
 							</li>
 						{% else %}
 							<li class="mx-2 nav-item">
-								<a class="text-uppercase fw-bolder nav-link {{(my_route == 'app_profile_show') ? 'active' }}" href="{{path('app_profile_show',{'id':app.user.getId()})}}">Mon profil
+								<a class="text-uppercase fw-bolder nav-link" href="{{path('app_profile_show',{'id':app.user.getId()})}}">Mon profil
 								</a>
 							</li>
 						{% endif %}
 
 						<li class="mx-2 nav-item">
-							<a class="text-uppercase fw-bolder nav-link " href="{{ path('app_logout') }}">
+							<a class="text-uppercase fw-bolder nav-link" href="{{ path('app_logout') }}">
 								Se deconnecter
 							</a>
 						</li>
 					{% else %}
 						<li class="mx-2 nav-item ">
-							<a class="text-uppercase fw-bolder nav-link {{(my_route == 'app_login') ? 'active' }} " href="{{path('app_login')}}">Se connecter</a>
+							<a class="text-uppercase fw-bolder nav-link" href="{{path('app_login')}}">Se connecter</a>
 						</li>
 					{% endif %}
 				</ul>

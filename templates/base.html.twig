@@ -13,6 +13,37 @@
 	</head>
 
 	<body>
+		<script type="text/javascript">
+			let etat = getCookie("dark_theme");
+
+			if (etat != "") {
+				let head  = document.getElementsByTagName('head')[0];
+				let link  = document.createElement('link');
+				link.rel  = 'stylesheet';
+				link.type = 'text/css';
+
+				if (etat == "on") {
+					link.href = 'http://localhost/Projet-symfony/public/css/dark.css';
+				} else {
+					link.href = 'http://localhost/Projet-symfony/public/css/app.css';
+				}
+				
+				link.media = 'all';
+				head.appendChild(link);
+			}
+
+			//récupérer un cookie
+			function getCookie(name) {
+				let cookieArr = document.cookie.split(";");
+					
+				for(let i = 0; i < cookieArr.length; i++) {
+					let cookiePair = cookieArr[i].split("=");
+					if (name == cookiePair[0].trim()) return decodeURIComponent(cookiePair[1]);
+				}
+					
+				return null;
+			}
+		</script>
 		{% include 'layouts/navigations/_header.html.twig' %}
 
 		<div class="container"> {% block body %}{% endblock %}
