@@ -10,6 +10,16 @@
 		<h1 class="mt-5 mb-3 text-uppercase">Gestion des villes</h1>
 
 		<div>
+			{%  for type , messages  in app.flashes(['success','error','info']) %}
+				{% for message in messages %}
+					<div class="alert alert-{{ (type =='error') ? 'danger' : type }} text-center" role="alert">
+						{{ message }}
+					</div>
+				{% endfor %}
+			{% endfor %}
+		</div>
+
+		<div>
 			<div class="col-12">
 				<p class="fw-bolder">
 					Filter les villes</p>
