@@ -55,12 +55,14 @@
 				:{{participant.sites.Nomsite}}
 			</p>
 			
-			<p>
-				<div class="form-check form-switch">
-					<input class="form-check-input" type="checkbox" role="switch" id="switchEtat" {% if (app.request.cookies.get('dark_theme') == "on") %}{{"checked"}}{% endif %} onchange="switchTheme()">
-					<label class="form-check-label" for="flexSwitchCheckDefault">Thème sombre</label>
-				</div>
-			</p>
+			{% if (participant.id == app.user.id)
+				<p>
+					<div class="form-check form-switch">
+						<input class="form-check-input" type="checkbox" role="switch" id="switchEtat" {% if (app.request.cookies.get('dark_theme') == "on") %}{{"checked"}}{% endif %} onchange="switchTheme()">
+						<label class="form-check-label" for="flexSwitchCheckDefault">Thème sombre</label>
+					</div>
+				</p>
+			{% endif %}
 
 			<script type="text/javascript">
 				function switchTheme() {
