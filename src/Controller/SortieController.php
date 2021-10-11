@@ -14,6 +14,7 @@ use App\Repository\ParticipantRepository;
 use App\Repository\SitesRepository;
 use App\Repository\SortiesRepository;
 use App\Repository\VillesRepository;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -75,7 +76,7 @@ class SortieController extends AbstractController
     /**
      * @Route("/editSortie/{id}", name="editSortie")
      */
-    public function editSortie(Sorties $s, Request $req, VillesRepository $vr, EtatsRepository $er, LieuxRepository $lr, SortiesRepository $sr, EntityManagerInterface $em): Response
+    public function editSortie(Sorties $s, Request $req, VillesRepository $vr, EtatsRepository $er, LieuxRepository $lr, SitesRepository $sr, EntityManagerInterface $em): Response
     {
         $villes = $vr->findAll();
 
@@ -83,17 +84,23 @@ class SortieController extends AbstractController
         $form->handleRequest($req);
 
         if ($form->isSubmitted()) {
-            $s->setNom($req->get("nom"));
-            $s->setDateDebut(new \DateTime($req->get("date_debut")));
-            $s->setDateCloture(new \DateTime($req->get("date_cloture")));
+            $date_debut = DateTime::createFromFormat('d/m/y H:i:s', $req->get("date_debut"));
+            $s->setDateDebut(new \DateTime($date_debut->format('Y-m-d H:i:s')));
+
+            $date_cloture = DateTime::createFromFormat('d/m/y H:i:s', $req->get("date_cloture"));
+            $s->setDateCloture(new \DateTime($date_cloture->format('Y-m-d H:i:s')));
+
             $s->setNbInscriptionsMax(intval($req->get("nbInscriptionsMax")));
             $s->setDuree(intval($req->get("duree")));
-            $s->setDescription($req->get("description"));
             $s->setOrganisateur($this->getUser());
             $s->setSite($sr->findOneBy(array("id" => $this->getUser()->getSites()->getId())));
+            
             if ($req->get("lieu") != null) $s->setLieux($lr->findOneBy(array("id" => str_replace("lieu","",$req->get("lieu")))));
             if ($req->get("ville") != null) $s->getLieux()->setVilles($vr->findOneBy(array("id" => str_replace("ville","",$req->get("ville")))));
             $s->setEtats($er->findOneBy(["libelle"=>$req->get("etat")]));
+            if ($req->get("etat") == "enregistrer") $s->setEtats($er->findOneBy(array("libelle" => "Créée")));
+            else $s->setEtats($er->findOneBy(array("libelle" => "Ouverte")));
+
             $em->persist($s);
             $em->flush();
             return $this->redirectToRoute("home");
@@ -109,7 +116,7 @@ class SortieController extends AbstractController
     /**
      * @Route("/delSortie/{id}", name="delSortie")
      */
-    public function delSortie(Sorties $s, EntityManagerInterface $em): Response
+    public function delSortie(Sorties $s, EntityManagerInterface $em, InscriptionsRepository $ir): Response
     {
         $em->remove($s);
         $em->flush();
