@@ -63,13 +63,9 @@
 									<a class="btn btn-warning text-white" href="{{ path('app_profile_eddit', {id:participant.id}) }}">
 										<i class="fas fa-edit"></i>
 									</a>
-									<a class="btn btn-danger text-white" href="{{ path('app_profile_delete', {id:participant.id}) }}">
+
+									<a class="btn btn-danger text-white" href="#" onclick="event.preventDefault();confirm('Voulez-vous vraiment supprimer le poste');document.getElementById('js-delete-form-{{ participant.id }}').submit()">
 										<i class="fas fa-trash"></i>
-									</a>
-
-
-									<a class="btn btn-primary" href="#" onclick="event.preventDefault();confirm('Voulez-vous vraiment supprimer le poste');document.getElementById('js-delete-form-{{ participant.id }}').submit()">
-										suppression
 									</a>
 
 									<form id="js-delete-form-{{ participant.id }}" action="{{ path('app_profile_delete', {id:participant.id}) }}" method="POST" style="display:none;"></form>
