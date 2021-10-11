@@ -88,7 +88,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-					<a id="exampleBtnNomVille" class="btn btn-danger" href="">
+					<a id="exampleBtnNomVille" class="btn btn-danger" href="aaaa">
 						<i class="fas fa-trash"></i>
 					</a>
 				</div>
@@ -99,17 +99,17 @@
 
 	<script>
 		function deleteVille(el) {
-let participantId = el.dataset.participantid;
+			let participantId = el.dataset.participantid;
 
-// recuperation du titre
-titleElement = document.getElementById('exampleModalLabelNomVille');
-aElement = document.getElementById('exampleBtnNomVille');
-titleElement.innerText = 'Voulez-vous supprimer l utilisateur "' + el.dataset.participantnom + '" ? ';
+			// recuperation du titre
+			titleElement = document.getElementById('exampleModalLabelNomVille');
+			aElement = document.getElementById('exampleBtnNomVille');
+			titleElement.innerText = 'Voulez-vous supprimer l utilisateur "' + el.dataset.participantnom + '" ? ';
 
-p = location.href + "/" + participantId + "/delete";
-
-aElement.href = p;
-}
+			p = location.href + "/" + participantId + "/delete";
+			aElement.href = p;
+			console.log(p)
+	}
 	</script>
 
 {% endblock %}

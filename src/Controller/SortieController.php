@@ -93,7 +93,7 @@ class SortieController extends AbstractController
             if ($req->get("lieu") != null) $s->setLieux($lr->findOneBy(array("id" => str_replace("lieu","",$req->get("lieu")))));
             if ($req->get("ville") != null) $s->getLieux()->setVilles($vr->findOneBy(array("id" => str_replace("ville","",$req->get("ville")))));
             $s->setEtats($er->findOneBy(["libelle"=>$req->get("etat")]));
-            if ($req->get("etat") == "enregistrer") $s->setEtats($er->findOneBy(array("libelle" => "Créée")));
+            if ($req->get("etat") == "enregistrer") $s->setEtats($er->findOneBy(array("libelle" => $req->get("etat_initial"))));
             else $s->setEtats($er->findOneBy(array("libelle" => "Ouverte")));
 
             $em->persist($s);
