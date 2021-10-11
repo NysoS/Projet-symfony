@@ -30,7 +30,7 @@
 
 						{% if is_granted("ROLE_ADMIN") %}
 							<li class="mx-2 nav-item">
-								<a class="text-uppercase fw-bolder nav-link" href="{{path('app_profile',{id:app.user.id})}}">Profils
+								<a class="text-uppercase fw-bolder nav-link" href="{{path('app_profile')}}">Profils
 								</a>
 							</li>
 						{% else %}

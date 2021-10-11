@@ -120,7 +120,7 @@ titleElement = document.getElementById('exampleModalLabelNomVille');
 aElement = document.getElementById('exampleBtnNomVille');
 titleElement.innerText = 'Voulez-vous supprimer la ville "' + el.dataset.villenom + '" ? ';
 
-p = "ville/" + villeId + "/delete";
+p = location.href + "/" + villeId + "/delete";
 
 aElement.href = p;
 }
