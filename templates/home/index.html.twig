@@ -107,8 +107,9 @@
 										{% endif %}
 									{% endfor %}
 								</td>
-								<td>{{sortie.organisateur.nom|upper}}
-									{{sortie.organisateur.prenom}}</td>
+								<td>
+									<a href="{{path('app_profile_show',{id:sortie.organisateur.id})}}">{{sortie.organisateur.nom|upper}} {{sortie.organisateur.prenom}}</a>
+								</td>
 								<td>
 									{% if is_granted("ROLE_ADMIN") or sortie.organisateur.id == app.user.id %}
 										<div>
