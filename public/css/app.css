@@ -19,8 +19,8 @@ html {
   border-radius: 10px;
 }
 
-.h{
-    height: 80vh;
+.h {
+  height: 80vh;
 }
 
 .title-page {
@@ -71,40 +71,40 @@ html {
   overflow-y: auto;
 }
 
-#home #home-form{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    flex-direction: row;
-    margin-bottom: 2%;
+#home #home-form {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: row;
+  margin-bottom: 2%;
 }
 
-#home #home-form .filter-p1{
-    width: 60%;
+#home #home-form .filter-p1 {
+  width: 60%;
 }
 
-#home #home-form .filter-p1 .home-filer-date{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+#home #home-form .filter-p1 .home-filer-date {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-#home .home-info{
-    text-align: right;
+#home .home-info {
+  text-align: right;
 }
 
-#home .alert{
+#home .alert {
   text-align: center;
 }
 
-#register{
+#register {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 }
 
-#register .centerer{
+#register .centerer {
   display: flex;
   justify-content: center;
   align-items: center;
