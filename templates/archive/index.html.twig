@@ -26,8 +26,8 @@
                         <td>{{archive.getNomLieu()}}</td>
                         <td>{{archive.getEtatSortie()}}</td>
                         <td>{{archive.getNomSite()}}</td>
-                        <td>{{archive.getDateClotureInscription()}}</td>
-                        <td>{{archive.getNnInscriptionMaxSortie()}}</td>
+                        <td>{{archive.getDateClotureInscription()|date('d/m/Y H:i')}}</td>
+                        <td>{{archive.getNnInscriptionMaxSortie()|date('d/m/Y H:i')}}</td>
                         <td>{{archive.getDateDebutSortie()}}</td>
                         <td>{{archive.getDureeSortie()}}</td>
                         <td>{{archive.getDescriptionSortie()}}</td>
