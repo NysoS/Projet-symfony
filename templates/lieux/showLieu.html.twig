@@ -25,11 +25,11 @@
 					<td>-> {{lieu.getLongitude()}}</td>
 				</tr>
                 {% endif %}
-                {% if lieu.getLatitude() is not null and lieu.getLongitude() is not null %}
-                <tr>
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2755.2783944317184!2d{{lieu.getLongitude()}}!3d{{lieu.getLatitude()}}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDbCsDE5JzI3LjAiTiAwwrAyNycyNC41Ilc!5e0!3m2!1sfr!2sfr!4v1633423189706!5m2!1sfr!2sfr" width="400" height="300" style="border:0;margin-left:3%;border-radius:20px" allowfullscreen="" loading="lazy"></iframe>
-                </tr>
-                {% endif %}
+				{% if lieu.getLatitude() is not null and lieu.getLongitude() is not null %}
+					<tr>
+						<iframe width="400" height="300" style="border:0;margin-left:3%;border-radius:20px" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=fr&amp;q={{lieu.getLatitude()}},{{lieu.getLongitude()}}&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+					</tr>
+				{% endif %}
 			</tbody>
 		</table>
 	</div>
