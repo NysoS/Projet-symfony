@@ -21,16 +21,16 @@
             <tbody>
                 {% for archive in archives %}
                     <tr>
-                        <td>{{archive.nom_organisateur}}</td>
-                        <td>{{archive.email_organisateur}}</td>
-                        <td>{{archive.nom_lieu}}</td>
-                        <td>{{archive.etat_sortie}}</td>
-                        <td>{{archive.nom_site}}</td>
-                        <td>{{archive.date_cloture_inscription}}</td>
-                        <td>{{archive.nnInscriptionMaxSortie}}</td>
-                        <td>{{archive.date_debut_sortie}}</td>
-                        <td>{{archive.duree_sortie}}</td>
-                        <td>{{archive.description_sortie}}</td>
+                        <td>{{archive.getNomOrganisateur()}}</td>
+                        <td>{{archive.getEmailOrganisateur()}}</td>
+                        <td>{{archive.getNomLieu()}}</td>
+                        <td>{{archive.getEtatSortie()}}</td>
+                        <td>{{archive.getNomSite()}}</td>
+                        <td>{{archive.getDateClotureInscription()}}</td>
+                        <td>{{archive.getNnInscriptionMaxSortie()}}</td>
+                        <td>{{archive.getDateDebutSortie()}}</td>
+                        <td>{{archive.getDureeSortie()}}</td>
+                        <td>{{archive.getDescriptionSortie()}}</td>
                     </tr>
                 {% endfor %}
             </tbody>

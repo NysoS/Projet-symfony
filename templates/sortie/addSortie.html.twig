@@ -31,7 +31,7 @@
 					<tr>
 						<div class="input-group input-group-sm mb-3">
 							<span class="input-group-text " id="inputGroup-sizing-sm">Nombre de places*</span>
-							<input type="number" min="0" name="nbInscriptionsMax" id="nbInscriptionsMax"class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" required>
+							<input type="number" min="0" name="nbInscriptionsMax" id="nbInscriptionsMax" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" required>
 						</div>
 					</tr>
 					<tr>
@@ -43,7 +43,7 @@
 				</tbody>
 			</table>
 		</div>
-		<div>
+		<div class="ms-2">
 			<table>
 				<tbody>
 					<tr>
@@ -71,36 +71,39 @@
 					</tr>
 
 					<script type="text/javascript">
-						document.getElementById('ville').addEventListener('change', e =>{
-							let selectLieu = document.getElementById("lieu");
-							if (selectLieu.disabled == true) selectLieu.disabled = false;
+						document.getElementById('ville').addEventListener('change', e => {
+let selectLieu = document.getElementById("lieu");
+if (selectLieu.disabled == true) 
+selectLieu.disabled = false;
 
-							let cp = document.getElementById(document.getElementById("ville").value).getAttribute("data-ville");
-							let id = document.getElementById(document.getElementById("ville").value).getAttribute("id").replace("ville","");
-							document.getElementById('cp').value = cp;
 
-							$('#lieu').find('option').remove();
-							
-							let opt = new Option();
-							opt.setAttribute("selected","");
-							selectLieu.options.add(opt);
 
-							let base_url = document.location.href.substring(0,document.location.href.length-10);
-							
-							axios.get(base_url+"/lieux_ville/"+id).then((response) => {
-								response.data.forEach(elt => {
-									let newOption = new Option(elt.nom_lieu, "lieu"+elt.id);
-									newOption.setAttribute("id","lieu"+elt.id);
-									newOption.setAttribute("data-lieu",elt.rue);
-									selectLieu.options.add(newOption);
-								});
-							});
-						})
+let cp = document.getElementById(document.getElementById("ville").value).getAttribute("data-ville");
+let id = document.getElementById(document.getElementById("ville").value).getAttribute("id").replace("ville", "");
+document.getElementById('cp').value = cp;
 
-						document.getElementById('lieu').addEventListener('change', e =>{
-							let rue = document.getElementById(document.getElementById("lieu").value).getAttribute("data-lieu");
-							document.getElementById('rue').value = rue;
-						})
+$('#lieu').find('option').remove();
+
+let opt = new Option();
+opt.setAttribute("selected", "");
+selectLieu.options.add(opt);
+
+let base_url = document.location.href.substring(0, document.location.href.length - 10);
+
+axios.get(base_url + "/lieux_ville/" + id).then((response) => {
+response.data.forEach(elt => {
+let newOption = new Option(elt.nom_lieu, "lieu" + elt.id);
+newOption.setAttribute("id", "lieu" + elt.id);
+newOption.setAttribute("data-lieu", elt.rue);
+selectLieu.options.add(newOption);
+});
+});
+})
+
+document.getElementById('lieu').addEventListener('change', e => {
+let rue = document.getElementById(document.getElementById("lieu").value).getAttribute("data-lieu");
+document.getElementById('rue').value = rue;
+})
 					</script>
 
 					<tr>
@@ -137,7 +140,7 @@
 	</div>
 	{{form_end(formSortie)}}
 
-    <hr>
+	<hr>
 	<!-- bouton modal -->
 	<div>
 		<button type="button" class="btn btn-success btn-group btn-group-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop">

@@ -20,7 +20,7 @@ input[type=text]:focus, input[type=date]:focus, input[type=datetime-local]:focus
     border-radius: 25px;
 }
 
-a:hover {
+a:hover, .nav-link:hover {
     color: red;
 }
 
