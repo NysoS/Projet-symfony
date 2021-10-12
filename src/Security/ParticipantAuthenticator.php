@@ -70,11 +70,9 @@ class ParticipantAuthenticator extends AbstractFormLoginAuthenticator implements
 
         $user = $this->entityManager->getRepository(Participant::class)->findOneBy(['email' => $credentials['email']]);
 
-        if (!$user) {
-            throw new BadCredentialsException('Email ou mot de passe incorrect !');
-        }
-
-        if (!$user->getActif()) {
+        if (!$user || !$this->checkCredentials($credentials,$user)) {
+            throw new BadCredentialsException('Authentification incorrecte !');
+        } else if (!$user->getActif()) {
             throw new BadCredentialsException("Votre compte a été suspendu !");
         }
 

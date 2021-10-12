@@ -111,6 +111,7 @@
 		</table>
 	</div>
 	<div>
+		<input type="text" name="etat_initial" value="{{sortie.etats.libelle}}" hidden>
 		<button type="submit" name="etat" value="enregistrer" class="btn btn-primary">Enregistrer</button>
 		<button type="submit" name="etat" value="publier" class="btn btn-primary">Publier</button>
 		<a href="{{path('delSortie',{'id':sortie.id})}}" class="btn btn-danger" style="margin-right:4px">Supprimer</button>
