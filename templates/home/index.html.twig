@@ -127,10 +127,10 @@
 											{% endif %}
 										{% endfor %}
 										{% if inscrit == true  %}
-											<a href="{{path('desistSortie',{'sortie':sortie.id,'user':app.user.getId()})}}" class="btn btn-outline-secondary">Se désister</a>
+											<a href="{{path('desistSortie',{'sortie':sortie.id,'user':app.user.getId()})}}" class="btn btn-outline-warning">Se désister</a>
 										{% else %}
 											{% if sortie.etats.getLibelle() == "Ouverte" and sortie.organisateur.id != app.user.id and sortie.getInscriptions().count < sortie.nbInscriptionsMax %}
-												<a href="{{path('inscriptionSortie',{'sortie':sortie.id,'user':app.user.getId()})}}" class="btn btn-outline-secondary">S'inscrire</a>
+												<a href="{{path('inscriptionSortie',{'sortie':sortie.id,'user':app.user.getId()})}}" class="btn btn-outline-success">S'inscrire</a>
 											{% endif %}
 										{% endif %}
 									</div>
