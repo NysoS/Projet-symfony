@@ -25,16 +25,14 @@
 					Filter les villes</p>
 			</div>
 			<form action="{{ path('app_ville_find') }}" class="my-4 row" method="POST">
-				<div class="col-lg-2">
+				<div class="col-12 col-lg-2">
 					Le nom contient :</div>
-				<div class="col-lg-2">
-
+				<div class="col-6 col-lg-4">
 					<input class="form-control rounded-pill" type="text" name="myWord"></div>
-				<div class="col-lg-2">
+				<div class="col-6 col-lg-2">
 					<button class="btn btn-success" type="submit">
 						Rechercher</button>
 				</div>
-
 			</form>
 
 		</div>
@@ -66,7 +64,7 @@
 												<i class="fas fa-edit"></i>
 											</a>
 
-											<button type="button" class="btn btn-danger" data-villeid="{{ville.id}}" data-villenom="{{ville.nomVille}}" onclick="deleteVille(this)" data-bs-toggle="modal" data-bs-target="#exampleModal">
+											<button class="my-2 m-lg-0 btn btn-danger" type="button" data-villeid="{{ville.id}}" data-villenom="{{ville.nomVille}}" onclick="deleteVille(this)" data-bs-toggle="modal" data-bs-target="#exampleModal">
 												<i class="fas fa-trash"></i>
 											</button>
 
@@ -77,11 +75,12 @@
 							<tr>
 								{% if is_granted("ROLE_ADMIN") %}
 									{{ form_start(formVille) }}
-									<th>{{ form_row(formVille.nom_ville) }}</th>
-									<th>{{ form_row(formVille.code_postal) }}</th>
+									<th>{{ form_row(formVille.nom_ville,{'attr': {'class': 'mt-4 mt-sm-0'}}) }}</th>
+									<th>{{ form_row(formVille.code_postal,{'attr': {'class': 'task_field'}}) }}</th>
 									<td>
-										<button class="my-4 btn btn-success text-white" type="submit">Ajouter</button>
-
+										<div class="mt-4 mt-lg-0">
+											<button class="my-4 btn btn-success text-white" type="submit">Ajouter</button>
+										</div>
 									</td>
 									{{ form_end(formVille) }}
 								{% endif %}

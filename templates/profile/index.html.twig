@@ -8,11 +8,23 @@
 	<div class="example-wrapper">
 		<h1 class="mt-5 mb-3 text-uppercase">Gestion des participants</h1>
 		{% if app.user %}
-			<a class="btn btn-primary" href="{{ path('app_profile_show', {id:app.user.id}) }}">
-				Afficher mon profil</a>
-			<a class="btn btn-warning text-white" href="{{ path('app_register') }}">Ajouter un participant</a>
-			<a class="btn btn-danger text-white" href="{{ path('app_profile_eddit', {id:app.user.id}) }}">modifier mon profil</a>
-			<a class="btn btn-success text-white" href="{{ path('app_profile_add_json') }}">Ajouter des utilisateurs via un fichier</a>
+			<div class="row">
+				<div class="col-auto">
+					<a class="btn btn-primary" href="{{ path('app_profile_show', {id:app.user.id}) }}">
+						Afficher mon profil</a>
+				</div>
+				<div class="col-auto">
+					<a class="mt-2 mt-lg-0 btn btn-warning text-white" href="{{ path('app_register') }}">Ajouter un participant</a>
+				</div>
+				<div class="col-auto">
+					<a class="mt-2 mt-lg-0 btn btn-danger text-white" href="{{ path('app_profile_eddit', {id:app.user.id}) }}">modifier mon profil</a>
+				</div>
+				<div class="col-auto">
+					<a class="mt-2 mt-lg-0 btn btn-success text-white" href="{{ path('app_profile_add_json') }}">Ajouter des utilisateurs via un fichier</a>
+				</div>
+			</div>
+
+
 		{% endif %}
 
 		<h2 class="mt-5 mb-3 text-uppercase">
@@ -56,14 +68,14 @@
 									</td>
 								{% endif %}
 								<td>
-									<a class="btn btn-primary" href="{{ path('app_profile_show', {id:participant.id}) }}">
+									<a class="mt-2 mt-lg-0 btn btn-primary" href="{{ path('app_profile_show', {id:participant.id}) }}">
 										<i class="fas fa-eye"></i>
 									</a>
 
-									<a class="btn btn-warning text-white" href="{{ path('app_profile_eddit', {id:participant.id}) }}">
+									<a class="mt-2 mt-lg-0 btn btn-warning text-white" href="{{ path('app_profile_eddit', {id:participant.id}) }}">
 										<i class="fas fa-edit"></i>
 									</a>
-									<button type="button" class="btn btn-danger" data-participantid="{{participant.id}}" data-participantnom="{{participant.nom}}" onclick="deleteVille(this)" data-bs-toggle="modal" data-bs-target="#exampleModal">
+									<button type="button" class="mt-2 mt-lg-0 btn btn-danger" data-participantid="{{participant.id}}" data-participantnom="{{participant.nom}}" onclick="deleteVille(this)" data-bs-toggle="modal" data-bs-target="#exampleModal">
 										<i class="fas fa-trash"></i>
 									</button>
 								</td>
@@ -99,17 +111,17 @@
 
 	<script>
 		function deleteVille(el) {
-			let participantId = el.dataset.participantid;
+let participantId = el.dataset.participantid;
 
-			// recuperation du titre
-			titleElement = document.getElementById('exampleModalLabelNomVille');
-			aElement = document.getElementById('exampleBtnNomVille');
-			titleElement.innerText = 'Voulez-vous supprimer l utilisateur "' + el.dataset.participantnom + '" ? ';
+// recuperation du titre
+titleElement = document.getElementById('exampleModalLabelNomVille');
+aElement = document.getElementById('exampleBtnNomVille');
+titleElement.innerText = 'Voulez-vous supprimer l utilisateur "' + el.dataset.participantnom + '" ? ';
 
-			p = location.href + "/" + participantId + "/delete";
-			aElement.href = p;
-			console.log(p)
-	}
+p = location.href + "/" + participantId + "/delete";
+aElement.href = p;
+console.log(p)
+}
 	</script>
 
 {% endblock %}
