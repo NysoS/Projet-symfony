@@ -62,7 +62,7 @@ class SortiesRepository extends ServiceEntityRepository
             if($req->get('ch_s_2') != null){
                 $qb->innerJoin('s.inscriptions', 'i')
                     ->addSelect('i')
-                    ->andWhere('i.id = s.inscriptions')
+                    ->andWhere('i.sorties = s.id')
                     ->andWhere('i.participants = :idP2')
                     ->setParameter(':idP2', $p->getId());
             }
@@ -70,7 +70,7 @@ class SortiesRepository extends ServiceEntityRepository
             if($req->get('ch_s_3') != null){
                 $qb->innerJoin('s.inscriptions', 'i')
                     ->addSelect('i')
-                    ->andWhere('i.id = s.inscriptions')
+                    ->andWhere('i.sorties = s.id')
                     ->andWhere('i.participants <> :idP3')
                     ->setParameter(':idP3', $p->getId());
             }
