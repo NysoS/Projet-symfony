@@ -60,11 +60,11 @@
 
 									{% if is_granted("ROLE_ADMIN") %}
 										<td>
-											<a class="btn btn-warning text-white" href="{{ path('app_ville_eddit', {id:ville.id}) }}">
+											<a class="btn btn-warning text-white btn-border-radius" href="{{ path('app_ville_eddit', {id:ville.id}) }}">
 												<i class="fas fa-edit"></i>
 											</a>
 
-											<button class="my-2 m-lg-0 btn btn-danger" type="button" data-villeid="{{ville.id}}" data-villenom="{{ville.nomVille}}" onclick="deleteVille(this)" data-bs-toggle="modal" data-bs-target="#exampleModal">
+											<button class="my-2 m-lg-0 btn btn-danger btn-border-radius" type="button" data-villeid="{{ville.id}}" data-villenom="{{ville.nomVille}}" onclick="deleteVille(this)" data-bs-toggle="modal" data-bs-target="#exampleModal">
 												<i class="fas fa-trash"></i>
 											</button>
 
