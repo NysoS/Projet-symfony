@@ -113,7 +113,13 @@ class SortieController extends AbstractController
      */
     public function delSortie(Sorties $s, EntityManagerInterface $em, InscriptionsRepository $ir): Response
     {
+        $inscriptions = $ir->findBy(["sorties"=>$s->getId()]);
         $em->remove($s);
+
+        foreach ($inscriptions as $inscription) {
+            $em->remove($inscription);
+        }
+        
         $em->flush();
         return $this->redirectToRoute("home");
     }
