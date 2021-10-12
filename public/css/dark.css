@@ -1,3 +1,8 @@
+*::selection{
+  color: pink;
+}
+
+
 body, td, .modal-content, th, option, a, select, input[type=date], input[type=datetime-local], input[type=text], input[type=text]:disabled, input[type=number], textarea, .nav-link, .form-control, .form-control:disabled, .form-select {
     background-color: #323232;
     color: white;
@@ -12,6 +17,7 @@ input[type=checkbox] {
 input[type=text]:focus, input[type=date]:focus, input[type=datetime-local]:focus, input[type=number]:focus, textarea:focus, .form-control:focus, .form-select:focus {
     background-color: #323232;
     color: #69D0EF;
+    border-radius: 25px;
 }
 
 a:hover {
