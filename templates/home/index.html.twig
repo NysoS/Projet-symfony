@@ -142,8 +142,13 @@
 			</div>
 
 			<a href="{{path('addSortie')}}" class="btn btn-success">Créer une sortie</a>
+			{% if is_granted('ROLE_ADMIN')%}
+				<a href="{{path('showArchives')}}" class="btn btn-outline-primary">Sorties archivées</a>
+			{% endif %}
 		{% else %}
-			<div class="container">Veuillez vous connecter</div>
+			<div class="h" id="gestion-sites">
+				<div class="container">Veuillez vous connecter</div>
+			</div>
 		{% endif %}
 
 	</div>
