@@ -95,7 +95,7 @@
 									<a href="{{path('showSortie',{id:sortie.id})}}">{{sortie.nom}}</a>
 								</td>
 								<td>{{sortie.getDateDebut() | date('d/m/Y H:i')}}</td>
-								<td>{{sortie.getDateCloture() | date('d/m/Y')}}</td>
+								<td>{{sortie.getDateCloture() | date('d/m/Y H:i')}}</td>
 								<td>
 									{{sortie.getInscriptions().count}}/{{sortie.nbInscriptionsMax}}
 								</td>
