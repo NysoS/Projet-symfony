@@ -82,7 +82,7 @@ class SortiesRepository extends ServiceEntityRepository
                 ->andWhere('e.id = s.etats')
                 ->andWhere('e.libelle = \'passée\'');
         }
-
+        
         $query = $qb->getQuery();
         return $query->execute();
     }
