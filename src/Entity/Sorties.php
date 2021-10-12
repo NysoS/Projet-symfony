@@ -79,7 +79,7 @@ class Sorties
 
     /**
      * @ORM\ManyToOne(targetEntity=Sites::class, inversedBy="sorties")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $site;
 

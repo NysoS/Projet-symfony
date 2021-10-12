@@ -67,6 +67,13 @@ class SitesController extends AbstractController
      */
     public function sitesDelete(Sites $site, EntityManagerInterface $em): Response
     {
+        foreach($site->getSorties() as $s){
+            $s->setSite(null);
+        }
+
+        foreach($site->getParticipants() as $p){
+            $p->setSites(null);
+        }
         $em->remove($site);
         $em->flush();
 

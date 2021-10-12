@@ -75,7 +75,7 @@ class Participant implements UserInterface
 
     /**
      * @ORM\ManyToOne(targetEntity=Sites::class, inversedBy="participants")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $sites;
 
