@@ -14,7 +14,7 @@ input[type=text]:focus, input[type=date]:focus, input[type=datetime-local]:focus
     color: #69D0EF;
 }
 
-a:hover {
+a:hover, .nav-link:hover {
     color: red;
 }
 
