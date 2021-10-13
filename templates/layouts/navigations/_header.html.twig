@@ -14,24 +14,28 @@
 			<div class="collapse navbar-collapse" id="navbarsExample04">
 				<ul class="navbar-nav ms-auto mb-2 mb-md-0">
 					{% if app.user %}
-						<li class="mx-2 nav-item ">
+						<li class="mx-2 nav-item desktop">
 							<a class="text-uppercase fw-bolder nav-link" href="{{path('showLieux')}}">Lieux
 							</a>
 						</li>
 
-						<li class="mx-2 nav-item ">
+						<li class="mx-2 nav-item desktop">
 							<a class="text-uppercase fw-bolder nav-link" href="{{path('app_ville')}}">Villes
 							</a>
 						</li>
 
-						<li class="mx-2 nav-item ">
+						<li class="mx-2 nav-item desktop">
 							<a class="text-uppercase fw-bolder nav-link" href="{{path('sites')}}">Sites
 							</a>
 						</li>
 
 						{% if is_granted("ROLE_ADMIN") %}
-							<li class="mx-2 nav-item">
+							<li class="mx-2 nav-item desktop">
 								<a class="text-uppercase fw-bolder nav-link" href="{{path('app_profile')}}">Profils
+								</a>
+							</li>
+							<li class="mx-2 nav-item mobile desktop">
+								<a class="text-uppercase fw-bolder nav-link" href="{{path('app_profile_show',{'id':app.user.getId()})}}">Mon profil
 								</a>
 							</li>
 						{% else %}
@@ -94,10 +98,10 @@ window.location.reload()
 head.appendChild(link);
 }
 
-if(etat === 'on'){
-	document.getElementById('burgermenu').classList.add('navbar-dark');
-}else{
-	document.getElementById('burgermenu').classList.add('navbar-light');
+if (etat === 'on') {
+document.getElementById('burgermenu').classList.add('navbar-dark');
+} else {
+document.getElementById('burgermenu').classList.add('navbar-light');
 }
 
 // récupérer un cookie
