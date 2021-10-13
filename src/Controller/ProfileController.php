@@ -24,7 +24,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class ProfileController extends AbstractController
 {
     /**
-     * @Route("/participant/profil", name="app_profile")
+     * @Route("/admin/participant/profil", name="app_profile")
      */
     public function index(ParticipantRepository $participantRepository): Response
     {
@@ -58,7 +58,7 @@ class ProfileController extends AbstractController
     }
 
     /**
-     * @Route("/participant/profil/add", name="app_profile_add")
+     * @Route("/admin/participant/profil/add", name="app_profile_add")
      */
     public function addParticipant(Request $request, EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder): Response
     {
@@ -119,7 +119,7 @@ class ProfileController extends AbstractController
     }
 
     /**
-     * @Route("/participant/profil/{id}/delete", name="app_profile_delete")
+     * @Route("/admin/participant/profil/{id}/delete", name="app_profile_delete")
      */
     public function deleteParticipant(Participant $participant, EntityManagerInterface $em, SortiesRepository $sortiesRepository, InscriptionsRepository $inscriptionsRepository): Response
     {
@@ -156,7 +156,7 @@ class ProfileController extends AbstractController
     }
 
     /**
-     * @Route("/participant/profil/addJson", name="app_profile_add_json")
+     * @Route("/admin/participant/profil/addJson", name="app_profile_add_json")
      */
     public function addJsonParticipant(Request $request, SerializerInterface $serializer, EntityManagerInterface $em, SitesRepository $sitesRepository, UserPasswordEncoderInterface $passwordEncoder)
     {

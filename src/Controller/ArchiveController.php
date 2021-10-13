@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ArchiveController extends AbstractController
 {
     /**
-     * @Route("/showArchives", name="showArchives")
+     * @Route("/admin/showArchives", name="showArchives")
      */
     public function index(ArchiveRepository $ar): Response
     {

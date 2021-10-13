@@ -54,7 +54,7 @@ class VilleController extends AbstractController
     }
 
     /**
-     * @Route("/ville/{id}/eddit", name="app_ville_eddit")
+     * @Route("/admin/ville/{id}/eddit", name="app_ville_eddit")
      */
     public function villeEddit(Villes $ville, Request $request, EntityManagerInterface $em): Response
     {
@@ -76,7 +76,7 @@ class VilleController extends AbstractController
 
 
     /**
-     * @Route("/ville/{id}/delete", name="app_ville_delete")
+     * @Route("/admin/ville/{id}/delete", name="app_ville_delete")
      */
     public function villeDelete(Villes $ville, EntityManagerInterface $em, LieuxRepository $lieuxRepository, SortiesRepository $sortiesRepository): Response
     {

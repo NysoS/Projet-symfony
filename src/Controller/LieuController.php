@@ -31,7 +31,7 @@ class LieuController extends AbstractController
     }
 
     /**
-     * @Route("/quickAddLieu", name="quickAddLieu")
+     * @Route("/admin/quickAddLieu", name="quickAddLieu")
      */
     public function quickAddLieu(Request $req, EntityManagerInterface $em, VillesRepository $vr): Response
     {
@@ -68,7 +68,7 @@ class LieuController extends AbstractController
     }
 
     /**
-     * @Route("/addLieu", name="addLieu")
+     * @Route("/admin/addLieu", name="addLieu")
      */
     public function addLieu(Request $req, EntityManagerInterface $em, VillesRepository $vr): Response
     {
@@ -95,7 +95,7 @@ class LieuController extends AbstractController
     }
 
     /**
-     * @Route("/editLieu/{l}", name="editLieu")
+     * @Route("/admin/editLieu/{l}", name="editLieu")
      */
     public function editLieu(Lieux $l, Request $req, VillesRepository $vr, EntityManagerInterface $em): Response
     {
@@ -122,7 +122,7 @@ class LieuController extends AbstractController
     }
 
     /**
-     * @Route("/delLieu/{l}", name="delLieu")
+     * @Route("/admin/delLieu/{l}", name="delLieu")
      */
     public function delLieu(Lieux $l, EntityManagerInterface $em, VillesRepository $villesRepository, SortiesRepository $sortiesRepository): Response
     {

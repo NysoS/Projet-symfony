@@ -30,7 +30,7 @@ class SitesController extends AbstractController
     }
 
     /**
-     * @Route("/sites/add", name="site_add")
+     * @Route("/admin/sites/add", name="site_add")
      */
     public function sitesAdd(EntityManagerInterface $em, Request $req): Response
     {
@@ -44,7 +44,7 @@ class SitesController extends AbstractController
     }
 
     /**
-     * @Route("/sites/update/{id}", name="site_update")
+     * @Route("/admin/sites/update/{id}", name="site_update")
      */
     public function sitesUpdate(Sites $site, EntityManagerInterface $em, Request $req): Response
     {
@@ -63,7 +63,7 @@ class SitesController extends AbstractController
     }
 
     /**
-     * @Route("/sites/del/{id}", name="site_delete")
+     * @Route("/admin/sites/del/{id}", name="site_delete")
      */
     public function sitesDelete(Sites $site, EntityManagerInterface $em): Response
     {

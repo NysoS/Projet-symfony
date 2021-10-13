@@ -56,7 +56,11 @@
 				</strong>
 				:
 
-				{{participant.sites.Nomsite ? participant.sites.Nomsite: 'Pas de valeur'}}
+				{% if participant.sites != null %}
+					{{participant.sites.getNomSite()}}
+				{% else %}
+					N/A
+				{% endif %}
 			</p>
 
 		</div>
