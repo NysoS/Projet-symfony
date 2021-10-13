@@ -75,7 +75,7 @@
 									<a class="mt-2 mt-lg-0 btn btn-warning text-white" href="{{ path('app_profile_eddit', {id:participant.id}) }}">
 										<i class="fas fa-edit"></i>
 									</a>
-									<button type="button" class="mt-2 mt-lg-0 btn btn-danger" data-participantid="{{participant.id}}" data-participantnom="{{participant.nom}}" onclick="deleteVille(this)" data-bs-toggle="modal" data-bs-target="#exampleModal">
+									<button type="button" class="mt-2 mt-lg-0 btn btn-danger" data-elementid="{{participant.id}}" data-elementnom="{{participant.nom}}" onclick="deleteElement(this)" data-bs-toggle="modal" data-bs-target="#exampleModal">
 										<i class="fas fa-trash"></i>
 									</button>
 								</td>
@@ -89,39 +89,5 @@
 		</div>
 	</div>
 
-
-	<!-- Modal -->
-	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabelNomVille">Modal title</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-					<a id="exampleBtnNomVille" class="btn btn-danger" href="aaaa">
-						<i class="fas fa-trash"></i>
-					</a>
-				</div>
-			</div>
-		</div>
-	</div>
-
-
-	<script>
-		function deleteVille(el) {
-let participantId = el.dataset.participantid;
-
-// recuperation du titre
-titleElement = document.getElementById('exampleModalLabelNomVille');
-aElement = document.getElementById('exampleBtnNomVille');
-titleElement.innerText = 'Voulez-vous supprimer l utilisateur "' + el.dataset.participantnom + '" ? ';
-
-p = location.href + "/" + participantId + "/delete";
-aElement.href = p;
-console.log(p)
-}
-	</script>
 
 {% endblock %}

@@ -48,6 +48,7 @@ html {
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
 }
 
 #login #login-form {
@@ -117,6 +118,10 @@ html {
   text-align: right;
 }
 
+#home .mobile{
+  display: none;
+}
+
 #home .alert {
   text-align: center;
 }
@@ -133,4 +138,14 @@ html {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+
+@media screen and (max-width: 1200px){
+    #home .desktop{
+      display: none;
+    }
+
+    #home .mobile{
+      display: table-cell;
+    }
 }
