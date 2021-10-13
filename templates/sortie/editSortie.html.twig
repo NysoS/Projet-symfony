@@ -55,7 +55,7 @@
 						let selectLieu = document.getElementById("lieu");
 						let id = document.getElementById(document.getElementById("ville").value).getAttribute("id").replace("ville","");
 
-						axios.get("http://localhost/Projet-symfony/public/lieux_ville/"+id).then((response) => {
+						axios.get("http://localhost/projetSymfony/public/lieux_ville/"+id).then((response) => {
 							let cp = document.getElementById(document.getElementById("ville").value).getAttribute("data-ville");
 							document.getElementById('cp').value = cp;
 							document.getElementById('rue').value = document.getElementById("rue_load").value;
@@ -82,7 +82,7 @@
 							opt.setAttribute("selected","");
 							selectLieu.options.add(opt);
 
-							axios.get("http://localhost/Projet-Symfony/public/lieux_ville/"+id).then((response) => {
+							axios.get("http://localhost/projetSymfony/public/lieux_ville/"+id).then((response) => {
 								response.data.forEach(elt => {
 									console.log()
 									let newOption = new Option(elt.nom_lieu, "lieu"+elt.id);
