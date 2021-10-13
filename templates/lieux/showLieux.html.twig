@@ -43,9 +43,11 @@
 									<a href="{{path('editLieu',{l:lieu.getId()})}}" class="my-2 my-lg-0 btn btn-warning btn-border-radius">
 										<i class="fas fa-edit"></i>
 									</a>
-									<a href="{{path('delLieu',{l:lieu.getId()})}}" class="btn btn-danger btn-border-radius">
+
+									<button type="button" class="mt-2 mt-lg-0 btn btn-danger btn-border-radius" data-elementid="{{lieu.id}}" data-elementnom="{{lieu.nomLieu}}" onclick="deleteElement(this)" data-bs-toggle="modal" data-bs-target="#exampleModal">
 										<i class="fas fa-trash"></i>
-									</a>
+									</button>
+
 								</td>
 							{% endif %}
 						</tr>

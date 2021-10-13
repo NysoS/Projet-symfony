@@ -16,39 +16,85 @@
 		<script type="text/javascript">
 			let etat = getCookie("dark_theme");
 
-			if (etat != "") {
-				let head  = document.getElementsByTagName('head')[0];
-				let link  = document.createElement('link');
-				link.rel  = 'stylesheet';
-				link.type = 'text/css';
+if (etat != "") {
+let head = document.getElementsByTagName('head')[0];
+let link = document.createElement('link');
+link.rel = 'stylesheet';
+link.type = 'text/css';
 
-				if (etat == "on") {
-					link.href = 'http://localhost/projetSymfony/public/css/dark.css';
-				} else {
-					link.href = 'http://localhost/projetSymfony/public/css/app.css';
-				}
-				
-				link.media = 'all';
-				head.appendChild(link);
-			}
+if (etat == "on") {
+link.href = 'http://localhost/projetSymfony/public/css/dark.css';
+} else {
+link.href = 'http://localhost/projetSymfony/public/css/app.css';
+} link.media = 'all';
+head.appendChild(link);
+}
 
-			//récupérer un cookie
-			function getCookie(name) {
-				let cookieArr = document.cookie.split(";");
-					
-				for(let i = 0; i < cookieArr.length; i++) {
-					let cookiePair = cookieArr[i].split("=");
-					if (name == cookiePair[0].trim()) return decodeURIComponent(cookiePair[1]);
-				}
-					
-				return null;
-			}
+// récupérer un cookie
+function getCookie(name) {
+let cookieArr = document.cookie.split(";");
+
+for (let i = 0; i < cookieArr.length; i++) {
+let cookiePair = cookieArr[i].split("=");
+if (name == cookiePair[0].trim()) 
+return decodeURIComponent(cookiePair[1]);
+
+
+
+}
+
+return null;
+}
 		</script>
 		{% include 'layouts/navigations/_header.html.twig' %}
 
 		<div class="container"> {% block body %}{% endblock %}
 			</div>
 
+			<!-- Modal -->
+			<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabelTrans">Modal title</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+							<a id="exampleBtnTrans" class="btn btn-danger" href="aaaa">
+								<i class="fas fa-trash"></i>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- end Modal -->
+
+			<script>
+				function deleteElement(el) {
+let elementId = el.dataset.elementid;
+
+// recuperation du titre
+titleElement = document.getElementById('exampleModalLabelTrans');
+aElement = document.getElementById('exampleBtnTrans');
+titleElement.innerText = 'Voulez-vous supprimer "' + el.dataset.elementnom + '" ? ';
+
+currentPath = location.href;
+
+if (currentPath.includes("showLieux")) {
+p = window.location.origin + "/delLieu/" + elementId;
+} else if (currentPath.includes("sites")) {
+p = location.href + "/del/" + elementId
+} else {
+p = location.href + "/" + elementId + "/delete";
+}
+
+aElement.href = p;
+
+console.log(p);
+}
+			</script>
 
 			{% include 'layouts/navigations/_footer.html.twig' %}
 			<script src="{{asset('js/app.js')}}"></script>
