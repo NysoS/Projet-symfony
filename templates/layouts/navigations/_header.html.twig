@@ -7,7 +7,7 @@
 			<a id="logo" class="navbar-brand" href="{{path('home')}}">
 				<img src="{{asset('images/logo.png')}}" alt="logo Groupe 6" width="112px">
 			</a>
-			<button class="navbar-toggler " type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+			<button id="burgermenu" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
 
@@ -92,6 +92,12 @@ link.href = 'http://localhost/Projet-symfony/public/css/dark.css';
 window.location.reload()
 } link.media = 'all';
 head.appendChild(link);
+}
+
+if(etat === 'on'){
+	document.getElementById('burgermenu').classList.add('navbar-dark');
+}else{
+	document.getElementById('burgermenu').classList.add('navbar-light');
 }
 
 // récupérer un cookie

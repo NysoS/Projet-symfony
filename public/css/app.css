@@ -145,7 +145,11 @@ html {
       display: none;
     }
 
-    #home .mobile{
+    #home .table-mobile{
       display: table-cell;
+    }
+
+    #home .mobile{
+      display: block;
     }
 }
