@@ -9,18 +9,18 @@
 		<h1 class="mt-5 mb-3 text-uppercase">Gestion des participants</h1>
 		{% if app.user %}
 			<div class="row">
-				<div class="col-auto col-sm-12">
+				<div class="col-auto">
 					<a class="btn btn-primary" href="{{ path('app_profile_show', {id:app.user.id}) }}">
 						Afficher mon profil</a>
 				</div>
-				<div class="col-auto col-sm-12">
-					<a class="mt-2 mt-lg-0 btn btn-warning text-white" href="{{ path('app_register') }}">Ajouter un participant</a>
+				<div class="col-auto">
+					<a class="mt-2 mt-lg-0 mt-sm-2 btn btn-warning text-white" href="{{ path('app_register') }}">Ajouter un participant</a>
 				</div>
-				<div class="col-auto col-sm-12">
-					<a class="mt-2 mt-lg-0 btn btn-danger text-white" href="{{ path('app_profile_eddit', {id:app.user.id}) }}">modifier mon profil</a>
+				<div class="col-auto">
+					<a class="mt-2 mt-lg-0 mt-sm-2 btn btn-danger text-white" href="{{ path('app_profile_eddit', {id:app.user.id}) }}">modifier mon profil</a>
 				</div>
-				<div class="col-auto col-sm-12">
-					<a class="mt-2 mt-lg-0 btn btn-success text-white" href="{{ path('app_profile_add_json') }}">Ajouter des utilisateurs via un fichier</a>
+				<div class="col-auto">
+					<a class="mt-2 mt-lg-0 mt-sm-2 btn btn-success text-white" href="{{ path('app_profile_add_json') }}">Ajouter des utilisateurs via un fichier</a>
 				</div>
 			</div>
 
