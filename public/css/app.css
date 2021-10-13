@@ -145,7 +145,18 @@ html {
     display: none;
   }
 
+<<<<<<< HEAD
   #home .mobile {
     display: table-cell;
   }
 }
+=======
+    #home .table-mobile{
+      display: table-cell;
+    }
+
+    #home .mobile{
+      display: block;
+    }
+}
+>>>>>>> f7b7904330bac766c0dc3c2f22ca190382b71403
