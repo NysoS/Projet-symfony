@@ -2,6 +2,10 @@ html {
   height: 100vh;
 }
 
+.mobile{
+  display: none;
+}
+
 *::selection{
   color: green;
 }
@@ -141,15 +145,15 @@ html {
 }
 
 @media screen and (max-width: 1200px){
-    #home .desktop{
+    .desktop{
       display: none;
     }
 
-    #home .table-mobile{
+    .table-mobile{
       display: table-cell;
     }
 
-    #home .mobile{
+    .mobile{
       display: block;
     }
 }
