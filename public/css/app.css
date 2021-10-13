@@ -141,27 +141,15 @@ html {
 }
 
 @media screen and (max-width: 1200px) {
-  #home .desktop {
+  .desktop {
     display: none;
   }
 
-  #home .mobile {
+  #home {
     display: table-cell;
   }
-}
 
-#home .table-mobile {
-  @media screen and (max-width: 1200px) {
-    .desktop {
-      display: none;
-    }
-
-    .table-mobile {
-      display: table-cell;
-    }
-
-    .mobile {
-      display: block;
-    }
+  .mobile {
+    display: block;
   }
 }
