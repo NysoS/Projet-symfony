@@ -55,7 +55,8 @@
 				<strong>Ville de rattachement
 				</strong>
 				:
-				{{participant.sites.Nomsite}}
+
+				{{participant.sites.Nomsite ? participant.sites.Nomsite: 'Pas de valeur'}}
 			</p>
 
 		</div>

@@ -98,7 +98,13 @@
 									<a href="{{path('showSortie',{id:sortie.id})}}">{{sortie.nom}}</a>
 								</td>
 								<td>{{sortie.getDateDebut() | date('d/m/Y H:i')}}</td>
-								<td class="table-mobile">{{ sortie.lieux.getNomLieu() }}</td>
+								<td class="table-mobile">
+									{% if sortie.lieux!= null %}
+										{{sortie.lieux.getNomLieu()}}
+									{% else %}
+										N/A
+									{% endif %}
+								</td>
 								<td class="desktop">{{sortie.getDateCloture() | date('d/m/Y H:i')}}</td>
 								<td class="desktop">
 									{{sortie.getInscriptions().count}}/{{sortie.nbInscriptionsMax}}
@@ -112,15 +118,23 @@
 									{% endfor %}
 								</td>
 								<td class="desktop">
-									<a href="{{path('app_profile_show',{id:sortie.organisateur.id})}}">{{sortie.organisateur.nom|upper}} {{sortie.organisateur.prenom}}</a>
+									<a href="{{path('app_profile_show',{id:sortie.organisateur.id})}}">{{sortie.organisateur.nom|upper}}
+										{{sortie.organisateur.prenom}}</a>
 								</td>
 								<td class="desktop">
 									{% if is_granted("ROLE_ADMIN") or sortie.organisateur.id == app.user.id %}
 										<div>
-											<a style="border-radius:50%" href="{{path('editSortie',{'id':sortie.id})}}" class="btn btn-warning"><i class="fas fa-edit"></i></a>
-											<a style="border-radius:50%" href="{{path('delSortie',{'id':sortie.id})}}" class="btn btn-danger"><i class="far fa-trash-alt"></i></a>
+											<a style="border-radius:50%" href="{{path('editSortie',{'id':sortie.id})}}" class="btn btn-warning">
+												<i class="fas fa-edit"></i>
+											</a>
+
+											<button class="my-2 m-lg-0 btn btn-danger btn-border-radius" type="button" data-elementid="{{sortie.id}}" data-elementnom="{{sortie.nom}}" onclick="deleteElement(this)" data-bs-toggle="modal" data-bs-target="#exampleModal">
+												<i class="fas fa-trash"></i>
+											</button>
 											{% if sortie.etats.libelle != "Annulé" and sortie.etats.libelle != "Passée" and sortie.etats.libelle != "Clôturée" and sortie.etats.libelle != "Activité en cours" %}
-											<a style="border-radius:50%" href="{{path('annuleSortie',{'id':sortie.id})}}" class="btn btn-info"><i class="fas fa-times"></i></a>
+												<a style="border-radius:50%" href="{{path('annuleSortie',{'id':sortie.id})}}" class="btn btn-info">
+													<i class="fas fa-times"></i>
+												</a>
 											{% endif %}
 										</div>
 									{% endif %}

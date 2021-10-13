@@ -84,9 +84,14 @@ if (currentPath.includes("showLieux")) {
 p = window.location.origin + "/delLieu/" + elementId;
 } else if (currentPath.includes("sites")) {
 p = location.href + "/del/" + elementId
-} else {
+} else if (currentPath.includes("participant/profil")) {
 p = location.href + "/" + elementId + "/delete";
+} else if (currentPath.includes("ville")) {
+p = location.href + "/" + elementId + "/delete";
+} else {
+p = location.href + "delSortie/" + elementId;
 }
+
 
 aElement.href = p;
 

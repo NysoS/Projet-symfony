@@ -105,12 +105,7 @@ class ProfileController extends AbstractController
 
 
         if ($formParticipant->isSubmitted() && $formParticipant->isValid()) {
-            $participant->setPassword(
-                $passwordEncoder->encodePassword(
-                    $participant,
-                    $participant->getPassword()
-                )
-            );
+
             $em->persist($participant);
             $em->flush();
 
