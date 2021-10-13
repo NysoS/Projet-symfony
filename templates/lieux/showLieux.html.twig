@@ -40,16 +40,21 @@
 							<td>{{lieu.getRue()}}</td>
 							{% if is_granted("ROLE_ADMIN") %}
 								<td>
-									<a href="{{path('editLieu',{l:lieu.getId()})}}" class="my-2 my-lg-0 btn btn-warning">Modifier</a>-<a href="{{path('delLieu',{l:lieu.getId()})}}" class="btn btn-danger">Supprimer</a>
+									<a href="{{path('editLieu',{l:lieu.getId()})}}" class="my-2 my-lg-0 btn btn-warning btn-border-radius">
+										<i class="fas fa-edit"></i>
+									</a>
+									<a href="{{path('delLieu',{l:lieu.getId()})}}" class="btn btn-danger btn-border-radius">
+										<i class="fas fa-trash"></i>
+									</a>
 								</td>
 							{% endif %}
 						</tr>
 					{% endfor %}
 				</tbody>
-			</table>
-		</div>
-		{% if is_granted("ROLE_ADMIN") %}
-			<a href="{{'addLieu'}}" class="my-2 btn btn-success">Ajouter un lieu</a>
-		{% endif %}
+			</tbody>
+		</table>
 	</div>
-{% endblock %}
+	{% if is_granted("ROLE_ADMIN") %}
+		<a href="{{'addLieu'}}" class="my-2 btn btn-success">Ajouter un lieu</a>
+	{% endif %}
+</div>{% endblock %}
