@@ -83,7 +83,7 @@
 					<thead class="sticky-top table-dark">
 						<th>Nom de la sortie</th>
 						<th>Date de la sortie</th>
-						<th class="mobile">Lieu</th>
+						<th class="table-mobile">Lieu</th>
 						<th class="desktop">Date de clôture</th>
 						<th class="desktop">Inscrits/places</th>
 						<th class="desktop">Etat</th>
@@ -98,7 +98,7 @@
 									<a href="{{path('showSortie',{id:sortie.id})}}">{{sortie.nom}}</a>
 								</td>
 								<td>{{sortie.getDateDebut() | date('d/m/Y H:i')}}</td>
-								<td class="mobile">{{ sortie.lieux.getNomLieu() }}</td>
+								<td class="table-mobile">{{ sortie.lieux.getNomLieu() }}</td>
 								<td class="desktop">{{sortie.getDateCloture() | date('d/m/Y H:i')}}</td>
 								<td class="desktop">
 									{{sortie.getInscriptions().count}}/{{sortie.nbInscriptionsMax}}
