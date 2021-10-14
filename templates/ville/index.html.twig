@@ -73,7 +73,8 @@
 								</tr>
 							{% endfor %}
 							<tr>
-								{% if is_granted("ROLE_ADMIN") and formVille %}
+								{% if is_granted("ROLE_ADMIN")  and (formVille is defined) %}
+
 									{{ form_start(formVille) }}
 									<th>{{ form_row(formVille.nom_ville,{'attr': {'class': 'mt-4 mt-sm-0'}}) }}</th>
 									<th>{{ form_row(formVille.code_postal,{'attr': {'class': 'task_field'}}) }}</th>
@@ -83,6 +84,7 @@
 										</div>
 									</td>
 									{{ form_end(formVille) }}
+
 								{% endif %}
 							</tr>
 						</tbody>

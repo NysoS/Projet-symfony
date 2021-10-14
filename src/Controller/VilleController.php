@@ -47,10 +47,10 @@ class VilleController extends AbstractController
     {
         if ($request->request->get('myWord')) {
 
-            $formVille = $this->createForm(VilleType::class);
+            // $formVille = $this->createForm(VilleType::class);
             return $this->render('ville/index.html.twig', [
                 'villes' => $villesRepository->findByFieldName($request->request->get('myWord')),
-                'formVille' => $formVille->createView()
+                //'formVille' => $formVille->createView()
             ]);
         }
         return $this->redirectToRoute('app_ville');
