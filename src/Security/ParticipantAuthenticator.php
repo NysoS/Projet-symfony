@@ -68,15 +68,20 @@ class ParticipantAuthenticator extends AbstractFormLoginAuthenticator implements
             throw new InvalidCsrfTokenException();
         }
 
-        $user = $this->entityManager->getRepository(Participant::class)->findOneBy(['email' => $credentials['email']]);
+        $user_mail = $this->entityManager->getRepository(Participant::class)->findOneBy(['email' => $credentials['email']]);
+        $user_pseudo = $this->entityManager->getRepository(Participant::class)->findOneBy(['pseudo' => $credentials['email']]);
+        $cred_user = null;
 
-        if (!$user || !$this->checkCredentials($credentials,$user)) {
+        if ($user_mail) $cred_user = $user_mail;
+        else if ($user_pseudo) $cred_user = $user_pseudo;
+
+        if (!$cred_user || !$this->checkCredentials($credentials,$cred_user)) {
             throw new BadCredentialsException('Authentification incorrecte !');
-        } else if (!$user->getActif()) {
+        } else if (!$cred_user->getActif()) {
             throw new BadCredentialsException("Votre compte a été suspendu !");
         }
 
-        return $user;
+        return $cred_user;
     }
 
     public function checkCredentials($credentials, UserInterface $user)
