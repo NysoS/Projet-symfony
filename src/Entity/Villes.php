@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\VillesRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -21,11 +22,15 @@ class Villes
 
     /**
      * @ORM\Column(type="string", length=30)
+     * @Assert\NotBlank
+     * @Assert\Length(min=3)
      */
     private $nom_ville;
 
     /**
      * @ORM\Column(type="string", length=10)
+     * @Assert\NotBlank
+     * @Assert\Length(min=3)
      */
     private $code_postal;
 

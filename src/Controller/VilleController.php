@@ -27,11 +27,26 @@ class VilleController extends AbstractController
         $formVille->handleRequest($request);
 
         if ($formVille->isSubmitted() && $formVille->isValid()) {
+
+            //vérification de l'existance de la ville 
+            $listeVilles = $villesRepository->findAll();
+
+            foreach ($listeVilles as $villeInDB) {
+
+                //dans le cas ou la ville existe déja j'annule l'enregistrement 
+                if ($villeInDB->getNomVille() == $ville->getNomVille() or $villeInDB->getCodePostal() == $ville->getCodePostal()) {
+                    $this->addFlash('error', ' la ville existe déja');
+                    return  $this->redirectToRoute('app_ville');
+                }
+            }
+
+            // dans l'autre cas j'enregistre la ville dans la db
             $em->persist($ville);
             $em->flush();
+
             // je signale l'utilisateur 
             $this->addFlash('success', ' de la ville ok');
-            $this->redirectToRoute('app_ville');
+            return  $this->redirectToRoute('app_ville');
         }
 
         return $this->render('ville/index.html.twig', [
@@ -45,12 +60,12 @@ class VilleController extends AbstractController
      */
     public function villeFind(Request $request, VillesRepository $villesRepository): Response
     {
+        //récuperation de la requête  de l'utilisateur 
         if ($request->request->get('myWord')) {
 
-            // $formVille = $this->createForm(VilleType::class);
             return $this->render('ville/index.html.twig', [
+                //j'appelle mon DQL ici pour la recherche par mot clé 
                 'villes' => $villesRepository->findByFieldName($request->request->get('myWord')),
-                //'formVille' => $formVille->createView()
             ]);
         }
         return $this->redirectToRoute('app_ville');
@@ -89,6 +104,9 @@ class VilleController extends AbstractController
         //supprimer les lieux dans la ville  
         foreach ($allLieux as $lieu) {
             $allSorties = $sortiesRepository->findBy(['lieux' => $lieu->getId()]);
+
+            //en cas de changement de lieu je ne supprime pas la sortie
+            // je mets la valeur du lieu à null 
             foreach ($allSorties as $sortie) {
                 $sortie->setLieux(NULL);
             }
