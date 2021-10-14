@@ -29,6 +29,8 @@ class VilleController extends AbstractController
         if ($formVille->isSubmitted() && $formVille->isValid()) {
             $em->persist($ville);
             $em->flush();
+            // je signale l'utilisateur 
+            $this->addFlash('success', ' de la ville ok');
             $this->redirectToRoute('app_ville');
         }
 
@@ -44,6 +46,7 @@ class VilleController extends AbstractController
     public function villeFind(Request $request, VillesRepository $villesRepository): Response
     {
         if ($request->request->get('myWord')) {
+
             $formVille = $this->createForm(VilleType::class);
             return $this->render('ville/index.html.twig', [
                 'villes' => $villesRepository->findByFieldName($request->request->get('myWord')),

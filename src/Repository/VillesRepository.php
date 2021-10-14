@@ -24,8 +24,12 @@ class VillesRepository extends ServiceEntityRepository
      */
     public function findByFieldName($value)
     {
+        //je recherche toutes les valeurs qui correspondent au mot clé grâce à l'attribut 
+        // where et like %
+        //SELECT * FROM ville WHERE nom_ville or codePostal LIKE %mot clé% =>en DQL 
         return $this->createQueryBuilder('v')
             ->Where('v.nom_ville LIKE :val')
+            ->orWhere('v.code_postal LIKE :val')
             ->setParameter('val', '%' . $value . '%')
             ->orderBy('v.id', 'ASC')
             ->getQuery()
