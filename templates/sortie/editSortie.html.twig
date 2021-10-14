@@ -82,7 +82,7 @@
 							opt.setAttribute("selected","");
 							selectLieu.options.add(opt);
 
-							axios.get("http://localhost/projetSymfony/public/lieux_ville/"+id).then((response) => {
+							axios.get("http://localhost/Projet-Symfony/public/lieux_ville/"+id).then((response) => {
 								response.data.forEach(elt => {
 									console.log()
 									let newOption = new Option(elt.nom_lieu, "lieu"+elt.id);
